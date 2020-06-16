@@ -1,0 +1,21 @@
+@mixin row-height($height){
+  height:$height + px;
+  line-height:$height + px;
+  font-size:($height * 0.4) + px;
+}
+
+@mixin paint($color){
+  background-color:$color;
+  border:1px outset $color;
+}
+
+@mixin paintUniform($theme:'dark'){
+  @if ($theme == 'dark'){
+    @include paint(#263238);
+    color:#cfd8dc;
+  }
+  @else if ($theme == 'light'){
+    @include paint(#cfd8dc);
+    color:#263238;
+  }
+}

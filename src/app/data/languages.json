@@ -1,0 +1,24 @@
+{
+  "options":[
+    {"name":"English", "key":"english"},
+    {"name":"Kiswahili", "key":"kiswahili"}
+  ],
+  "English":{
+    "selectLanguage":"Select the language to use",
+    "User":"User",
+    "Settings":"Settings",
+    "LogOut":"Log Out",
+    "Analytics":"Analytics",
+    "Support":"Support",
+    "FinanceMarket":"Finance Market"
+  },
+  "Kiswahili":{
+    "selectLanguage":"Changua lugha ya kutumia",
+    "User":"Mtumiaji",
+    "Settings":"Mipangilio",
+    "LogOut":"Toka",
+    "Analytics":"Uchambuzi",
+    "Support":"Msaada",
+    "FinanceMarket":"Soko La Fedha"
+  }
+}
