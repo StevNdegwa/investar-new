@@ -2,7 +2,7 @@ import React from "react";
 import {MdKeyboardArrowDown, MdKeyboardArrowUp} from "react-icons/md";
 import {Countries, Select, Control} from "./styles";
 
-import countries from "../../../data/countries-list.json";
+import countries from "../../../../data/countries-list.json";
 
 const MobileCodes = React.memo(({input})=>{
   const [country, setCountry] = React.useState("254");

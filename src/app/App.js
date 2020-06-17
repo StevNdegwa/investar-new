@@ -1,49 +1,38 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {IconContext} from "react-icons";
+
 import Open from "./components/Open";
 import Portal from "./components/Portal";
 import getText from "./lib/getText";
 import UserContext from "./UserContext";
 
-export default class App extends React.Component{
-  constructor(props){
-    super(props);
-    this.changeLanguage = this.changeLanguage.bind(this);
-    this.state = {language:"English"}
-  }
+export default function App(){
+  const [language, setLanguage] = React.useState("English");
+  const [page, setPage] = React.useState({open:true, app:false})
+  const [user, setUser] = React.useState({})
   
-  changeLanguage(lang){
-    const {language} = this.state;
+  function changeLanguage(lang){
     if(lang !== language){
-      this.setState({language:lang});
+      setLanguage(lang);
     }
   }
   
-  render(){
-    const {language} = this.state;
-    return (
-    <IconContext.Provider value={{className:"ip-icons"}}>
-    <Router>
-      <Switch>
-        <Route path="/app">
-          <UserContext.Provider 
-            value = {
-              {
-                language,
-                changeLanguage:this.changeLanguage,
-                translate:(text)=>getText(language, text),
-                user:"Demo Account"
-              }
-            }>
-            <Portal/>
-          </UserContext.Provider>
-        </Route>
-        <Route path="/">
-          <Open/>
-        </Route>
-      </Switch>
-    </Router>
-    </IconContext.Provider>)
+  function changePage(page){
+    setPage({open:false, app:false, [page]:true});
   }
+  
+  function openApplication(successful, user){
+    if(successful){
+      setUser(user);
+      changePage("app");
+    }
+  }
+  
+  return (
+  <IconContext.Provider value={{className:"ip-icons"}}>
+  <UserContext.Provider value = {{language, changeLanguage, translate:(text)=>getText(language, text)}}>
+    {page.open && <Open openApplication={openApplication}/>}
+    {page.app && <Portal user={user}/>}
+  </UserContext.Provider>
+  </IconContext.Provider>)
 }

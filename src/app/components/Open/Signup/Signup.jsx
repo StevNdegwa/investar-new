@@ -1,0 +1,40 @@
+import React from "react";
+import { Formik } from 'formik';
+
+import {Loader} from "../../styles";
+import MobileCodes from "./MobileCodes";
+
+export default function Signup({openApplication}){
+  return (<>
+    <Formik initialValues={{username:'', email: '', password: '', confirmPassword: '' , mobile:''}}
+      validate={(values) => {
+        const errors = {};
+        return errors;
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          openApplication(true, values);
+          setSubmitting(false);
+        }, 400);
+      }}
+    >
+    {
+      ({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting}) => (
+        <form onSubmit={handleSubmit}>
+          <input type="text" name="username" placeholder="Full name" onChange={handleChange} onBlur={handleBlur} value={values.username}/>
+          <p className="input-error">{errors.username && touched.username && errors.username}</p>
+          <input type="email" name="email" placeholder="Email" onChange={handleChange} onBlur={handleBlur} value={values.email}/>
+          <p className="input-error">{errors.email && touched.email && errors.email}</p>
+          <MobileCodes input={<input type="text" name="mobile" placeholder="Mobile number" onChange={handleChange} onBlur={handleBlur} value={values.mobile}/>}/>
+          <input type="password" name="password" placeholder="Password" onChange={handleChange} onBlur={handleBlur} value={values.password}/>
+          <p className="input-error">{errors.password && touched.password && errors.password}</p>
+          <input type="password" name="confirmPassword" placeholder="Confirm password" onChange={handleChange} onBlur={handleBlur} value={values.confirmPassword}/>
+          <p className="input-error">{errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}</p>
+          <button type="submit" disabled={isSubmitting}>{isSubmitting ? <Loader size="20px"/> : "Signup"}</button>
+          <button onClick={()=>openApplication(true, {name:"Demo Account"})}>Demo Ac</button>
+        </form>)
+      }
+      </Formik>
+      <div id="googleSignup"><button>Signup with Google</button></div>
+    </>)
+}

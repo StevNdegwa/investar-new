@@ -9,6 +9,10 @@ background-color:#263238;
 width:300px;
 height:200px;
 overflow:auto;
+border:1px outset #b0bec5;
+border-radius:3px;
+box-shadow:1px 1px 3px black;
+z-index:100;
 &>li{
   height:40px;
   line-height:40px;
