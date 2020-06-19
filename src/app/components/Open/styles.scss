@@ -48,20 +48,18 @@ div#open{
       }
     }
   }
-  
-}
-
-.open-dialog-enter{
-  opacity:0;
-}
-.open-dialog-enter-active{
-  opacity:1;
-  transition:opacity 500ms;
-}
-.open-dialog-exit{
-  opacity:1;  
-}
-.open-dialog-exit-active{
-  opacity:0;
-  transition:opacity 500ms;
+  & .open-dialog-enter{
+    opacity:0;
+  }
+  & .open-dialog-enter-active{
+    opacity:1;
+    transition:opacity 500ms;
+  }
+  & .open-dialog-exit{
+    opacity:1;  
+  }
+  & .open-dialog-exit-active{
+    opacity:0;
+    transition:opacity 500ms;
+  }
 }

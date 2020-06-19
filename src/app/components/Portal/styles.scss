@@ -1,0 +1,30 @@
+@import '../../styles/general';
+div#portal{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  &>div#header{
+    height:50px;
+    @include paint(#263238);
+    display:flex;
+    justify-content:space-between;
+    & div#logo > img{
+      width:50px;
+      cursor:pointer;
+    }
+  }
+  &>div#main{
+    height:100%;
+    display:flex;
+    &>div#sidenav{
+      width:70px;
+      @include paint(#263238);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    &>div#content{
+      width:100%;
+    }
+  }
+}
