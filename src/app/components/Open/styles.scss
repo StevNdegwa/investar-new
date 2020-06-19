@@ -1,5 +1,5 @@
 @import '../../styles/general';
-div#login{
+div#open{
   @include paint(#263238);
   color:white;
   & div.tab{
@@ -34,18 +34,34 @@ div#login{
       font-weight:500;
       @include paint(#b0bec5);
     }
-  }
-  & > #googleSignup{
-    width:300px;
-    height:40px;
-    margin:0.5em;
-    &>button{
+    & > #googleSignup{
       width:100%;
-      height:100%;
-      color:white;
-      font-size:1.2em;
-      font-weight:500;
-      @include paint(#d32f2f);
+      height:40px;
+      margin:0.5em 0;
+      & > button{
+        width:100%;
+        height:100%;
+        color:white;
+        font-size:1.2em;
+        font-weight:500;
+        @include paint(#d32f2f);
+      }
     }
   }
+  
+}
+
+.open-dialog-enter{
+  opacity:0;
+}
+.open-dialog-enter-active{
+  opacity:1;
+  transition:opacity 500ms;
+}
+.open-dialog-exit{
+  opacity:1;  
+}
+.open-dialog-exit-active{
+  opacity:0;
+  transition:opacity 500ms;
 }

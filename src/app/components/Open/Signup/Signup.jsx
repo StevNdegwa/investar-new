@@ -4,8 +4,8 @@ import { Formik } from 'formik';
 import {Loader} from "../../styles";
 import MobileCodes from "./MobileCodes";
 
-export default function Signup({openApplication}){
-  return (<>
+export default function Signup({openApplication, style}){
+  return (
     <Formik initialValues={{username:'', email: '', password: '', confirmPassword: '' , mobile:''}}
       validate={(values) => {
         const errors = {};
@@ -20,7 +20,7 @@ export default function Signup({openApplication}){
     >
     {
       ({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting}) => (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={style}>
           <input type="text" name="username" placeholder="Full name" onChange={handleChange} onBlur={handleBlur} value={values.username}/>
           <p className="input-error">{errors.username && touched.username && errors.username}</p>
           <input type="email" name="email" placeholder="Email" onChange={handleChange} onBlur={handleBlur} value={values.email}/>
@@ -32,9 +32,8 @@ export default function Signup({openApplication}){
           <p className="input-error">{errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}</p>
           <button type="submit" disabled={isSubmitting}>{isSubmitting ? <Loader size="20px"/> : "Signup"}</button>
           <button onClick={()=>openApplication(true, {name:"Demo Account"})}>Demo Ac</button>
+          <div id="googleSignup"><button>Signup with Google</button></div>
         </form>)
       }
-      </Formik>
-      <div id="googleSignup"><button>Signup with Google</button></div>
-    </>)
+  </Formik>)
 }

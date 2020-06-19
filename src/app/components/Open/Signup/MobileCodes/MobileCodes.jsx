@@ -1,7 +1,8 @@
 import React from "react";
+import {CSSTransition} from "react-transition-group";
 import {MdKeyboardArrowDown, MdKeyboardArrowUp} from "react-icons/md";
-import {Countries, Select, Control} from "./styles";
 
+import {Countries, Select, Control} from "./styles";
 import countries from "../../../../data/countries-list.json";
 
 const MobileCodes = React.memo(({input})=>{
@@ -20,11 +21,13 @@ const MobileCodes = React.memo(({input})=>{
       </Select>
       {input}
     </div>
+    <CSSTransition in={show} classNames="open-dialog">
     <Countries show={show}>
-      {countries.map((c)=>{
-        return (<li onClick={()=>setCountry(c.callingCodes[0])}>{c.name} &nbsp;&nbsp;&nbsp; {`+${c.callingCodes[0]}`}</li>)
+      {countries.map((c,idx)=>{
+        return (<li key={idx} onClick={()=>setCountry(c.callingCodes[0])}>{c.name} &nbsp;&nbsp;&nbsp; {`+${c.callingCodes[0]}`}</li>)
       })}
     </Countries>
+    </CSSTransition>
   </>);
 })
 

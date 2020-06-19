@@ -1,4 +1,6 @@
 import React from 'react';
+import {CSSTransition} from "react-transition-group";
+
 import "./styles.scss";
 
 import Login from "./Login";
@@ -12,12 +14,16 @@ export default function Open({openApplication}){
   }
   
   return (
-    <div id="login">
+    <div id="open">
       <div className="tabs">
         <div className={`tab ${tab.login && "active"}`} onClick={()=>handleTabClick("login")}>Login</div>
         <div className={`tab ${tab.signup && "active"}`} onClick={()=>handleTabClick("signup")}>Signup</div>
       </div>
-      {tab.login && <Login openApplication={openApplication}/>}
-      {tab.signup && <Signup openApplication={openApplication}/>}
+      <CSSTransition in={tab.login} classNames="open-dialog">
+        <Login openApplication={openApplication} style={{display:tab.login ? "block" : "none"}}/>
+      </CSSTransition>
+      <CSSTransition in={tab.signup} classNames="open-dialog">
+        <Signup openApplication={openApplication}  style={{display:tab.signup ? "block" : "none"}}/>
+      </CSSTransition>
   </div>);
 }

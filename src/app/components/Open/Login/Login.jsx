@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 
 import {Loader} from "../../styles";
 
-export default function Login({openApplication}){
+export default function Login({openApplication, style}){
   
   return (
     <Formik initialValues={{ email: '', password: '' }}
@@ -25,7 +25,7 @@ export default function Login({openApplication}){
     >
     {
       ({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting}) => (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={style}>
           <input type="email" name="email" placeholder="Email" onChange={handleChange} onBlur={handleBlur} value={values.email}/>
           <p className="input-error">{errors.email && touched.email && errors.email}</p>
           <input type="password" name="password" placeholder="Password" onChange={handleChange} onBlur={handleBlur} value={values.password}/>
