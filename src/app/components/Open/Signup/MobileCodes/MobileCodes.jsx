@@ -21,7 +21,7 @@ const MobileCodes = React.memo(({input})=>{
       </Select>
       {input}
     </div>
-    <CSSTransition in={show} classNames="open-dialog">
+    <CSSTransition in={show} classNames="open-dialog" timeout={200}>
     <Countries show={show}>
       {countries.map((c,idx)=>{
         return (<li key={idx} onClick={()=>setCountry(c.callingCodes[0])}>{c.name} &nbsp;&nbsp;&nbsp; {`+${c.callingCodes[0]}`}</li>)

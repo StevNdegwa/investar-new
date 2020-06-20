@@ -32,7 +32,7 @@ export default function App(){
   <IconContext.Provider value={{className:"ip-icons"}}>
   <UserContext.Provider value = {{language, changeLanguage, translate:(text)=>getText(language, text)}}>
     {page.home && <Home openApplication={openApplication}/>}
-    {page.app && <Portal user={user}/>}
+    {page.app && <Portal user={user} logOut={()=>changePage("home")}/>}
   </UserContext.Provider>
   </IconContext.Provider>)
 }

@@ -19,10 +19,10 @@ export default function Open({openApplication}){
         <div className={`tab ${tab.login && "active"}`} onClick={()=>handleTabClick("login")}>Login</div>
         <div className={`tab ${tab.signup && "active"}`} onClick={()=>handleTabClick("signup")}>Signup</div>
       </div>
-      <CSSTransition in={tab.login} classNames="open-dialog">
+      <CSSTransition in={tab.login} classNames="open-dialog" timeout={200}>
         <Login openApplication={openApplication} style={{display:tab.login ? "block" : "none"}}/>
       </CSSTransition>
-      <CSSTransition in={tab.signup} classNames="open-dialog">
+      <CSSTransition in={tab.signup} classNames="open-dialog" timeout={200}>
         <Signup openApplication={openApplication}  style={{display:tab.signup ? "block" : "none"}}/>
       </CSSTransition>
   </div>);
