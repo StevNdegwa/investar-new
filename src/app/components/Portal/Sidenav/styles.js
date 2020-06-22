@@ -1,14 +1,14 @@
 import styled, {css} from "styled-components";
 
 export const Control = styled.div`
-height:50px;
+height:60px;
 width:102%;
 cursor:pointer;
 padding:0.5em;
+background-color:transparent;
+border-left:none;
+transition:border-left 200ms, background-color 200ms;
 &:hover{
-  &>div.icon{
-    color:white;
-  }
   &>div.label{
     color:white;
   }
@@ -49,5 +49,6 @@ color:#cfd8dc;
 &>svg{
   width:100%;
   height:100%;
+  transform:rotate(180deg);
 }
 `;
