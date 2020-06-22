@@ -8,31 +8,31 @@ import {Control, Action} from "./styles";
 const Sidenav = React.memo(({setActive, active, logOut})=>(
   <div id="sidenav">
     <div>
-      <Control active={active === "trade"} onClick={()=>setActive("trade")}>
+      <Control to="/" activeClassName="selected" exact>
         <div className="icon"><MdTrendingUp/></div>
         <div className="label">Trade</div>
       </Control>
-      <Control active={active === "finances"} onClick={()=>setActive("finances")}>
+      <Control to="/billing" activeClassName="selected">
         <div className="icon"><FaMoneyBill/></div>
         <div className="label">Finances</div>
       </Control>
-      <Control active={active === "profile"} onClick={()=>setActive("profile")}>
+      <Control to="/user" activeClassName="selected">
         <div className="icon"><FaUser/></div>
         <div className="label">Profile</div>
       </Control>
-      <Control active={active === "apps"} onClick={()=>setActive("apps")}>
+      <Control to="/platform" activeClassName="selected">
         <div className="icon"><MdWidgets/></div>
         <div className="label">Apps</div>
       </Control>
-      <Control active={active === "analytics"} onClick={()=>setActive("analytics")}>
+      <Control to="/analytics" activeClassName="selected">
         <div className="icon"><FaChartPie/></div>
         <div className="label">Analytics</div>
       </Control>
-      <Control active={active === "education"} onClick={()=>setActive("education")}>
+      <Control to="/education" activeClassName="selected">
         <div className="icon"><FaBook/></div>
         <div className="label">Education</div>
       </Control>
-      <Control active={active === "help"} onClick={()=>setActive("help")}>
+      <Control to="/info" activeClassName="selected">
         <div className="icon"><MdInfo/></div>
         <div className="label">Help</div>
       </Control>

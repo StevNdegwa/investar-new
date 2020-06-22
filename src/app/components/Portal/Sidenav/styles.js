@@ -1,10 +1,14 @@
 import styled, {css} from "styled-components";
 
-export const Control = styled.div`
+import {NavLink} from "react-router-dom";
+
+export const Control = styled(NavLink)`
+display:block;
 height:60px;
 width:102%;
 cursor:pointer;
 padding:0.5em;
+text-decoration:none;
 background-color:transparent;
 border-left:none;
 transition:border-left 200ms, background-color 200ms;
@@ -29,16 +33,16 @@ transition:border-left 200ms, background-color 200ms;
   text-align:center;
   color:#cfd8dc;
 }
-${(props)=>props.active && css`
-background-color:#546e7a;
-border-left:4px solid #29b6f6;
-&>div.icon{
-  color:#29b6f6;
+&.selected{
+  background-color:#546e7a;
+  border-left:4px solid #29b6f6;
+  &>div.icon{
+    color:#29b6f6;
+  }
+  &>div.label{
+    color:white;
+  }
 }
-&>div.label{
-  color:white;
-}
-`}
 `;
 
 export const Action = styled.div`

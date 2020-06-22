@@ -26,13 +26,24 @@ div#open{
         border-radius:0 3px 3px 0;
       }
     }
-    &>button{
-      width:50%;
-      height:40px;
+    & button{
       color:#263238;
       font-size:1.2em;
       font-weight:500;
       @include paint(#b0bec5);
+      height:40px;
+      width:45%;
+    }
+    &>div.actions{
+      display:inline-block;
+      width:50%;
+      height:40px;
+      padding:auto;
+      &>button{
+        display:block;
+        width:95%;
+        margin:auto;
+      }
     }
     & > #googleSignup{
       width:100%;
