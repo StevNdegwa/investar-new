@@ -2,20 +2,19 @@ import React from "react";
 import {IconContext} from "react-icons";
 
 import Home from "./components/Home";
-import Portal from "./components/Portal";
+import PortalView from "./containers/PortalView";
 import getText from "./lib/getText";
 import UserContext from "./UserContext";
 
+import {configureStore} from "@reduxjs/toolkit";
+import {Provider} from "react-redux";
+import reducer from "./features/reducer";
+
+const reduxStore = configureStore({reducer})
+
 export default function App(){
-  const [language, setLanguage] = React.useState("English");
   const [page, setPage] = React.useState({home:true, app:false})
   const [user, setUser] = React.useState({})
-  
-  function changeLanguage(lang){
-    if(lang !== language){
-      setLanguage(lang);
-    }
-  }
   
   function changePage(page){
     setPage({home:false, app:false, [page]:true});
@@ -28,11 +27,10 @@ export default function App(){
     }
   }
   
-  return (
-  <IconContext.Provider value={{className:"ip-icons"}}>
-  <UserContext.Provider value = {{language, changeLanguage, translate:(text)=>getText(language, text)}}>
-    {page.home && <Home openApplication={openApplication}/>}
-    {page.app && <Portal user={user} logOut={()=>changePage("home")}/>}
-  </UserContext.Provider>
-  </IconContext.Provider>)
+  return (<Provider store={reduxStore}>
+    <IconContext.Provider value={{className:"ip-icons"}}>
+      {page.home && <Home openApplication={openApplication}/>}
+      {page.app && <PortalView user={user} logOut={()=>changePage("home")}/>}
+    </IconContext.Provider>
+  </Provider>)
 }

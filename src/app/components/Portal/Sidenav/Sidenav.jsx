@@ -5,8 +5,8 @@ import {FaMoneyBill, FaUser, FaBook, FaChartPie, FaSignOutAlt} from "react-icons
 
 import {Control, Action} from "./styles";
 
-const Sidenav = React.memo(({setActive, active, logOut})=>(
-  <div id="sidenav">
+const Sidenav = React.memo(({logOut})=>(
+  <div id="sidenav" className="level-100">
     <div>
       <Control to="/" activeClassName="selected" exact>
         <div className="icon"><MdTrendingUp/></div>
@@ -20,7 +20,7 @@ const Sidenav = React.memo(({setActive, active, logOut})=>(
         <div className="icon"><FaUser/></div>
         <div className="label">Profile</div>
       </Control>
-      <Control to="/platform" activeClassName="selected">
+      <Control to="/platforms" activeClassName="selected">
         <div className="icon"><MdWidgets/></div>
         <div className="label">Apps</div>
       </Control>

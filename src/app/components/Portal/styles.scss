@@ -8,6 +8,9 @@ div#portal{
     @include paint(#263238);
     display:flex;
     justify-content:space-between;
+    &>div{
+      display:flex;
+    }
     & div#logo > img{
       width:50px;
       cursor:pointer;
@@ -25,8 +28,12 @@ div#portal{
       flex-direction:column;
       justify-content:space-between;
     }
-    &>div#content{
+    &>div#space{
       width:100%;
+      position:relative;
     }
+  }
+  & .level-100{
+    z-index:100;
   }
 }
