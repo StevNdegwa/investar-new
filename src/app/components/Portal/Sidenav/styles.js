@@ -17,6 +17,9 @@ transition:border-left 200ms, background-color 200ms;
     color:white;
   }
 }
+&:active{
+  outline:none;
+}
 &>div.icon{
   width:20px;
   height:20px;

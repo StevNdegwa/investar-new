@@ -34,7 +34,7 @@ export default function Login({style}){
         <form onSubmit={handleSubmit} style={style}>
           <input type="email" name="email" placeholder="Email" onChange={handleChange} onBlur={handleBlur} value={values.email}/>
           <p className="input-error">{errors.email && touched.email && errors.email}</p>
-          <input type="password" name="password" placeholder="Password" onChange={handleChange} onBlur={handleBlur} value={values.password}/>
+          <input type="password" name="password" placeholder="Password" autocomplete="new-password" onChange={handleChange} onBlur={handleBlur} value={values.password}/>
           <p className="input-error">{errors.password && touched.password && errors.password}</p>
           <button type="submit" disabled={isSubmitting}>{isSubmitting ? <Loader size="20px"/> : "Login"}</button>
         </form>)

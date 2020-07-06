@@ -16,17 +16,7 @@ div#root{
   background-color:#cfd8dc;
   position:relative;
 }
-div.tabs{
-  display:flex;
-  & div.tab{
-    text-align:center;
-    cursor:pointer;
-    &.active{
-      border-top-style:inset;
-      border-left-style:inset;
-    }
-  }
-}
+
 .ip-icons, button{
 cursor:pointer;
 }

@@ -7,6 +7,7 @@ background-image:linear-gradient(#03a9f4, #29b6f6, #81d4fa);
 position:absolute;
 padding:1em;
 display:${(props)=>(props.show ? "block" : "none")};
+z-index:400;
 &.menu-enter{
   opacity:0;
 }

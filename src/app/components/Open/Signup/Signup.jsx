@@ -33,16 +33,11 @@ export default function Signup({style}){
           <input type="email" name="email" placeholder="Email" onChange={handleChange} onBlur={handleBlur} value={values.email}/>
           <p className="input-error">{errors.email && touched.email && errors.email}</p>
           <MobileCodes input={<input type="text" name="mobile" placeholder="Mobile number" onChange={handleChange} onBlur={handleBlur} value={values.mobile}/>}/>
-          <input type="password" name="password" placeholder="Password" onChange={handleChange} onBlur={handleBlur} value={values.password}/>
+          <input type="password" name="password" placeholder="Password" autocomplete="new-password" onChange={handleChange} onBlur={handleBlur} value={values.password}/>
           <p className="input-error">{errors.password && touched.password && errors.password}</p>
           <input type="password" name="confirmPassword" placeholder="Confirm password" onChange={handleChange} onBlur={handleBlur} value={values.confirmPassword}/>
           <p className="input-error">{errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}</p>
-          <div className="actions">
-            <button type="submit" disabled={isSubmitting}>{isSubmitting ? <Loader size="20px"/> : "Signup"}</button>
-          </div>
-          <div className="actions">
-            <button>Demo Ac</button>
-          </div>
+          <button type="submit" disabled={isSubmitting}>{isSubmitting ? <Loader size="20px"/> : "Signup"}</button>
           <div id="googleSignup"><button>Signup with Google</button></div>
         </form>)
       }

@@ -2,9 +2,20 @@
 div#open{
   @include paint(#263238);
   color:white;
-  & div.tab{
-    width:50%;
-    @include row-height(40);
+  width:320px;
+  margin:auto;
+  border-radius:3px;
+  &>div.tabs{
+    display:flex;
+    &>div.tab{
+      text-align:center;
+      cursor:pointer;
+      width:50%;
+      @include row-height(40);
+      &.active{
+        border-bottom:3px solid #42a5f5;
+      }
+    }
   }
   &>form{
     width:300px;
@@ -33,24 +44,13 @@ div#open{
       font-weight:500;
       @include paint(#42a5f5);
       height:40px;
-      width:45%;
+      width:50%;
       color:white;
       &:hover{
         box-shadow:0px 0px 10px #42a5f5;
       }
       &:focus{
         outline:none;
-      }
-    }
-    &>div.actions{
-      display:inline-block;
-      width:50%;
-      height:40px;
-      padding:auto;
-      &>button{
-        display:block;
-        width:95%;
-        margin:auto;
       }
     }
     & > #googleSignup{
