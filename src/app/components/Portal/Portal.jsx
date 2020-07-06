@@ -1,15 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 
 import './styles.scss';
 import logo from "./images/logo.png";
 import Sidenav from "./Sidenav";
 import Languages from "./Languages";
 
-export default function Portal({user, logOut}){
+export default function Portal({user}){
   const [selectLanguage, setSelectLanguage] = React.useState(false);
+  const [logOut, setLogOut] = React.useState(false);
+  
+  if(logOut){
+    return <Redirect to="/"/>
+  }
   
   return (<div id="portal">
     <div id="header" className="level-100">
@@ -19,8 +24,8 @@ export default function Portal({user, logOut}){
       </div>
     </div>
     <div id="main">
-      <Router>
-        <Sidenav logOut={logOut}/>
+      <Router basename="/app">
+        <Sidenav logOut={()=>setLogOut(true)}/>
         <div id="space">
           {selectLanguage && <Languages/>}
           <Switch>
@@ -47,7 +52,6 @@ export default function Portal({user, logOut}){
             </Route>
           </Switch>
         </div>
-        
       </Router>
     </div>
   </div>)

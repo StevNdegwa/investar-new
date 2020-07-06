@@ -1,9 +1,15 @@
 import React from "react";
-import { Formik } from 'formik';
+import {Redirect} from "react-router-dom"
+import {Formik} from 'formik';
 
 import {Loader} from "../../styles";
 
-export default function Login({openApplication, style}){
+export default function Login({style}){
+  const [openPortal, setOpenPortal] = React.useState(false)
+  
+  if(openPortal){
+    return <Redirect to="/app"/>
+  }
   
   return (
     <Formik initialValues={{ email: '', password: '' }}
@@ -18,7 +24,7 @@ export default function Login({openApplication, style}){
       }}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-          openApplication(true, values)
+          setOpenPortal(true);
           setSubmitting(false);
         }, 400);
       }}

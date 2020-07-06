@@ -6,8 +6,8 @@ import "./styles.scss";
 import Login from "./Login";
 import Signup from "./Signup";
 
-export default function Open({openApplication}){
-  const [tab, setTab] = React.useState({login:true,signup:false});
+export default function Open({openApplication, defaultTab}){
+  const [tab, setTab] = React.useState({[defaultTab]:true});
   
   function handleTabClick(tab){
     setTab({login:false,signup:false,[tab]:true})

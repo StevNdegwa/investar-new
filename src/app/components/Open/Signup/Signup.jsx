@@ -1,10 +1,17 @@
 import React from "react";
-import { Formik } from 'formik';
+import {Redirect} from "react-router-dom"
+import {Formik} from 'formik';
 
 import {Loader} from "../../styles";
 import MobileCodes from "./MobileCodes";
 
-export default function Signup({openApplication, style}){
+export default function Signup({style}){
+  const [openPortal, setOpenPortal] = React.useState(false);
+  
+  if(openPortal){
+    return <Redirect to="/app"/>
+  }
+  
   return (
     <Formik initialValues={{username:'', email: '', password: '', confirmPassword: '' , mobile:''}}
       validate={(values) => {
@@ -13,7 +20,7 @@ export default function Signup({openApplication, style}){
       }}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-          openApplication(true, values);
+          setOpenPortal(true);
           setSubmitting(false);
         }, 400);
       }}
@@ -34,7 +41,7 @@ export default function Signup({openApplication, style}){
             <button type="submit" disabled={isSubmitting}>{isSubmitting ? <Loader size="20px"/> : "Signup"}</button>
           </div>
           <div className="actions">
-            <button onClick={()=>openApplication(true, {name:"Demo Account"})}>Demo Ac</button>
+            <button>Demo Ac</button>
           </div>
           <div id="googleSignup"><button>Signup with Google</button></div>
         </form>)
