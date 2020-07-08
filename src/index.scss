@@ -7,17 +7,19 @@
 body{
   font-family:"Segoe UI", Courier, Verdana, Helvetica;
   font-size:16px;
-  background-image:linear-gradient(#cfd8dc,#b0bec5);
+  background-image:url("./app/data/images/main-background.jpg");
 }
 
 html, body, div#root{
   height:100%;
 }
 div#root{
-  background-color:#cfd8dc;
   position:relative;
 }
 
 .ip-icons, button{
-cursor:pointer;
+  cursor:pointer;
+}
+ul{
+  list-style-type:none;
 }

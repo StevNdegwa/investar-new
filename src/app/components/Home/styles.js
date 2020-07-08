@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 export const Wrapper = styled.div`
 width:100%;
 min-height:100%;
-background-color:rgba(38, 50, 56,0.6);
+background-image:linear-gradient(rgba(55, 71, 79,0.6), rgba(55, 71, 79,0.8), rgba(55, 71, 79,1),rgba(55, 71, 79, 1));
 display:${(props)=>(props.showingMenu ? "none" : "block")};
 `;
 
@@ -15,10 +15,10 @@ position:sticky;
 top:0;
 z-index:350;
 &>nav{
-  background-color:#263238;
-  border-right:2px outset #263238;
-  border-bottom:2px outset #263238;
-  border-left:2px outset #263238;
+  background-color:#37474f;
+  border-right:1px outset #37474f;
+  border-bottom:1px outset #37474f;
+  border-left:1px outset #37474f;
   border-radius:0 0 3px 3px;
   height:60px;
   width:90%;
@@ -35,6 +35,7 @@ z-index:350;
     height:30px;
     line-height:30px;
     font-size:1.1em;
+    font-weight:lighter;
     &>svg{
       float:left;
       margin-top:0.15em;
@@ -68,12 +69,6 @@ z-index:350;
 }
 `;
 
-export const Footer = styled.div`
-height:100px;
-background-color:#263238;
-border-top: 5px double #cfd8dc;
-`;
-
 export const Main = styled.div`
 display:flex;
 justify-content:center;
@@ -90,37 +85,6 @@ position:relative;
 }
 `;
 
-export const OpenDialog = styled.div`
-position:absolute;
-width:450px;
-padding:1em;
-background-color:rgba(38, 50, 56,0.8);
-box-shadow:0px 0px 5px #263238;
-display:${(props)=>props.show ? "block" : "none"};
-border-radius:3px;
-& div.close{
-  position:relative;
-  height:30px;
-  &>span{
-    position:absolute;
-    right:10px;
-  }
-}
-&.open-enter{
-  transform:scale(0.8);
-}
-&.open-enter-active{
-  transform:scale(1);
-  transition:transform 200ms linear;
-}
-&.open-exit{
-  transform:scale(1);
-}
-&.open-exit-active{
-  transform:scale(0.8);
-  transition:transform 200ms linear;
-}
-`;
 
 const loadAnim = keyframes`
 from{
@@ -168,66 +132,16 @@ font-size:1.3em;
 
 export const Container = styled.div`
 width:100%;
-padding:1em;
+margin:1em 0;
 &>div{
-  width:80%;
   margin:auto;
   color:white;
   &>h1{
     text-align:center;
-    font-weight:600;
-    height:50px;
-    line-height:50px;
-  }
-}
-`;
-
-export const HIW = styled.div`
-height:200px;
-&>div.content{
-  background-color:#263238;
-  box-shadow:0px 0px 10px #263238;
-  display:flex;
-  height:150px;
-  border-radius:5px;
-  padding:1em;
-  &>article{
-    width:100%;
-    height:100%;
-    padding:1em;
-    display:flex;
-    flex-direction:column;
-    &>h3{
-      font-weight:600;
-      &>svg{
-        float:left;
-        margin:0.1em;
-        margin-right:0.5em;
-      }
-    }
-    &>p{
-      color:#cfd8dc;
-    }
-  }
-}
-@media only screen and (max-width:600px){
-  height:410px;
-  &>div.content{
-    flex-direction:column;
-    height:360px;
-  }
-}
-`;
-
-export const FAD = styled.div`
-height:400px;
-width:90%;
-&>div.content{
-  &>div{
-    height:320px;
-    width:320px;
-    background-color:#263238;
-    margin:1em;
+    font-weight:500;
+    font-size:3em;
+    height:100px;
+    line-height:100px;
   }
 }
 `;

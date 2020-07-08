@@ -1,12 +1,14 @@
 import React from 'react';
+import {BrowserRouter as Router, Route, Switch, useRouteMatch} from "react-router-dom";
 import {CSSTransition} from "react-transition-group";
-import {AiOutlineMenu,AiFillMessage,AiOutlineGlobal,AiOutlineClose,AiFillRightCircle,AiOutlineWallet,AiOutlineRise,AiFillAndroid} from "react-icons/ai";
+import {AiOutlineMenu,AiFillMessage,AiOutlineGlobal} from "react-icons/ai";
 
-import Open from "../Open";
 import Menu from "./Menu";
-import {Wrapper, Main, Header, Footer,OpenDialog,OpenDemo,Container,HIW,FAD} from "./styles";
+import Root from "./Root";
+import Footer from "./Footer";
+import {Wrapper, Main, Header,OpenDialog,OpenDemo,Container,HIW,FAD} from "./styles";
 
-export default function Home({openApplication}){
+export default function Home({children}){
   const [showMenu, setShowMenu] = React.useState(false);
   
   const menu = React.useRef(), wrapper = React.useRef();
@@ -29,7 +31,7 @@ export default function Home({openApplication}){
     setShowMenu(true)
   }
   
-  return (<Wrapper ref={wrapper}>
+  return (<Wrapper ref={wrapper} showingMenu={showMenu}>
   <Header>
     <nav>
       <div>
@@ -44,54 +46,7 @@ export default function Home({openApplication}){
     </nav>
   </Header>
   <Menu showMenu={showMenu} closeMenu={()=>setShowMenu(false)} ref={menu}/>
-  <Main>
-    <div>
-      <div className="fot">Fast online trading</div>
-      <div>
-        <OpenDemo to="/app" loading={false}>
-          <span>Try free demo</span> 
-          <AiFillRightCircle size="1.2em" color="#81d4fa"/>
-        </OpenDemo>
-      </div>
-    </div>
-    <CSSTransition in={open.show} timeout={200} classNames="open">
-      <OpenDialog show={open.show}>
-        <div className="close"><span onClick={()=>setOpen({type:"close"})}><AiOutlineClose size="1.5em" color="white"/></span></div>
-        {open.show && <Open defaultTab={open.tab} openApplication={openApplication}/>}
-      </OpenDialog>
-    </CSSTransition>
-  </Main>
-  <Container>
-    <HIW>
-      <h1>How it works</h1>
-      <div className="content">
-        <article>
-          <h3><AiOutlineWallet size="1.2em" color="#42a5f5"/>Deposit</h3>
-          <p>Open real account and add funds. We work with more than 20 payment systems.</p>
-        </article>
-        <article>
-          <h3><AiOutlineRise size="1.2em" color="#42a5f5"/>Trade</h3>
-          <p>Trade any of 100 assets and stocks. Use technical analysis and trade the news.</p>
-        </article>
-        <article>
-          <h3><AiOutlineWallet size="1.2em" color="#42a5f5"/>Withdraw</h3>
-          <p>Get funds easily to your bank card or e-wallet. We take no commission.</p>
-        </article>
-      </div>
-    </HIW>
-  </Container>
-  <Container>
-    <FAD>
-      <h1>For all devices</h1>
-      <div className="content">
-        <div>
-          <a href="#">
-            
-          </a>
-        </div>
-      </div>
-    </FAD>
-  </Container>
-  <Footer></Footer>
+    <Root open={open} setOpen={setOpen}/>
+  <Footer/>
   </Wrapper>)
 }

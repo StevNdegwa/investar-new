@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {IconContext} from "react-icons";
 
 import Home from "./components/Home";
+import Root from "./components/Home/Root";
 import PortalView from "./containers/PortalView";
 import getText from "./lib/getText";
 import UserContext from "./UserContext";
@@ -23,7 +24,7 @@ export default function App(){
           <Route path="/app">
             <PortalView user={user}/>
           </Route>
-          <Route path="/" exact component={Home}/>
+          <Route path="/" component={Home}/>
         </Switch>
       </Router>
     </IconContext.Provider>
