@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom";
+import {Link} from "react-router-dom";
 import {CSSTransition} from "react-transition-group";
 import {AiOutlineClose} from "react-icons/ai";
 
@@ -9,12 +10,12 @@ const Menu = React.forwardRef(({closeMenu, showMenu}, ref)=>{
   const [dir, setDir] = React.useState("home");
   
   return ReactDom.createPortal(
-    <CSSTransition in={showMenu} timeout={200} classNames="menu">
+    <CSSTransition in={showMenu} timeout={200} classNames="fade">
       <Wrapper show={showMenu} ref={ref}>
         <div><span onClick={closeMenu}><AiOutlineClose size="2em" color="white"/></span></div>
         <section>
           <Dir>
-            <li onClick={()=>setDir("home")}>Home</li>
+            <li onClick={()=>{setDir("home"); closeMenu()}}><Link to="/">Home</Link></li>
             <li onClick={()=>setDir("trading")}>Trading</li>
             <li onClick={()=>setDir("education")}>Education</li>
             <li onClick={()=>setDir("company")}>Company</li>
@@ -22,30 +23,30 @@ const Menu = React.forwardRef(({closeMenu, showMenu}, ref)=>{
           <div>
             <CSSTransition in={dir === "trading"} timeout={200} classNames="subdir">
               <Subdir show={dir === "trading"}>
-                <li>Features</li>
-                <li>Account Types</li>
-                <li>Social Trading</li>
-                <li>FAQ</li>
+                <li onClick={closeMenu}><Link to="/">Features</Link></li>
+                <li onClick={closeMenu}><Link to="/">Account Types</Link></li>
+                <li onClick={closeMenu}><Link to="/">Social Trading</Link></li>
+                <li onClick={closeMenu}><Link to="/">FAQ</Link></li>
               </Subdir>
             </CSSTransition>
             <CSSTransition in={dir === "education"} timeout={200} classNames="subdir">
               <Subdir show={dir === "education"}>
-                <li>Glossary</li>
-                <li>Trading Strategies</li>
-                <li>Technical Analysis</li>
-                <li>Graphical Analysis</li>
-                <li>Fundamental Analysis</li>
-                <li>Psychology of trading</li>
+                <li onClick={closeMenu}><Link to="/">Glossary</Link></li>
+                <li onClick={closeMenu}><Link to="/">Trading Strategies</Link></li>
+                <li onClick={closeMenu}><Link to="/">Technical Analysis</Link></li>
+                <li onClick={closeMenu}><Link to="/">Graphical Analysis</Link></li>
+                <li onClick={closeMenu}><Link to="/">Fundamental Analysis</Link></li>
+                <li onClick={closeMenu}><Link to="/">Psychology of trading</Link></li>
               </Subdir>
             </CSSTransition>
             <CSSTransition in={dir === "company"} timeout={200} classNames="subdir">
               <Subdir show={dir === "company"}>
-                <li>About Company</li>
-                <li>Terms</li>
-                <li>Payment Policy</li>
-                <li>Return Policy</li>
-                <li>Privacy Policy</li>
-                <li>AML & KYC</li>
+                <li onClick={closeMenu}><Link to="/about">About Company</Link></li>
+                <li onClick={closeMenu}><Link to="/">Terms</Link></li>
+                <li onClick={closeMenu}><Link to="/">Payment Policy</Link></li>
+                <li onClick={closeMenu}><Link to="/">Return Policy</Link></li>
+                <li onClick={closeMenu}><Link to="/">Privacy Policy</Link></li>
+                <li onClick={closeMenu}><Link to="/">AML & KYC</Link></li>
               </Subdir>
             </CSSTransition>
           </div>

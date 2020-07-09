@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {BrowserRouter as Router, Route, Switch, Redirect, useRouteMatch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 
 import './styles.scss';
 import logo from "./images/logo.png";

@@ -23,7 +23,6 @@ z-index:350;
   height:60px;
   width:90%;
   margin:auto;
-  padding:0.6em;
   display:flex;
   justify-content:space-between;
   & button{
@@ -32,10 +31,11 @@ z-index:350;
     outline:none;
     color:white;
     margin-right:15px;
-    height:30px;
+    height:100%;
     line-height:30px;
     font-size:1.1em;
     font-weight:lighter;
+    padding:0 0.4em;
     &>svg{
       float:left;
       margin-top:0.15em;
@@ -54,6 +54,11 @@ z-index:350;
         display:none;
       }
     }
+    &:focus{
+      background-color:#263238;
+      border-left:2px inset #263238;
+      border-right:2px inset #263238;
+    }
   }
   & button.signup{
     border:1px solid #42a5f5;
@@ -65,6 +70,9 @@ z-index:350;
     &:hover{
       box-shadow:0px 0px 10px #42a5f5;
     }
+  }
+  @media only screen and (max-width:600px){
+    width:100%;
   }
 }
 `;
@@ -103,7 +111,7 @@ margin:auto;
 background-color:#03a9f4;
 box-shadow:0px 0px 5px #03a9f4;
 padding:0 1em;
-width:200px;
+width:300px;
 &:hover{
   box-shadow:0px 0px 10px #03a9f4;
   text-shadow:0px 0px 10px white;

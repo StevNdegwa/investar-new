@@ -10,25 +10,15 @@ display:${(props)=>(props.show ? "block" : "none")};
 z-index:400;
 &>section{
   width:100%;
+  padding-left:100px;
   display:flex;
   &>subdir-container{
     position:relative;
     width:100%;
   }
-}
-&.menu-enter{
-  opacity:0;
-}
-&.menu-enter-active{
-  opacity:1;
-  transition:opacity 200ms linear;
-}
-&.menu-exit{
-  opacity:1;
-}
-&.menu-exit-active{
-  opacity:0;
-  transition:opacity 200ms linear;
+  @media only screen and (max-width:700px){
+    padding-left:10px;
+  }
 }
 `;
 
@@ -37,10 +27,26 @@ font-size:3em;
 width:300px;
 font-weight:600;
 color:white;
+text-shadow:1px 1px 4px white;
 cursor:pointer;
 &>li{
   height:80px;
   line-height:80px;
+  &:hover{
+    text-shadow:1px 1px 8px white;
+  }
+  @media only screen and (max-width:700px){
+    height:40px;
+    line-height:40px;
+  }
+}
+& a{
+  text-decoration:none;
+  color:white;
+}
+@media only screen and (max-width:700px){
+  font-size:1.7em;
+  width:150px;
 }
 `;
 
@@ -48,8 +54,11 @@ export const Subdir = styled.ul`
 position:absolute;
 display:${(props)=>props.show ? "block" : "none"};
 font-weight:600;
-color:#e0e0e0;
 font-size:1.5em;
+& a{
+  text-decoration:none;
+  color:#e0e0e0;
+}
 &>li{
   height:40px;
   line-height:40px;
@@ -100,5 +109,8 @@ font-size:1.5em;
   &>li:last-child{
     transition:transform 350ms linear; 
   }
+}
+@media only screen and (max-width:700px){
+  font-size:1em;
 }
 `;

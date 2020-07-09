@@ -34,13 +34,13 @@ border-radius:3px;
 
 
 export const HIW = styled.div`
-height:250px;
+min-height:250px;
 width:80%;
 &>div.content{
   background-color:#263238;
   box-shadow:0px 0px 10px #263238;
   display:flex;
-  height:150px;
+  min-height:150px;
   border-radius:5px;
   padding:1em;
   &>article{

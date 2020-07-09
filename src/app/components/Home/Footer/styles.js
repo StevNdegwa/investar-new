@@ -19,8 +19,11 @@ display:flex;
     margin:10px;
     font-weight:400;
     &>ul.sub-list{
-      color:#cfd8dc;
       width:100%;
+      & a{
+        text-decoration:none;
+        color:#cfd8dc;
+      }
     }
   }
 }
@@ -28,7 +31,11 @@ display:flex;
   width:20%;
   color:white;
   &>div.content{
-    &>svg{
+    & a{
+      color:white;
+      text-decoration:none;
+    }
+    & svg{
       width:40px;
       height:40px;
       margin-right:10px;
@@ -60,8 +67,10 @@ font-weight:500;
 font-size:1.3em;
 color:white;
 &>div.social-media{
-  &>svg{
+  & a{
     color:#cfd8dc;
+  }
+  & svg{
     width:30px;
     height:30px;
     margin-right:5px;

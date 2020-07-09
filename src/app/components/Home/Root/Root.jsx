@@ -1,21 +1,27 @@
 import React from "react";
-import {useRouteMatch} from "react-router-dom"; 
 import {CSSTransition} from "react-transition-group";
 import {AiOutlineClose,AiFillRightCircle,AiOutlineWallet,AiOutlineRise,AiFillAndroid,AiFillWindows, AiFillApple} from "react-icons/ai";
 
 import Open from "../../Open";
+
+import UserContext from "../../../UserContext";
 import {OpenDialog, FAD, HIW} from "./styles";
 import {OpenDemo, Main, Container} from "../styles";
 
-export default function Root({setOpen, open}){
-  const {path, url} = useRouteMatch();
+export default function Root({setOpen, open,language}){
+  const context = React.useContext(UserContext);
+  
+  function getTranslation(text){
+    return context.translate(language.key, text)
+  }
+  
   return (<>
     <Main>
       <div>
-        <div className="fot">Fast online trading</div>
+        <div className="fot">{getTranslation("Fast online trading")}</div>
         <div>
-          <OpenDemo to={`${url}app`} loading={false} exact>
-            <span>Try free demo</span> 
+          <OpenDemo to="/app">
+            <span>{getTranslation("Try free demo")}</span> 
             <AiFillRightCircle size="1.2em" color="#81d4fa"/>
           </OpenDemo>
         </div>
