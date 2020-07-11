@@ -53,7 +53,7 @@ export default function Home({setUserLanguage, language}){
         <button className="signup" onClick={()=>setOpen({type:"signup"})}>{getTranslation("Sign Up")}</button>
       </div>
     </nav>
-    <Languages setUserLanguage={setUserLanguage} close={()=>setShowLanguages(false)} show={showLanguages}/>
+    <Languages setUserLanguage={setUserLanguage} close={()=>setShowLanguages(false)} show={showLanguages} position={{top:"60px",left:"150px"}}/>
   </Header>
   <Menu showMenu={showMenu} closeMenu={()=>setShowMenu(false)} ref={menu}/>
   <Root open={open} setOpen={setOpen} language={language}/>

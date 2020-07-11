@@ -49,7 +49,7 @@ z-index:350;
         color:#42a5f5;
       }
     }
-    @media only screen and (max-width:600px){
+    @media only screen and (max-width:700px){
       &>span{
         display:none;
       }

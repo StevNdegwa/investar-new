@@ -26,8 +26,7 @@ export const Dir = styled.ul`
 font-size:3em;
 width:300px;
 font-weight:600;
-color:white;
-text-shadow:1px 1px 4px white;
+color:#eeeeee;
 cursor:pointer;
 &>li{
   height:80px;
@@ -39,10 +38,19 @@ cursor:pointer;
     height:40px;
     line-height:40px;
   }
+  &.active{
+    color:white;
+    & a{
+      color:white;
+    }
+  }
 }
 & a{
   text-decoration:none;
-  color:white;
+  color:#eeeeee;
+  &.active{
+    color:white;
+  }
 }
 @media only screen and (max-width:700px){
   font-size:1.7em;
@@ -58,6 +66,9 @@ font-size:1.5em;
 & a{
   text-decoration:none;
   color:#e0e0e0;
+  &:hover{
+    text-decoration:underline;
+  }
 }
 &>li{
   height:40px;

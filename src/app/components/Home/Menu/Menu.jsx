@@ -15,10 +15,10 @@ const Menu = React.forwardRef(({closeMenu, showMenu}, ref)=>{
         <div><span onClick={closeMenu}><AiOutlineClose size="2em" color="white"/></span></div>
         <section>
           <Dir>
-            <li onClick={()=>{setDir("home"); closeMenu()}}><Link to="/">Home</Link></li>
-            <li onClick={()=>setDir("trading")}>Trading</li>
-            <li onClick={()=>setDir("education")}>Education</li>
-            <li onClick={()=>setDir("company")}>Company</li>
+            <li onClick={()=>{setDir("home"); closeMenu()}} className={`${dir === "home" && "active"}`}><Link to="/">Home</Link></li>
+            <li onClick={()=>setDir("trading")} className={`${dir === "trading" && "active"}`}>Trading</li>
+            <li onClick={()=>setDir("education")} className={`${dir === "education" && "active"}`}>Education</li>
+            <li onClick={()=>setDir("company")} className={`${dir === "company" && "active"}`}>Company</li>
           </Dir>
           <div>
             <CSSTransition in={dir === "trading"} timeout={200} classNames="subdir">

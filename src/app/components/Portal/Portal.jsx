@@ -1,33 +1,44 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import {CSSTransition} from "react-transition-group";
+import {AiOutlineMenu,AiFillMessage,AiOutlineGlobal} from "react-icons/ai";
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 
 import './styles.scss';
 import logo from "./images/logo.png";
 import Sidenav from "./Sidenav";
-import Languages from "./Languages";
+import Languages from "../Languages";
+import DialogContainer from "./DialogContainer";
+import ConfirmExit from "./ConfirmExit";
 
-export default function Portal({user}){
+export default function Portal({user, setUserLanguage, language}){
   const [selectLanguage, setSelectLanguage] = React.useState(false);
-  const [logOut, setLogOut] = React.useState(false);
+  const [logOut, setLogOut] = React.useState({confirmed:false, dialog:false});
   
-  if(logOut){
+  if(logOut.confirmed){
     return <Redirect to="/"/>
   }
   
   return (<div id="portal">
     <div id="header" className="level-100">
-      <div>
+      <div className="rSide">
         <div id="logo"><img src={logo} alt="Log"/></div>
-        <div><button onClick={()=>setSelectLanguage(s=>!s)}>Language</button></div>
+        <button onClick={()=>setSelectLanguage(s=>(s ? false : true))}><AiOutlineGlobal/>{language.name}</button>
+      </div>
+      <div className="lSide">
+        <button>Open Real Account</button>
       </div>
     </div>
     <div id="main">
       <Router basename="/app">
-        <Sidenav logOut={()=>setLogOut(true)}/>
+        <Sidenav logOut={()=>setLogOut({confirmed:false, dialog:true})}/>
         <div id="space">
-          {selectLanguage && <Languages/>}
+          <Languages show={selectLanguage} setUserLanguage={setUserLanguage} close={()=>setSelectLanguage(false)} position={{top:"0px",left:"10px"}}/>
+          <CSSTransition in={logOut.dialog} timeout={200} classNames="fade">
+            <DialogContainer show={logOut.dialog} close={()=>setLogOut({confirmed:false, dialog:false})}>
+              <ConfirmExit close={setLogOut} show={logOut.dialog}/>
+            </DialogContainer>
+          </CSSTransition>
           <Switch>
             <Route path="/billing">
               <div>Finance</div>
@@ -59,5 +70,5 @@ export default function Portal({user}){
 
 Portal.propTypes = {
   language:PropTypes.object,
-  changeLanguage:PropTypes.func.isRequired
+  setUserLanguage:PropTypes.func.isRequired
 }

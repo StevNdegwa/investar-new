@@ -11,7 +11,7 @@ function mapStateToProps(state){
 
 function matchDispatchToProps(dispatch){
   return {
-    changeLanguage:(language)=>dispatch(languageSlice.actions.changeLanguage(language))
+    setUserLanguage:(language)=>dispatch(languageSlice.actions.changeLanguage(language))
   }
 }
 

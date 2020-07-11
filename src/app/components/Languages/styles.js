@@ -9,13 +9,14 @@ font-weight:600;
 background-color:#263238;
 color:white;
 position:absolute;
-top:60px;
-left:150px;
+top:${({position})=>position.top};
+left:${({position})=>position.left};
 display:${(props)=>(props.show ? "block" : "none")};
 list-style-type:none;
 z-index:360;
 border-radius:0 0 3px 3px;
 box-shadow:0px 2px 5px #263238;
+overflow:hidden;
 &>li{
   cursor:pointer;
   padding:0.3em;

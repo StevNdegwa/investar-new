@@ -37,3 +37,17 @@ ul{
   opacity:0;
   transition:opacity 100ms linear;
 }
+.pop-enter{
+  transform:scale(0.8);
+}
+.pop-enter-active{
+  transform:scale(1);
+  transition:transform 200ms linear;
+}
+.pop-exit{
+  transform:scale(1);
+}
+.pop-exit-active{
+  transform:scale(0.8);
+  transition:transform 200ms linear;
+}
