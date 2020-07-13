@@ -36,7 +36,10 @@ export default function Login({style}){
           <p className="input-error">{errors.email && touched.email && errors.email}</p>
           <input type="password" name="password" placeholder="Password" autocomplete="new-password" onChange={handleChange} onBlur={handleBlur} value={values.password}/>
           <p className="input-error">{errors.password && touched.password && errors.password}</p>
-          <button type="submit" disabled={isSubmitting}>{isSubmitting ? <Loader size="20px"/> : "Login"}</button>
+          <div className="actions">
+            <div><a href="#">Forgot Your Password?</a></div>
+            <button type="submit" disabled={isSubmitting}>{isSubmitting ? <Loader size="20px"/> : "Login"}</button>
+          </div>
         </form>)
     }
   </Formik>)

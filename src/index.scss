@@ -51,3 +51,34 @@ ul{
   transform:scale(0.8);
   transition:transform 200ms linear;
 }
+
+.slide-up-enter{
+  transform:translate(0px, 30px);
+}
+.slide-up-enter-active{
+  transform:translate(0px, 0px);
+  transition:transform 200ms;
+}
+.slide-up-exit{
+  transform:translate(0px, 0px);
+}
+.slide-up-exit-active{
+  transform:translate(0px, 30px);
+  transition:transform 200ms;
+}
+
+.level-100{
+  z-index:100;
+}
+.level-200{
+  z-index:200;
+}
+.level-300{
+  z-index:300;
+}
+.level-400{
+  z-index:400;
+}
+.level-500{
+  z-index:500;
+}

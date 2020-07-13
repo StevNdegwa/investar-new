@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {AiOutlineMenu,AiFillMessage,AiOutlineGlobal} from "react-icons/ai";
 
 import Menu from "./Menu";
-import Root from "./Root";
+import LandingPage from "./LandingPage";
 import Footer from "./Footer";
 import Languages from "../Languages";
 import UserContext from "../../UserContext";
@@ -56,7 +56,7 @@ export default function Home({setUserLanguage, language}){
     <Languages setUserLanguage={setUserLanguage} close={()=>setShowLanguages(false)} show={showLanguages} position={{top:"60px",left:"150px"}}/>
   </Header>
   <Menu showMenu={showMenu} closeMenu={()=>setShowMenu(false)} ref={menu}/>
-  <Root open={open} setOpen={setOpen} language={language}/>
+  <LandingPage open={open} setOpen={setOpen} language={language}/>
   <Footer/>
   </Wrapper>)
 }

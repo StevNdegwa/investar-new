@@ -45,7 +45,7 @@ div#portal{
 div#header{
   & button{
     height:40px;
-    padding:0 0.3em;
+    padding:0 1em;
     color:white;
     font-size:1.1em;
     font-weight:500;
@@ -61,6 +61,15 @@ div#header{
       width:1.5em;
       height:1.5em;
       margin-right:5px;
+    }
+    &.o-r-a{
+      background-image:linear-gradient(#69f0ae, #b9f6ca, #69f0ae);
+      border:2px solid #b9f6ca;
+      &:hover{
+        background-image:none;
+        background-color:#69f0ae;
+        box-shadow:0px 0px 5px #69f0ae;;
+      }
     }
   }
 }

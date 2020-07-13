@@ -13,7 +13,7 @@ const Languages = React.memo(({show, setUserLanguage, close, position})=>{
   },[]);
   
   return (<CSSTransition timeout={200} in={show} classNames="fade">
-    <Wrapper id="languages" className="level-100" show={show} position={position}>
+    <Wrapper id="languages" show={show} position={position}>
       {languages.map((l)=>{
         return (<li key={l.key} onClick={()=>setUserLanguage(l)}>{l.name}</li>)
       })}

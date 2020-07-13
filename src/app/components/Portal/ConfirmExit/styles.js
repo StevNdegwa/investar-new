@@ -2,15 +2,27 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
 background-color:#263238;
-box-shadow:0px 0px 10px #263238;
+box-shadow:0px 0px 20px #263238;
 width:350px;
 height:150px;
 color:white;
 border-radius:3px;
 overflow:hidden;
+&>h4{
+  height:40px;
+  line-height:40px;
+  display:flex;
+  justify-content:space-between;
+  font-size:1.3em;
+  font-weight:600;
+  padding:0 1em;
+  &>span{
+    margin-top:0.3em;
+  }
+}
 &>p{
-  height:90px;
-  line-height:90px;
+  height:50px;
+  line-height:50px;
   text-align:center;
   font-size:1.3em;
 }

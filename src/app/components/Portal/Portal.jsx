@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {CSSTransition} from "react-transition-group";
 import {AiOutlineMenu,AiFillMessage,AiOutlineGlobal} from "react-icons/ai";
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 
@@ -10,6 +9,7 @@ import Sidenav from "./Sidenav";
 import Languages from "../Languages";
 import DialogContainer from "./DialogContainer";
 import ConfirmExit from "./ConfirmExit";
+import Trade from "./Trade";
 
 export default function Portal({user, setUserLanguage, language}){
   const [selectLanguage, setSelectLanguage] = React.useState(false);
@@ -26,7 +26,7 @@ export default function Portal({user, setUserLanguage, language}){
         <button onClick={()=>setSelectLanguage(s=>(s ? false : true))}><AiOutlineGlobal/>{language.name}</button>
       </div>
       <div className="lSide">
-        <button>Open Real Account</button>
+        <button className="o-r-a">Open Real Account</button>
       </div>
     </div>
     <div id="main">
@@ -34,11 +34,9 @@ export default function Portal({user, setUserLanguage, language}){
         <Sidenav logOut={()=>setLogOut({confirmed:false, dialog:true})}/>
         <div id="space">
           <Languages show={selectLanguage} setUserLanguage={setUserLanguage} close={()=>setSelectLanguage(false)} position={{top:"0px",left:"10px"}}/>
-          <CSSTransition in={logOut.dialog} timeout={200} classNames="fade">
-            <DialogContainer show={logOut.dialog} close={()=>setLogOut({confirmed:false, dialog:false})}>
-              <ConfirmExit close={setLogOut} show={logOut.dialog}/>
-            </DialogContainer>
-          </CSSTransition>
+          <DialogContainer show={logOut.dialog} close={()=>setLogOut({confirmed:false, dialog:false})}>
+            <ConfirmExit close={setLogOut} show={logOut.dialog}/>
+          </DialogContainer>
           <Switch>
             <Route path="/billing">
               <div>Finance</div>
@@ -58,9 +56,7 @@ export default function Portal({user, setUserLanguage, language}){
             <Route path="/info">
               <div>Help</div>
             </Route>
-            <Route path="/" exact>
-              <div>Trade</div>
-            </Route>
+            <Route path="/" exact component={Trade}/>
           </Switch>
         </div>
       </Router>

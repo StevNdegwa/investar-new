@@ -37,7 +37,10 @@ export default function Signup({style}){
           <p className="input-error">{errors.password && touched.password && errors.password}</p>
           <input type="password" name="confirmPassword" placeholder="Confirm password" onChange={handleChange} onBlur={handleBlur} value={values.confirmPassword}/>
           <p className="input-error">{errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}</p>
-          <button type="submit" disabled={isSubmitting}>{isSubmitting ? <Loader size="20px"/> : "Signup"}</button>
+          <div className="actions">
+            <div></div>
+            <button type="submit" disabled={isSubmitting}>{isSubmitting ? <Loader size="20px"/> : "Signup"}</button>
+          </div>
           <div id="googleSignup"><button>Signup with Google</button></div>
         </form>)
       }
