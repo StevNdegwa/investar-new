@@ -2,6 +2,8 @@ import React from "react";
 import {MdClear} from "react-icons/md";
 import {CSSTransition} from "react-transition-group";
 
+import Pagination from "./Pagination";
+
 import {Wrapper, Title, Main, Tabs, Tab, Pages, Page} from "./styles";
 
 export default function SelectTradeItem({close, show}){
@@ -22,7 +24,7 @@ export default function SelectTradeItem({close, show}){
         <Pages>
           <CSSTransition in={tabs.stocks} timeout={100} classNames="slide-up">
             <Page show={tabs.stocks}>
-              Stocks
+              <Pagination/>
             </Page>
           </CSSTransition>
           <CSSTransition in={tabs.forex} timeout={100} classNames="slide-up">
