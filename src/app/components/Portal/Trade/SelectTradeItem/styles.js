@@ -68,5 +68,4 @@ position:absolute;
 width:100%;
 height:100%;
 display:${({show})=>(show ? "block" : "none")};
-padding:0.5em;
-`
+`;

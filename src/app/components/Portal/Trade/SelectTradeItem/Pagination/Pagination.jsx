@@ -1,21 +1,22 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {MdNavigateNext, MdNavigateBefore, MdFirstPage, MdLastPage, MdMoreHoriz} from "react-icons/md";
 import {Wrapper, Button} from "./styles";
 
-const Pagination = React.memo(()=>{
+const Pagination = ({pages, selectPage})=>{
   const [curr,  setCurr] = React.useState(1);
   
-  let letters = Array(26).fill(65).map((p, idx)=>(String.fromCodePoint(p+idx)))
+  let e = pages.length - 2; //The last page index
   
   function moveBack(){
     setCurr((c)=>{
-      return c - 1;
+      return --c;
     })
   }
   
   function moveForward(){
     setCurr((c)=>{
-      return c + 1;
+      return ++c;
     })
   }
   
@@ -23,21 +24,24 @@ const Pagination = React.memo(()=>{
     <Button onClick={()=>setCurr(1)} disabled={curr === 1} className="move-back" title="Move To First Page">
       <MdFirstPage/>
     </Button>
-     <Button onClick={()=>moveBack()} disabled={curr === 1} title="Move Backwards">
+    <Button onClick={()=>moveBack()} disabled={curr === 1} title="Move Backwards">
       <MdNavigateBefore/>
     </Button>
-    {(curr >= 2 ) && <Button className="more"><MdMoreHoriz/></Button>}
-    <Button className="page">{letters[curr - 1]}</Button>
-    <Button className="page">{letters[curr]}</Button>
-    <Button className="page">{letters[curr + 1]}</Button>
-    {(curr <= 23 ) && <Button className="more"><MdMoreHoriz/></Button>}
-     <Button onClick={()=>moveForward()} disabled={curr === 24} title="Move Forward">
+    <Button className="page" onClick={()=>selectPage(pages[curr - 1])}>{pages[curr - 1]}</Button>
+    <Button className="page" onClick={()=>selectPage(pages[curr])}>{pages[curr]}</Button>
+    <Button className="page" onClick={()=>selectPage(pages[curr + 1])}>{pages[curr + 1]}</Button>
+    <Button onClick={()=>moveForward()} disabled={curr === e} title="Move Forward">
       <MdNavigateNext/>
     </Button>
-    <Button onClick={()=>setCurr(24)} disabled={curr === 24} className="move-forward" title="Move To Last Page">
+    <Button onClick={()=>setCurr(e)} disabled={curr === e} className="move-forward" title="Move To Last Page">
       <MdLastPage/>
     </Button>
   </Wrapper>);
-});
+};
+
+Pagination.propTypes = {
+  selectPage:PropTypes.func.isRequired,
+  page:PropTypes.array.isRequired
+}
 
 export default Pagination;

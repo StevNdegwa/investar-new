@@ -32,7 +32,7 @@ overflow:hidden;
   display:flex;
   justify-content:space-around;
   &>button{
-    background-image:linear-gradient(#2196f3,#64b5f6,#2196f3);
+    background-image:linear-gradient(#2196f3,#64b5f6,#64b5f6,#2196f3);
     border:1px solid #2196f3;
     margin:0.3em;
     border-radius:3px;

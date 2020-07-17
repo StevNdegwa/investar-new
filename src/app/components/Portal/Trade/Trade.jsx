@@ -5,7 +5,7 @@ import SelectTradeItem from "./SelectTradeItem";
 import {Wrapper, ToolBar, Tool} from "./styles";
 
 export default function Trade(){
-  const [activeItem, setActiveItem] = React.useState({dialog:false});
+  const [activeItem, setActiveItem] = React.useState({dialog:true});
   
   return (<Wrapper>
     <DialogContainer show={activeItem.dialog} close={()=>setActiveItem({dialog:false})}>

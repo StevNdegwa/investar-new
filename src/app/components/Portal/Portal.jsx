@@ -33,7 +33,7 @@ export default function Portal({user, setUserLanguage, language}){
       <Router basename="/app">
         <Sidenav logOut={()=>setLogOut({confirmed:false, dialog:true})}/>
         <div id="space">
-          <Languages show={selectLanguage} setUserLanguage={setUserLanguage} close={()=>setSelectLanguage(false)} position={{top:"0px",left:"10px"}}/>
+          <Languages show={selectLanguage} setUserLanguage={setUserLanguage} close={()=>setSelectLanguage(false)} position={{top:"0px", left:"10px"}}/>
           <DialogContainer show={logOut.dialog} close={()=>setLogOut({confirmed:false, dialog:false})}>
             <ConfirmExit close={setLogOut} show={logOut.dialog}/>
           </DialogContainer>
