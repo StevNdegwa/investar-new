@@ -4,12 +4,12 @@ import DialogContainer from "../DialogContainer";
 import SelectTradeItem from "./SelectTradeItem";
 import {Wrapper, ToolBar, Tool} from "./styles";
 
-export default function Trade(){
-  const [activeItem, setActiveItem] = React.useState({dialog:true});
+export default function Trade(props){
+  const [activeItem, setActiveItem] = React.useState({dialog:false});
   
   return (<Wrapper>
     <DialogContainer show={activeItem.dialog} close={()=>setActiveItem({dialog:false})}>
-      <SelectTradeItem show={activeItem.dialog} close={()=>setActiveItem({dialog:false})}/>
+      <SelectTradeItem show={activeItem.dialog} close={()=>setActiveItem({dialog:false})} stocksList={props.stocksList} getStocksList={props.getStocksList}/>
     </DialogContainer>
     <ToolBar>
       <Tool onClick={()=>setActiveItem({dialog:true})}>

@@ -11,7 +11,7 @@ import DialogContainer from "./DialogContainer";
 import ConfirmExit from "./ConfirmExit";
 import Trade from "./Trade";
 
-export default function Portal({user, setUserLanguage, language}){
+export default function Portal(props){
   const [selectLanguage, setSelectLanguage] = React.useState(false);
   const [logOut, setLogOut] = React.useState({confirmed:false, dialog:false});
   
@@ -23,7 +23,7 @@ export default function Portal({user, setUserLanguage, language}){
     <div id="header" className="level-100">
       <div className="rSide">
         <div id="logo"><img src={logo} alt="Log"/></div>
-        <button onClick={()=>setSelectLanguage(s=>(s ? false : true))}><AiOutlineGlobal/>{language.name}</button>
+        <button onClick={()=>setSelectLanguage(s=>(s ? false : true))}><AiOutlineGlobal/>{props.language.name}</button>
       </div>
       <div className="lSide">
         <button className="o-r-a">Open Real Account</button>
@@ -33,7 +33,7 @@ export default function Portal({user, setUserLanguage, language}){
       <Router basename="/app">
         <Sidenav logOut={()=>setLogOut({confirmed:false, dialog:true})}/>
         <div id="space">
-          <Languages show={selectLanguage} setUserLanguage={setUserLanguage} close={()=>setSelectLanguage(false)} position={{top:"0px", left:"10px"}}/>
+          <Languages show={selectLanguage} setUserLanguage={props.setUserLanguage} close={()=>setSelectLanguage(false)} position={{top:"0px", left:"10px"}}/>
           <DialogContainer show={logOut.dialog} close={()=>setLogOut({confirmed:false, dialog:false})}>
             <ConfirmExit close={setLogOut} show={logOut.dialog}/>
           </DialogContainer>
@@ -56,7 +56,9 @@ export default function Portal({user, setUserLanguage, language}){
             <Route path="/info">
               <div>Help</div>
             </Route>
-            <Route path="/" exact component={Trade}/>
+            <Route path="/" exact>
+              <Trade stocksList={props.stocksList} getStocksList={props.getStocksList}/>
+            </Route>
           </Switch>
         </div>
       </Router>
@@ -65,6 +67,8 @@ export default function Portal({user, setUserLanguage, language}){
 }
 
 Portal.propTypes = {
-  language:PropTypes.object,
-  setUserLanguage:PropTypes.func.isRequired
+  language:PropTypes.object.isRequired,
+  setUserLanguage:PropTypes.func.isRequired,
+  stocksList: PropTypes.object.isRequired,
+  getStocksList: PropTypes.func.isRequired
 }

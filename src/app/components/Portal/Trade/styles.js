@@ -12,7 +12,7 @@ position: absolute;
 top: 50px;
 left: 50px;
 z-index:250;
-height:40px;
+height: 50px;
 border-radius:5px;
 border:1px solid #78909c;
 background-color: #263238;
@@ -21,7 +21,7 @@ box-shadow:0px 0px 10px #263238;
 
 export const Tool = styled.div`
 height:100%;
-line-height:40px;
+line-height:50px;
 padding:0 0.5em;
 color:#e0e0e0;
 font-size:1.2em;

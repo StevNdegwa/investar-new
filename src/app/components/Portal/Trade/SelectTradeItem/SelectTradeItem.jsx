@@ -6,14 +6,14 @@ import Stocks from "./Stocks";
 
 import {Wrapper, Title, Main, Tabs, Tab, Pages, Page} from "./styles";
 
-export default function SelectTradeItem({close, show}){
+export default function SelectTradeItem(props){
   const [tabs, setTabs] = React.useReducer(tabsReducer, {stocks:true, forex:false, currencies:false});
   
-  return (<CSSTransition in={show} timeout={200} classNames="pop">
+  return (<CSSTransition in={props.show} timeout={200} classNames="pop">
     <Wrapper> 
       <Title>
         <div>Current Item</div>
-        <div className="clear" onClick={close}><MdClear size="1.3em"/></div>
+        <div className="clear-icon" onClick={props.close}><MdClear/></div>
       </Title>
       <Main>
         <Tabs>
@@ -24,7 +24,7 @@ export default function SelectTradeItem({close, show}){
         <Pages>
           <CSSTransition in={tabs.stocks} timeout={100} classNames="slide-up">
             <Page show={tabs.stocks}>
-              <Stocks/>
+              <Stocks stocksList={props.stocksList} getStocksList={props.getStocksList}/>
             </Page>
           </CSSTransition>
           <CSSTransition in={tabs.forex} timeout={100} classNames="slide-up">

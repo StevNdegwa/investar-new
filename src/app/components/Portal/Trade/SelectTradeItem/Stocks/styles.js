@@ -28,9 +28,10 @@ color:#e0e0e0;
   &>div.icon{
     width:40px;
     display:inline-block;
+    text-align:center;
     &>svg{
       height:40px;
-      width:40px;
+      width:30px;
     }
   }
   &>input[type="search"]{

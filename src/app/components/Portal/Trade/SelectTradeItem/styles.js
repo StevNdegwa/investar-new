@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 
 export const Wrapper = styled.div`
 width:600px;
@@ -12,16 +12,18 @@ border-radius:10px;
 
 export const Title = styled.div`
 width:100%;
-height:50px;
-line-height:50px;
+height:40px;
+line-height:40px;
 font-size:1.6em;
 color:white;
 display:flex;
 justify-content:space-between;
-padding:0 1em;
-&>div.clear{
+padding:0 0.5em;
+&>div.clear-icon{
   color:#bdbdbd;
-  padding:0.3em;
+  &>svg{
+    height:40px;
+  }
   &:hover{
     color:white;
   }
@@ -68,4 +70,50 @@ position:absolute;
 width:100%;
 height:100%;
 display:${({show})=>(show ? "block" : "none")};
+`;
+
+
+const dataLoaderAnim = keyframes`
+from{
+  background-color:#2196f3;
+  border:1px outset #2196f3;
+}
+to{
+  background-color:#bdbdbd;
+  border:1px outset #bdbdbd;
+}
+`;
+
+export const DataLoaderWrapper = styled.div`
+display:flex;
+width:60px;
+height:20px;
+justify-content:space-around;
+margin:auto;
+&>div{
+  width:15px;
+  height:15px;
+  border-radius:50%;
+  background-color:#bdbdbd;
+  border:1px outset #bdbdbd;
+  animation-duration:300ms;
+  animation-direction:alternate-reverse;
+  animation-timing-function:ease-in;
+  box-shadow:1px 3px 1px #424242;
+}
+&>div.one{
+  animation-name:${dataLoaderAnim};
+  animation-delay:0s;
+  animation-iteration-count:infinite;
+}
+&>div.two{
+  animation-name:${dataLoaderAnim};
+  animation-delay:150ms;
+  animation-iteration-count:infinite;
+}
+&>div.three{
+  animation-name:${dataLoaderAnim};
+  animation-delay:300ms;
+  animation-iteration-count:infinite;
+}
 `;
