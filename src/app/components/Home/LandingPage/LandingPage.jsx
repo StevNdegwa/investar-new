@@ -20,7 +20,7 @@ export default function Root({setOpen, open,language}){
       <div>
         <div className="fot">{getTranslation("Fast online trading")}</div>
         <div>
-          <OpenDemo to="/app">
+          <OpenDemo to="/app?demo=true">
             <span>{getTranslation("Try free demo")}</span> 
             <AiFillRightCircle size="1.2em" color="#81d4fa"/>
           </OpenDemo>
@@ -28,7 +28,11 @@ export default function Root({setOpen, open,language}){
       </div>
       <CSSTransition in={open.show} timeout={200} classNames="open">
         <OpenDialog show={open.show}>
-          <div className="close"><span onClick={()=>setOpen({type:"close"})}><AiOutlineClose size="1.5em" color="white"/></span></div>
+          <div className="close">
+            <span onClick={()=>setOpen({type:"close"})}>
+              <AiOutlineClose size="1.5em" color="white"/>
+            </span>
+          </div>
           {open.show && <Open defaultTab={open.tab}/>}
         </OpenDialog>
       </CSSTransition>

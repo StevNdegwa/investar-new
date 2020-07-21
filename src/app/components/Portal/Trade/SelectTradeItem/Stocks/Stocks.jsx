@@ -1,8 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {MdSearch} from "react-icons/md";
+import SearchResults from "react-filter-search";
 
 import Pagination from "../Pagination";
 import Loader from "../Loader.jsx";
+import TradeContext from "../../TradeContext";
 import {Wrapper,Controls, Search, List, Item, Apply} from "./styles";
 
 
@@ -12,6 +15,10 @@ export default function Stocks({stocksList, getStocksList}){
   const [page, setPage] = React.useState("A");
   const [loading, setLoading] = React.useState(true);
   const [currList, setCurrList] = React.useState([]);
+  const [filter, setFilter] = React.useState("");
+  const [activeStock, setActiveStock] = React.useState("");
+  
+  let tradeContext = React.useContext(TradeContext);
   
   React.useEffect(()=>{
     loadStocksList(page);
@@ -19,19 +26,30 @@ export default function Stocks({stocksList, getStocksList}){
   
   async function loadStocksList(page){
     setLoading(true);
+    
     try{
-      if(stocksList[page]){
-        setCurrList(stocksList[page])
-      }else{
-        let results = await getStocksList(page);
-      }
-    }catch(error){
+      
+      let list = stocksList[page] ? stocksList[page] : await getStocksList(page);
+      
+      setCurrList(list || []);
+      
+      setActiveStock(list[0] && list[0].symbol);
+      
       setLoading(false);
+      
+    }catch(error){
+      
+      setLoading(false);
+      
     }
   }
   
-  if(loading){
-    return (<Wrapper><Loader/></Wrapper>);
+  function handleSearchChanges(evt){
+    setFilter(evt.target.value);
+  }
+  
+  function applyChanges(){
+    tradeContext.selectItem(activeStock)
   }
   
   return (<Wrapper>
@@ -39,21 +57,32 @@ export default function Stocks({stocksList, getStocksList}){
       <Search onSubmit={(evt)=>{evt.preventDefault()}}>
         <div className="search">
           <div className="icon"><MdSearch/></div>
-          <input type="search" placeholder="Search"/>
+          <input type="search" placeholder="Search" value={filter} onChange={handleSearchChanges}/>
         </div>
       </Search>
     </Controls>
     <List>
-      {currList && currList.map((s)=>{
-        return (<Item key={s.name}>
-          <div className="symbol">GOOGL</div>
-          <div className="name">Alphaabet</div>
-        </Item>)
-      })}
+      {loading ?
+        <div><Loader/></div> :
+        <SearchResults value={filter} data={currList} 
+          renderResults = {(results)=>{
+            return results.map((s)=>{
+                return (<Item key={s.symbol} active={s.symbol === activeStock} onClick={()=>setActiveStock(s.symbol)}>
+                  <div className="symbol">{s.symbol}</div>
+                  <div className="name">{s.name}</div>
+              </Item>)})}
+          }
+        />
+      }
     </List>
     <Controls>
       <Pagination pages={letters} selectPage={setPage}/>
-      <Apply>Apply</Apply>
+      <Apply onClick={applyChanges}>Apply</Apply>
     </Controls>
   </Wrapper>);
+}
+
+Stocks.propTypes = {
+  stocksList: PropTypes.object.isRequired,
+  getStocksList: PropTypes.func.isRequired
 }

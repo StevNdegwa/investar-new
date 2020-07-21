@@ -3,9 +3,10 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
+  outline:none;
 }
 body{
-  font-family:"Segoe UI", Courier, Verdana, Helvetica;
+  font-family:"Segoe UI", Verdana, Helvetica;
   font-size:16px;
   background-image:url("./app/data/images/main-background.jpg");
 }
@@ -13,6 +14,21 @@ body{
 html, body, div#root{
   height:100%;
 }
+
+::-webkit-scrollbar{
+  width:10px;
+  background:#263238;
+  border-radius:5px;
+  cursor:pointer;
+} 
+::-webkit-scrollbar-track{
+  border-radius:5px;
+}
+::-webkit-scrollbar-thumb{
+  background:#78909c;
+  border-radius:5px;
+}
+
 div#root{
   position:relative;
 }

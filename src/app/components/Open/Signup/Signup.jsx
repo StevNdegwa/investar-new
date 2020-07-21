@@ -9,7 +9,7 @@ export default function Signup({style}){
   const [openPortal, setOpenPortal] = React.useState(false);
   
   if(openPortal){
-    return <Redirect to="/app"/>
+    return <Redirect to="/app?demo=false"/>
   }
   
   return (

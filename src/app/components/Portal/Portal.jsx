@@ -26,7 +26,7 @@ export default function Portal(props){
         <button onClick={()=>setSelectLanguage(s=>(s ? false : true))}><AiOutlineGlobal/>{props.language.name}</button>
       </div>
       <div className="lSide">
-        <button className="o-r-a">Open Real Account</button>
+        {props.demo && <button className="o-r-a">Open Real Account</button>}
       </div>
     </div>
     <div id="main">
@@ -70,5 +70,6 @@ Portal.propTypes = {
   language:PropTypes.object.isRequired,
   setUserLanguage:PropTypes.func.isRequired,
   stocksList: PropTypes.object.isRequired,
-  getStocksList: PropTypes.func.isRequired
+  getStocksList: PropTypes.func.isRequired,
+  demo: PropTypes.bool
 }

@@ -86,14 +86,16 @@ cursor:pointer;
   }
 }
 &:hover{
-  border:1px outset #546e7a;
-  box-shadow:0px 0px 5px #546e7a;
+  font-weight:600;
+  border:1px solid #546e7a;
+  box-shadow:0px 0px 3px #546e7a;
 }
 ${({active})=>active && css`
   border:1px outset #2196f3;
+  font-weight:600;
   &:hover{
     border:1px outset #2196f3;
-    box-shadow:0px 0px 5px #546e7a;
+    box-shadow:0px 0px 3px #546e7a;
   }
 `};
 `;

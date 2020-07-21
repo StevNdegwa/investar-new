@@ -23,7 +23,10 @@ export default function App(){
       <Router>
         <Switch>
           <Route path="/app">
-            <PortalView user={user}/>
+            {(renderParams, t)=>{
+              let queries = new URLSearchParams(renderParams.location.search);
+              return <PortalView user={user} demo={Boolean(queries.get("demo") === "true")}/>
+            }}
           </Route>
           <Route path="/">
             <HomeView/>

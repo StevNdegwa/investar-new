@@ -41,7 +41,7 @@ const Pagination = ({pages, selectPage})=>{
 
 Pagination.propTypes = {
   selectPage:PropTypes.func.isRequired,
-  page:PropTypes.array.isRequired
+  pages:PropTypes.array.isRequired
 }
 
 export default Pagination;
