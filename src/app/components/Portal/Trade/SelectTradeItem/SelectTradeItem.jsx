@@ -4,6 +4,8 @@ import {MdClear} from "react-icons/md";
 import {CSSTransition} from "react-transition-group";
 
 import Stocks from "./Stocks";
+import Forex from "./Forex";
+import CryptoCurrencies from "./CryptoCurrencies";
 import TradeContext from "../TradeContext"
 
 import {Wrapper, Title, Main, Tabs, Tab, Pages, Page} from "./styles";
@@ -16,7 +18,7 @@ export default function SelectTradeItem(props){
   return (<CSSTransition in={tradeContext.activeItem.dialog} timeout={200} classNames="pop">
     <Wrapper> 
       <Title>
-        <div>{tradeContext.activeItem.item}</div>
+        <div className="trade-item">{tradeContext.activeItem.item}</div>
         <div className="clear-icon" onClick={tradeContext.close}><MdClear/></div>
       </Title>
       <Main>
@@ -33,12 +35,12 @@ export default function SelectTradeItem(props){
           </CSSTransition>
           <CSSTransition in={tabs.forex} timeout={100} classNames="slide-up">
             <Page show={tabs.forex}>
-              Forex
+              <Forex/>
             </Page>
           </CSSTransition>
           <CSSTransition in={tabs.currencies} timeout={100} classNames="slide-up">
             <Page show={tabs.currencies}>
-              Currencies
+              <CryptoCurrencies/>
             </Page>
           </CSSTransition>
         </Pages>

@@ -12,17 +12,21 @@ border-radius:10px;
 
 export const Title = styled.div`
 width:100%;
-height:40px;
-line-height:40px;
+height:50px;
+line-height:50px;
 font-size:1.6em;
 color:white;
 display:flex;
 justify-content:space-between;
 padding:0 0.5em;
+&>div.trade-item{
+  width:100px;
+  text-align:center;
+}
 &>div.clear-icon{
   color:#bdbdbd;
   &>svg{
-    height:40px;
+    height:50px;
   }
   &:hover{
     color:white;
