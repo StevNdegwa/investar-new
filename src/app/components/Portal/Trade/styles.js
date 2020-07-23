@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 
 export const Wrapper = styled.div`
 width: 100%;
@@ -38,4 +38,12 @@ cursor:pointer;
 &:hover{
   box-shadow:inset 0px 0px 2px #78909c;
 }
+`;
+
+export const Chart = styled.svg`
+width:100%;
+height:99%;
+background-color:white;
+display:inline-block;
+margin:0;
 `;

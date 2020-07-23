@@ -3,11 +3,10 @@ import PropTypes from "prop-types";
 
 import TradeItem from "../TradeItem";
 
-export default function Stocks({stocksList, getStocksList}){
+export default function Stocks({stocksList, getStocksList, setSelectedItem, selectetItem}){
   const [page, setPage] = React.useState("A");
   const [currList, setCurrList] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
-  const [activeStock, setActiveStock] = React.useState("");
   
   React.useEffect(()=>{
     loadStocksList(page);
@@ -22,7 +21,7 @@ export default function Stocks({stocksList, getStocksList}){
       
       setCurrList(list || []);
       
-      setActiveStock(list[0] && list[0].symbol);
+      setSelectedItem(list[0] && list[0].symbol);
       
       setLoading(false);
       
@@ -33,10 +32,12 @@ export default function Stocks({stocksList, getStocksList}){
     }
   }
   
-  return (<TradeItem loading={loading} currList={currList} selectPage={setPage} activeItem={activeStock}  setActiveItem={setActiveStock}/>);
+  return (<TradeItem loading={loading} currList={currList} selectPage={setPage} activeItem={selectetItem}  setActiveItem={setSelectedItem}/>);
 }
 
 Stocks.propTypes = {
   stocksList: PropTypes.object.isRequired,
-  getStocksList: PropTypes.func.isRequired
+  getStocksList: PropTypes.func.isRequired,
+  selectetItem: PropTypes.string.isRequired,
+  setSelectedItem: PropTypes.func.isRequired
 }

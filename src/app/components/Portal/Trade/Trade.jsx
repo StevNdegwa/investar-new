@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {MdChevronRight, MdExpandMore} from "react-icons/md";
-
+ 
 import DialogContainer from "../DialogContainer";
 import SelectTradeItem from "./SelectTradeItem";
-import {Wrapper, ToolBar, Tool} from "./styles";
+import ChartLoader from "./ChartLoader.jsx";
+import {Wrapper, ToolBar, Tool, Chart} from "./styles";
 
 import TradeContext from "./TradeContext";
 
@@ -24,15 +25,16 @@ export default function Trade(props){
     }
   }
   
-  return (<TradeContext.Provider value={
-          {
-            close:()=>setActiveItem({type:"CLOSE_DIALOG"}),
-            selectItem:(item)=>setActiveItem({type:"SET_ITEM", item}),
-            activeItem
-          }
-        }>
+  return (
+    <TradeContext.Provider value={
+        {
+          close:()=>setActiveItem({type:"CLOSE_DIALOG"}),
+          selectItem:(item)=>setActiveItem({type:"SET_ITEM", item}),
+          activeItem
+        }
+    }>
     <Wrapper>
-      <DialogContainer show={activeItem.dialog}>
+      <DialogContainer show={activeItem.dialog} close={()=>setActiveItem({type:"CLOSE_DIALOG"})}>
         <SelectTradeItem stocksList={props.stocksList} getStocksList={props.getStocksList}/>
       </DialogContainer>
       <ToolBar>
@@ -41,6 +43,9 @@ export default function Trade(props){
           <div className="icon"><MdExpandMore/></div>
         </Tool>
       </ToolBar>
+      <Chart>
+        <ChartLoader/>
+      </Chart>
     </Wrapper>
   </TradeContext.Provider>);
 }

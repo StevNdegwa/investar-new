@@ -1,4 +1,4 @@
-import styled, {keyframes} from "styled-components";
+import styled, {keyframes, css} from "styled-components";
 
 export const Wrapper = styled.div`
 width:600px;
@@ -50,18 +50,29 @@ justify-content:space-around;
 
 export const Tab = styled.div`
 height:100px;
-line-height:100px;
 color:white;
-font-size:1.3em;
-text-align:center;
+font-size:1.1em;
 cursor:pointer;
 border:1px outset #455a64;
 border-radius:0 5px 5px 0;
 transition:background-color 100ms;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+&>div.icon>svg{
+  height:20px;
+  width:20px;
+}
 &:hover{
   border:2px solid #78909c;
   background-color:#546e7a;
 }
+${({active})=>active && css`
+  border:2px solid #78909c;
+  background-color:#546e7a;
+`}
 `;
 
 export  const Pages = styled.div`
