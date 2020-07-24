@@ -4,8 +4,8 @@ import {MdChevronRight, MdExpandMore} from "react-icons/md";
  
 import DialogContainer from "../DialogContainer";
 import SelectTradeItem from "./SelectTradeItem";
-import ChartLoader from "./ChartLoader.jsx";
-import {Wrapper, ToolBar, Tool, Chart} from "./styles";
+import Chart from "./Chart";
+import {Wrapper, ToolBar, Tool} from "./styles";
 
 import TradeContext from "./TradeContext";
 
@@ -42,10 +42,13 @@ export default function Trade(props){
           <div>{activeItem.item}</div>
           <div className="icon"><MdExpandMore/></div>
         </Tool>
+        <Tool>
+          <button className="active">D</button>
+          <button>W</button>
+          <button>M</button>
+        </Tool>
       </ToolBar>
-      <Chart>
-        <ChartLoader/>
-      </Chart>
+      <Chart loading/>
     </Wrapper>
   </TradeContext.Provider>);
 }

@@ -30,7 +30,7 @@ color:#e0e0e0;
       width:100%;
       left:0px;
     }
-    background-color:#455a64;
+    background-color:#263238;
     border:none;
     border-left:1px solid #546e7a;
     padding:0 0.5em;

@@ -4,9 +4,9 @@ export const Wrapper = styled.div`
 width:600px;
 height:400px;
 overflow:hidden;
-box-shadow:0px opx 15px #37474f;
-background-color: #455a64;
-border:2px solid #37474f;
+box-shadow:0px opx 15px #263238;
+background-color: #263238;
+border:2px solid #263238;
 border-radius:10px;
 `;
 
