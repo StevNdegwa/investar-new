@@ -1,15 +1,13 @@
 import React from "react";
 
+import * as d3 from  "d3";
+
 import ChartLoader from "./ChartLoader.jsx";
 import {Wrapper} from "./styles";
 
-export default function Chart({loading}){
-  
-  if(loading){
-    return (<Wrapper><ChartLoader/></Wrapper>)
-  }
-  
+import TradeContext from  "../TradeContext";
+
+export default function Chart({stocksTimeseries, getStocksTimeseries}){
   return (<Wrapper>
-    
   </Wrapper>)
 }

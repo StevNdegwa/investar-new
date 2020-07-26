@@ -57,7 +57,7 @@ export default function Portal(props){
               <div>Help</div>
             </Route>
             <Route path="/" exact>
-              <Trade stocksList={props.stocksList} getStocksList={props.getStocksList}/>
+              <Trade stocksList={props.stocksList} getStocksList={props.getStocksList} stocksTimeseries={props.stocksTimeseries} getStocksTimeseries={props.getStocksTimeseries}/>
             </Route>
           </Switch>
         </div>
@@ -71,5 +71,7 @@ Portal.propTypes = {
   setUserLanguage:PropTypes.func.isRequired,
   stocksList: PropTypes.object.isRequired,
   getStocksList: PropTypes.func.isRequired,
-  demo: PropTypes.bool
+  demo: PropTypes.bool,
+  stocksTimeseries: PropTypes.object.isRequired,
+  getStocksTimeseries: PropTypes.func.isRequired
 }

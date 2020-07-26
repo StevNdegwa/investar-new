@@ -25,6 +25,7 @@ export default function Trade(props){
     }
   }
   
+  
   return (
     <TradeContext.Provider value={
         {
@@ -48,12 +49,14 @@ export default function Trade(props){
           <button>M</button>
         </Tool>
       </ToolBar>
-      <Chart loading/>
+      <Chart stocksTimeseries={props.stocksTimeseries} getStocksTimeseries={props.getStocksTimeseries}/>
     </Wrapper>
   </TradeContext.Provider>);
 }
 
 Trade.propTypes = {
   stocksList: PropTypes.object.isRequired,
-  getStocksList: PropTypes.func.isRequired
+  getStocksList: PropTypes.func.isRequired,
+  stocksTimeseries: PropTypes.object.isRequired,
+  getStocksTimeseries: PropTypes.func.isRequired
 }
