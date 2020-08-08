@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {MdChevronRight, MdExpandMore} from "react-icons/md";
+import {MdChevronRight, MdExpandMore, MdTune} from "react-icons/md";
  
 import DialogContainer from "../DialogContainer";
 import SelectTradeItem from "./SelectTradeItem";
+import SetLayout from "./SetLayout";
 import Chart from "./Chart";
 import {Wrapper, ToolBar, Tool} from "./styles";
 
@@ -12,33 +13,25 @@ import TradeContext from "./TradeContext";
 export default function Trade(props){
   const [activeItem, setActiveItem] = React.useReducer(activeItemReducer, {dialog:false, item:"A"});
   const [duration, setDuration]  = React.useState("DAILY");
-  
-  function activeItemReducer(state, action){
-    switch(action.type){
-      case "SET_ITEM":
-        return {dialog:false, item:action.item};
-      case "OPEN_DIALOG":
-        return {...state, dialog:true};
-      case "CLOSE_DIALOG":
-        return {...state, dialog:false};
-      default:
-        return state;
-    }
-  }
+  const [layout, setLayout] = React.useReducer(layoutReducer, {dialog:false, active:"S_V"})
   
   
   return (
-    <TradeContext.Provider value={
+    <TradeContext.Provider 
+      value={
         {
-          close:()=>setActiveItem({type:"CLOSE_DIALOG"}),
-          selectItem:(item)=>setActiveItem({type:"SET_ITEM", item}),
-          activeItem,
-          duration
+          activeItem: {...activeItem, setActiveItem},
+          duration,
+          layout: {...layout, setLayout}
         }
-    }>
+      }
+    >
     <Wrapper>
       <DialogContainer show={activeItem.dialog} close={()=>setActiveItem({type:"CLOSE_DIALOG"})}>
         <SelectTradeItem stocksList={props.stocksList} getStocksList={props.getStocksList}/>
+      </DialogContainer>
+      <DialogContainer show={layout.dialog} close={()=>setLayout({type:"CLOSE_DIALOG"})}>
+        <SetLayout/>
       </DialogContainer>
       <ToolBar>
         <Tool onClick={()=>setActiveItem({type:"OPEN_DIALOG"})}>
@@ -59,6 +52,9 @@ export default function Trade(props){
             onClick={()=>setDuration("MONTLY")}
           >M</button>
         </Tool>
+        <Tool onClick={()=>setLayout({type:"OPEN_DIALOG"})}>
+          <div className="icon"><MdTune/></div>
+        </Tool>
       </ToolBar>
       <Chart stocksTimeseries={props.stocksTimeseries} getStocksTimeseries={props.getStocksTimeseries}/>
     </Wrapper>
@@ -70,4 +66,30 @@ Trade.propTypes = {
   getStocksList: PropTypes.func.isRequired,
   stocksTimeseries: PropTypes.object.isRequired,
   getStocksTimeseries: PropTypes.func.isRequired
+}
+
+function activeItemReducer(state, action){
+  switch(action.type){
+    case "SET_ITEM":
+      return {dialog:false, item: action.item};
+    case "OPEN_DIALOG":
+      return {...state, dialog:true};
+    case "CLOSE_DIALOG":
+      return {...state, dialog:false};
+    default:
+      return state;
+  }
+}
+
+function layoutReducer(state, action){
+  switch(action.type){
+    case "SET_LAYOUT":
+      return {dialog: false, active: action.layout};
+    case "OPEN_DIALOG":
+      return {...state, dialog: true}
+    case "CLOSE_DIALOG":
+      return {...state, dialog: false};
+    default:
+      return state;
+  }
 }

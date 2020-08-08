@@ -14,14 +14,16 @@ import {Wrapper, Title, Main, Tabs, Tab, Pages, Page} from "./styles";
 export default function SelectTradeItem(props){
   const [tabs, setTabs] = React.useReducer(tabsReducer, {stocks:true, forex:false, currencies:false});
   let tradeContext = React.useContext(TradeContext);
-  const [selectetItem, setSelectedItem] = React.useState(tradeContext.activeItem.item);
+  const [selectedItem, setSelectedItem] = React.useState(tradeContext.activeItem.item);
   
   return (
     <CSSTransition in={tradeContext.activeItem.dialog} timeout={200} classNames="pop">
       <Wrapper> 
         <Title>
-          <div className="trade-item">{selectetItem}</div>
-          <div className="clear-icon" onClick={tradeContext.close}><MdClear/></div>
+          <div className="trade-item">{selectedItem}</div>
+          <div className="clear-icon" 
+            onClick={()=>tradeContext.activeItem.setActiveItem({type:"CLOSE_DIALOG"})}
+          ><MdClear/></div>
         </Title>
         <Main>
           <Tabs>
@@ -41,7 +43,7 @@ export default function SelectTradeItem(props){
           <Pages>
             <CSSTransition in={tabs.stocks} timeout={100} classNames="slide-up">
               <Page show={tabs.stocks}>
-                <Stocks setSelectedItem={setSelectedItem} stocksList={props.stocksList} getStocksList={props.getStocksList} selectetItem={selectetItem}/>
+                <Stocks setSelectedItem={setSelectedItem} stocksList={props.stocksList} getStocksList={props.getStocksList} selectedItem={selectedItem}/>
               </Page>
             </CSSTransition>
             <CSSTransition in={tabs.forex} timeout={100} classNames="slide-up">

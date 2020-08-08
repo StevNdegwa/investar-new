@@ -1,10 +1,8 @@
 import styled, {keyframes} from "styled-components";
 
-export const Wrapper = styled.svg`
+export const Wrapper = styled.div`
 width:100%;
-height:99%;
-display:inline-block;
-margin:0;
+height:100%;
 transform:translateZ(150px);
 `;
 
@@ -23,4 +21,10 @@ animation-duration:400ms;
 animation-direction:alternate-reverse;
 animation-iteration-count:infinite;
 animation-timing-function:linear;
+`;
+
+export const Section = styled.section`
+width: 100%;
+height:${({height})=>!!height ? height : "100%"};
+border-bottom:4px solid #263238;
 `;

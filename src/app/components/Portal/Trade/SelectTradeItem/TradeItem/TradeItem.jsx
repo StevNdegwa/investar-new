@@ -8,7 +8,6 @@ import SearchBar from "../SearchBar";
 import TradeContext from "../../TradeContext";
 import {Wrapper,Controls, List, Item, Apply} from "./styles";
 
-
 let letters = Array(26).fill(65).map((p, idx)=>(String.fromCodePoint(p + idx)));
 
 export default function TradeItem({currList, selectPage, loading, activeItem, setActiveItem}){
@@ -21,7 +20,7 @@ export default function TradeItem({currList, selectPage, loading, activeItem, se
   }
   
   function applyChanges(){
-    tradeContext.selectItem(activeItem)
+    tradeContext.activeItem.setActiveItem({type:"SET_ITEM", item:activeItem})
   }
   
   return (<Wrapper>
