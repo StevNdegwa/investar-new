@@ -3,8 +3,9 @@ import ReactDom from "react-dom";
 import {Link} from "react-router-dom";
 import {CSSTransition} from "react-transition-group";
 import {AiOutlineClose} from "react-icons/ai";
+import {FaCcMastercard, FaCcPaypal, FaCcVisa} from "react-icons/fa";
 
-import {Wrapper, Dir, Subdir} from "./styles";
+import {Wrapper, Dir, Subdir, Header, Main, Footer} from "./styles";
 
 const Menu = React.forwardRef(({closeMenu, showMenu}, ref)=>{
   const [dir, setDir] = React.useState("home");
@@ -12,8 +13,8 @@ const Menu = React.forwardRef(({closeMenu, showMenu}, ref)=>{
   return ReactDom.createPortal(
     <CSSTransition in={showMenu} timeout={200} classNames="fade">
       <Wrapper show={showMenu} ref={ref}>
-        <div><span onClick={closeMenu}><AiOutlineClose size="2em" color="white"/></span></div>
-        <section>
+        <Header><span onClick={closeMenu}><AiOutlineClose size="2em" color="white"/></span></Header>
+        <Main>
           <Dir>
             <li onClick={()=>{setDir("home"); closeMenu()}} className={`${dir === "home" && "active"}`}><Link to="/">Home</Link></li>
             <li onClick={()=>setDir("trading")} className={`${dir === "trading" && "active"}`}>Trading</li>
@@ -50,7 +51,12 @@ const Menu = React.forwardRef(({closeMenu, showMenu}, ref)=>{
               </Subdir>
             </CSSTransition>
           </div>
-        </section>
+        </Main>
+        <Footer>
+          <FaCcMastercard/>
+          <FaCcPaypal/>
+          <FaCcVisa/>
+        </Footer>
       </Wrapper>
     </CSSTransition>,
     document.getElementById("root"));

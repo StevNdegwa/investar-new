@@ -15,8 +15,6 @@ import reducer from "./features/reducer";
 const reduxStore = configureStore({reducer})
 
 export default function App(){
-  const [user, setUser] = React.useState({})
-
   return (<Provider store={reduxStore}>
     <UserContext.Provider value={{translate:(language, text)=>getText(language, text)}}>
     <IconContext.Provider value={{className:"ip-icons"}}>
@@ -25,7 +23,7 @@ export default function App(){
           <Route path="/app">
             {(renderParams, t)=>{
               let queries = new URLSearchParams(renderParams.location.search);
-              return <PortalView user={user} demo={Boolean(queries.get("demo") === "true")}/>
+              return <PortalView  demo={Boolean(queries.get("demo") === "true")}/>
             }}
           </Route>
           <Route path="/">

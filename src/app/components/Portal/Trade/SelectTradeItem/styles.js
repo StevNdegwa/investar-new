@@ -67,11 +67,11 @@ text-align:center;
 }
 &:hover{
   border:2px solid #78909c;
-  background-color:#546e7a;
+  background-color:#455a64;
 }
 ${({active})=>active && css`
   border:2px solid #78909c;
-  background-color:#546e7a;
+  background-color:#455a64;
 `}
 `;
 

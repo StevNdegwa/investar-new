@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {MdNavigateNext, MdNavigateBefore, MdFirstPage, MdLastPage, MdMoreHoriz} from "react-icons/md";
+import {MdNavigateNext, MdNavigateBefore, MdFirstPage, MdLastPage} from "react-icons/md";
 import {Wrapper, Button} from "./styles";
 
 const Pagination = ({pages, selectPage})=>{

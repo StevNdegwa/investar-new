@@ -8,52 +8,23 @@ import {Wrapper} from "./styles";
 import TradeContext from  "../TradeContext";
 
 export default function Chart({stocksTimeseries, getStocksTimeseries}){
-  const [loading, setLoading] = React.useState(true);
-  const [dataset, setDataset] = React.useState([]);
   
   let tradeContext = React.useContext(TradeContext);
   
-  let margin = 40;
-  
-  let chart = React.useRef();
-  
   React.useEffect(()=>{
-    
-    loadData();
-  }, [tradeContext.activeItem.item]);
+    loadData()  
+  }, []);
   
   async function loadData(){
-    setLoading(true)
-      
     try{
-     
-      let data = await getStocksTimeseries("DAILY", tradeContext.activeItem.item);
-      console.log(data)
-      setDataset(data);
-      createChart(data);
-      setLoading(false);
+      
+      let data = await getStocksTimeseries(tradeContext.duration, tradeContext.activeItem.item);
       
     }catch(error){
-      
+      console.log(error)
     }
   }
   
-  function createChart(dataset){
-    let width = chart.current.width.baseVal.value,
-        height = chart.current.height.baseVal.value,
-        horzScale = d3.scaleUtc(d3.extent(dataset, (d)=>d.date), [0, width-80]),
-        vertScale =  d3.scaleLinear([d3.min(dataset, (d)=>d.low), d3.max(dataset, (d)=>d.high)], [height-80, 0]),
-        area = d3.line().x((d)=>horzScale(d.date)).y0((d)=>0).y1((d)=>vertScale(d.close))
-        
-        
-        console.log(d3.min(dataset, (d)=>d.low))
-        
-    d3.select(chart.current).select(".chart").append("p").datum(dataset).attr("d", area).attr("stroke", "steelblue")
-    .attr("stroke-width", "1.5");
-  }
-  
-  return (<Wrapper ref={chart}>
-    {loading && <ChartLoader/>}
-    <g className="chart" transform={`translate(${margin}, ${margin})`} stroke="steelblue"></g>
+  return (<Wrapper>
   </Wrapper>)
 }

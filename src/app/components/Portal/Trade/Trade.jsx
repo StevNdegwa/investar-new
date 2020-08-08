@@ -11,6 +11,7 @@ import TradeContext from "./TradeContext";
 
 export default function Trade(props){
   const [activeItem, setActiveItem] = React.useReducer(activeItemReducer, {dialog:false, item:"A"});
+  const [duration, setDuration]  = React.useState("DAILY");
   
   function activeItemReducer(state, action){
     switch(action.type){
@@ -31,7 +32,8 @@ export default function Trade(props){
         {
           close:()=>setActiveItem({type:"CLOSE_DIALOG"}),
           selectItem:(item)=>setActiveItem({type:"SET_ITEM", item}),
-          activeItem
+          activeItem,
+          duration
         }
     }>
     <Wrapper>
@@ -44,9 +46,18 @@ export default function Trade(props){
           <div className="icon"><MdExpandMore/></div>
         </Tool>
         <Tool>
-          <button className="active">D</button>
-          <button>W</button>
-          <button>M</button>
+          <button 
+            className={`${(duration === "DAILY") && "active"}`} 
+            onClick={()=>setDuration("DAILY")}
+          >D</button>
+          <button 
+            className={`${(duration === "WEEKLY") && "active"}`} 
+            onClick={()=>setDuration("WEEKLY")}
+          >W</button>
+          <button 
+            className={`${(duration === "MONTLY") && "active"}`}
+            onClick={()=>setDuration("MONTLY")}
+          >M</button>
         </Tool>
       </ToolBar>
       <Chart stocksTimeseries={props.stocksTimeseries} getStocksTimeseries={props.getStocksTimeseries}/>

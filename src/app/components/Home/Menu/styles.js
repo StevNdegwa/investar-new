@@ -125,3 +125,24 @@ font-size:1.5em;
   font-size:1em;
 }
 `;
+
+export const Header = styled.div`
+width:100%;
+height:50px;
+`;
+
+export const Main = styled.section`
+height:calc(100% - 100px);
+`;
+
+export const Footer  = styled.div`
+height:50px;
+width:100%;
+text-align:center;
+color:#e0e0e0;
+&>svg{
+  height:50px;
+  width:40px;
+  margin:0 3px;
+}
+`;
