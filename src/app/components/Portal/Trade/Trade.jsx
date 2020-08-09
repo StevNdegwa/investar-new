@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {MdChevronRight, MdExpandMore, MdTune} from "react-icons/md";
+import {MdChevronRight, MdExpandMore, MdTune, MdZoomOutMap} from "react-icons/md";
+ 
+import {select} from "d3-selection";
+import {zoom, zoomIdentity} from "d3-zoom";
  
 import DialogContainer from "../DialogContainer";
 import SelectTradeItem from "./SelectTradeItem";
@@ -12,8 +15,8 @@ import TradeContext from "./TradeContext";
 
 export default function Trade(props){
   const [activeItem, setActiveItem] = React.useReducer(activeItemReducer, {dialog:false, item:"A"});
+  const [layout, setLayout] = React.useReducer(layoutReducer, {dialog:false, active:"S_V"});
   const [duration, setDuration]  = React.useState("DAILY");
-  const [layout, setLayout] = React.useReducer(layoutReducer, {dialog:false, active:"S_V"})
   
   
   return (
@@ -54,6 +57,9 @@ export default function Trade(props){
         </Tool>
         <Tool onClick={()=>setLayout({type:"OPEN_DIALOG"})}>
           <div className="icon"><MdTune/></div>
+        </Tool>
+        <Tool>
+          <div className="icon"><MdZoomOutMap/></div>
         </Tool>
       </ToolBar>
       <Chart stocksTimeseries={props.stocksTimeseries} getStocksTimeseries={props.getStocksTimeseries}/>

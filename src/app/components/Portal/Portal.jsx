@@ -9,6 +9,7 @@ import Sidenav from "./Sidenav";
 import Languages from "../Languages";
 import DialogContainer from "./DialogContainer";
 import ConfirmExit from "./ConfirmExit";
+import ErrorBoundary from "./ErrorBoundary";
 import Trade from "./Trade";
 
 export default function Portal(props){
@@ -57,7 +58,13 @@ export default function Portal(props){
               <div>Help</div>
             </Route>
             <Route path="/" exact>
-              <Trade stocksList={props.stocksList} getStocksList={props.getStocksList} stocksTimeseries={props.stocksTimeseries} getStocksTimeseries={props.getStocksTimeseries}/>
+              <ErrorBoundary>
+                <Trade 
+                  stocksList={props.stocksList} 
+                  getStocksList={props.getStocksList} 
+                  stocksTimeseries={props.stocksTimeseries} 
+                  getStocksTimeseries={props.getStocksTimeseries}/>
+              </ErrorBoundary>
             </Route>
           </Switch>
         </div>

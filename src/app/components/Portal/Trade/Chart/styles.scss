@@ -1,0 +1,46 @@
+svg.chart{
+  cursor:pointer;
+  & #bg-grid{
+    stroke:#fafafa;
+    stroke-width:0.1;
+  }
+
+  & .indicator{
+    stroke:white;
+    stroke-width:0.3;
+  }
+  
+  & > rect.zoombase{
+    width:100%;
+    height:100%;
+    fill:url(#bg-grid);
+  }
+  
+  & text{
+    fill:white;
+  }
+  
+  & g.axis{
+    & .domain{
+      stroke:none;
+    }
+    & .tick line{
+      stroke:white;
+    }
+  }
+  
+  &.timeseries{
+    width:100%;
+    height:100%;
+    & > g.canvas-group{
+      & > g.candlesticks-group > g.candlestick{
+        & > rect.body{
+          width:10;
+        }
+        & > line.wick{
+          stroke-width:1;
+        }
+      }
+    }
+  }
+}

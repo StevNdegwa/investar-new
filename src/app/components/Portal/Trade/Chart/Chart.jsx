@@ -1,15 +1,14 @@
 import React from "react";
 import {CSSTransition} from "react-transition-group";
 
-import * as d3 from  "d3";
+import "./styles.scss";
 
 import ChartLoader from "./ChartLoader.jsx";
 import Timeseries from "./Timeseries";
 import Volume from "./Volume";
 import TradeContext from  "../TradeContext";
 
-import {Wrapper, Section} from "./styles";
-
+import {Wrapper, Spinner, Section, ErrorInfo} from "./styles";
 
 export default function Chart({stocksTimeseries, getStocksTimeseries}){
   const [dataset, setDataset] = React.useState([]);
@@ -41,39 +40,54 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
     }
   }
   
+  if(loading){
+    return (<Wrapper>
+      <Spinner><div></div></Spinner>
+    </Wrapper>)
+  }else if(error.error){
+    return (<Wrapper>
+      <ErrorInfo>
+        <div>
+          <div className="message">{error.message}</div>
+          <div className="action"><button onClick={()=>loadData()}>Reload</button></div>
+        </div>
+      </ErrorInfo>
+    </Wrapper>)
+  }
+  
   switch(tradeContext.layout.active){
     case "S_V":
       return (
         <CSSTransition timeout={200} classNames="fade" in={true}>
           <Wrapper>
             <Section height="70%">
-              <Timeseries/>
+              <Timeseries layout="S_V" dataset={dataset || []}/>
             </Section>
-            <Section height="30%">
+            <Section height="30%" dataset={dataset || []}>
               <Volume/>
             </Section>
           </Wrapper>
         </CSSTransition>
-      )
+      );
     case "S":
       return (
         <CSSTransition timeout={200} classNames="fade" in={true}>
           <Wrapper>
             <Section>
-              <Timeseries/>
+              <Timeseries layout="S" dataset={dataset || []}/>
             </Section>
           </Wrapper>
         </CSSTransition>
-      )
+      );
     default:
       return (
         <CSSTransition timeout={200} classNames="fade" in={true}>
           <Wrapper>
             <Section>
-              <Timeseries/>
+              <Timeseries layout="S" dataset={dataset || []}/>
             </Section>
           </Wrapper>
         </CSSTransition>
-      )
+      );
   }
 }

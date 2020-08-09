@@ -37,7 +37,7 @@ transition:border-left 200ms, background-color 200ms;
   color:#cfd8dc;
 }
 &.selected{
-  background-color:#546e7a;
+  background-color:#000033;
   border-left:4px solid #29b6f6;
   &>div.icon{
     color:#29b6f6;
