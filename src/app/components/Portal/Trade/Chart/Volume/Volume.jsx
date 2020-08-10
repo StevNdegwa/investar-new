@@ -1,18 +1,37 @@
 import React from "react";
 
-import {mouse} from "d3-selection";
+import initChart from "./initChart";
+import {Graph, VertAxis, HorzAxis, Wrapper} from "./styles";
 
-export default function Volume(){
+export default function Volume({dataset}){
+  
+  React.useEffect(()=>{
+    initChart(dataset);
+    return function(){
+      
+    }
+  })
+  
   return (
-    <svg width="100%" height="100%">
-      <defs>
-        <pattern id="bg-grid" width="100" height="150" patternUnits="userSpaceOnUse">
-          <line x1="0" y1="75" x2="100" y2="75"/>
-          <line x1="50" y1="0" x2="50" y2="150"/>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#bg-grid)"/>
-      <text dy="1em">Volume Chart</text>
-    </svg>
+    <Wrapper className="volume">
+      <Graph>
+        <svg className="chart volume">
+          <rect className="zoombase" width="100%" height="100%" pointerEvents="all"/>
+          <line className="indicator x" x1="0" y1="0" x2="100%" y2="0" pointerEvents="none"/>
+          <line className="indicator y" x1="0" y1="0" x2="0" y2="100%" pointerEvents="none"/>
+          <g className="graph"></g>
+        </svg>
+      </Graph>
+      <VertAxis>
+        <svg className="axis y">
+          <g></g>
+        </svg>
+      </VertAxis>
+      <HorzAxis>
+        <svg className="axis x">
+          <g></g>
+        </svg>
+      </HorzAxis>
+    </Wrapper>
   );
 }

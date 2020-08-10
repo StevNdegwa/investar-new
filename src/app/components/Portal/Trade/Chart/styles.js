@@ -30,11 +30,25 @@ border-bottom:4px solid #263238;
 `;
 
 const spinnerAnim = keyframes`
-from{
+0%{
   transform: rotate(0deg);
+  border-top:3px solid #1976d2;
 }
-to{
+25%{
+  transform: rotate(90deg);
+  border-right:3px solid #1976d2;
+}
+50%{
+  transform: rotate(180deg);
+  border-bottom:3px solid #1976d2;
+}
+75%{
+  transform: rotate(270deg);
+  border-left:3px solid #1976d2;
+}
+100%{
   transform: rotate(360deg);
+  border:3px solid #1976d2;
 }
 `
 
@@ -45,14 +59,11 @@ display:flex;
 justify-content:center;
 align-items:center;
 &>div{
-  height:150px;
-  width:150px;
-  border:none;
-  border-top:5px solid #1976d2;
-  border-right:5px solid #1976d2;
+  height:100px;
+  width:100px;
   border-radius:50%;
   animation-name:${spinnerAnim};
-  animation-duration:700ms;
+  animation-duration:2s;
   animation-iteration-count:infinite;
   animation-timing-function:linear;
 }
@@ -70,6 +81,7 @@ align-items:center;
 & div.message{
   color:red;
   font-size:1.3em;
+  line-height:50px;
 }
 & div.action>button{
   width:80px;

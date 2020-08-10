@@ -36,7 +36,7 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
       
     }catch(error){
       setLoading(false);
-      setError({error:true, message:"Application Error"})
+      setError({error:true, message:"Application error"})
     }
   }
   
@@ -64,7 +64,7 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
               <Timeseries layout="S_V" dataset={dataset || []}/>
             </Section>
             <Section height="30%" dataset={dataset || []}>
-              <Volume/>
+              <Volume dataset={dataset || []}/>
             </Section>
           </Wrapper>
         </CSSTransition>

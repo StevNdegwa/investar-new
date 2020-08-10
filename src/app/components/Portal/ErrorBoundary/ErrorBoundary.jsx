@@ -1,5 +1,7 @@
 import React from "react";
 
+import {Wrapper, Info} from "./styles";
+
 class ErrorBoundary extends React.Component{
   constructor(props){
     super(props);
@@ -13,9 +15,13 @@ class ErrorBoundary extends React.Component{
   render(){
     if(this.state.error){
       
-      return (<div>
-        Application error
-      </div>)
+      return (<Wrapper>
+        <Info>
+          <div className="message">
+            Application error
+          </div>
+        </Info>
+      </Wrapper>)
       
     }else{
       

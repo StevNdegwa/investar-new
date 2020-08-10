@@ -1,16 +1,19 @@
 svg.chart{
   cursor:pointer;
+  width:100%;
+  height:100%;
   & #bg-grid{
     stroke:#fafafa;
     stroke-width:0.1;
   }
 
   & .indicator{
-    stroke:white;
+    stroke:#FFFF00;
+    stroke-opacity:1;
     stroke-width:0.3;
   }
   
-  & > rect.zoombase{
+  & > rect.zoombase, > rect.bg{
     width:100%;
     height:100%;
     fill:url(#bg-grid);
@@ -20,27 +23,27 @@ svg.chart{
     fill:white;
   }
   
-  & g.axis{
-    & .domain{
-      stroke:none;
-    }
-    & .tick line{
-      stroke:white;
+  &.volume{
+    & rect.bar{
+      fill:red;
     }
   }
-  
-  &.timeseries{
-    width:100%;
-    height:100%;
-    & > g.canvas-group{
-      & > g.candlesticks-group > g.candlestick{
-        & > rect.body{
-          width:10;
-        }
-        & > line.wick{
-          stroke-width:1;
-        }
-      }
-    }
+}
+
+svg.axis{
+  width:100%;
+  height:100%;
+  cursor:pointer;
+  &>rect.bg{
+    fill:url(#bg-grid);
+  }
+  & .domain{
+    stroke:none;
+  }
+  & .tick line{
+    stroke:white;
+  }
+  & .tick text{
+    fill:white;
   }
 }
