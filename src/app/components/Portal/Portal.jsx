@@ -12,6 +12,7 @@ import DialogContainer from "./DialogContainer";
 import ConfirmExit from "./ConfirmExit";
 import ErrorBoundary from "./ErrorBoundary";
 import Trade from "./Trade";
+import Help from "./Help";
 import Sidebar from "./Sidebar";
 
 export default function Portal(props){
@@ -61,7 +62,7 @@ export default function Portal(props){
               <div>Education</div>
             </Route>
             <Route path="/info">
-              <div>Help</div>
+              <Help/>
             </Route>
             <Route path="/" exact>
               <ErrorBoundary>

@@ -1,17 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {MdZoomIn, MdZoomOut, MdZoomOutMap} from "react-icons/md";
 
-import initChart from "./initChart";
-import {Wrapper, Graph, VertAxis, HorzAxis} from "./styles";
+import InitChart from "./initChart";
+import {Wrapper, Graph, VertAxis, HorzAxis, ToolBar, Tool} from "./styles";
 
 export default function Timeseries({layout, dataset}){
+  const [chart, setChart] = React.useState(()=>(new InitChart()))
   
   React.useEffect(()=>{
-    initChart(dataset);
+    chart.draw(dataset);
   }, [dataset, layout])
+  
   
   return (<Wrapper className="timeseries">
     <Graph>
+      <ToolBar className="level-300">
+        <Tool onClick={()=>chart.zoomChart("ZOOM_OUT")}>
+          <div className="icon"><MdZoomOut/></div>
+        </Tool>
+        <Tool onClick={()=>chart.zoomChart("UNZOOM")}>
+          <div className="icon"><MdZoomOutMap/></div>
+        </Tool>
+        <Tool onClick={()=>chart.zoomChart("ZOOM_IN")}>
+          <div className="icon"><MdZoomIn/></div>
+        </Tool>
+      </ToolBar>
       <svg className="chart timeseries">
         <defs>
           <pattern id="bg-grid" width="100" height="150" patternUnits="userSpaceOnUse">

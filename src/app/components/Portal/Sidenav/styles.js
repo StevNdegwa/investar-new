@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 import {NavLink} from "react-router-dom";
 
@@ -37,7 +37,7 @@ transition:border-left 200ms, background-color 200ms;
   color:#cfd8dc;
 }
 &.selected{
-  background-color:#000033;
+  background-color:#455a64;
   border-left:4px solid #29b6f6;
   &>div.icon{
     color:#29b6f6;
@@ -46,6 +46,11 @@ transition:border-left 200ms, background-color 200ms;
     color:white;
   }
 }
+${({trade})=>trade && css`
+&.selected{
+  background-color:#000033 !important;
+}
+`}
 `;
 
 export const Action = styled.div`

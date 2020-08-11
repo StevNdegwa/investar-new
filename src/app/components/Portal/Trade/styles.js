@@ -3,15 +3,14 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
 width: 100%;
 height: 100%;
-background-color: transparent;
+background-color:#000033;
 position: relative;
 `;
 
 export const ToolBar = styled.div`
 position: absolute;
-top: 50px;
-left: 50px;
-z-index:250;
+top: 40px;
+left: 40px;
 height: 50px;
 border-radius:5px;
 border:1px solid #78909c;
