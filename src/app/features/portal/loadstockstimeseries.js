@@ -9,7 +9,7 @@ export function daily(stockSymbol){
     
     if(data){
       
-      dispatch(stocksTimeseriesSlice.actions.setData({data, period:"daily"}))
+      dispatch(stocksTimeseriesSlice.actions.setData({data, duration:"DAILY"}))
       
       return data;
       
@@ -30,7 +30,7 @@ export function weekly(stockSymbol){
     
     if(data){
       
-      dispatch(stocksTimeseriesSlice.actions.setData({data, period:"weekly"}))
+      dispatch(stocksTimeseriesSlice.actions.setData({data, duration:"WEEKLY"}))
       
       return data;
       
@@ -52,7 +52,7 @@ export function monthly(stockSymbol){
     
     if(data){
       
-      dispatch(stocksTimeseriesSlice.actions.setData({data, period:"monthly"}))
+      dispatch(stocksTimeseriesSlice.actions.setData({data, duration:"MONTHLY"}))
       
       return data;
       

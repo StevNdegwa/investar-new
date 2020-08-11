@@ -18,7 +18,7 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
   
   React.useEffect(()=>{
     loadData()
-  }, []);
+  }, [tradeContext.duration, tradeContext.activeItem.item]);
   
   async function loadData(){
     setLoading(true);
@@ -58,20 +58,20 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
   switch(tradeContext.layout.active){
     case "S_V":
       return (
-        <CSSTransition timeout={200} classNames="fade" in={true}>
-          <Wrapper>
+        <Wrapper>
             <Section height="70%">
               <Timeseries layout="S_V" dataset={dataset || []}/>
             </Section>
-            <Section height="30%" dataset={dataset || []}>
-              <Volume dataset={dataset || []}/>
-            </Section>
+            <CSSTransition timeout={100} classNames="slide-up" in={true}>
+              <Section height="30%" dataset={dataset || []}>
+                <Volume dataset={dataset || []}/>
+              </Section>
+            </CSSTransition>
           </Wrapper>
-        </CSSTransition>
       );
     case "S":
       return (
-        <CSSTransition timeout={200} classNames="fade" in={true}>
+        <CSSTransition timeout={100} classNames="fade" in={true}>
           <Wrapper>
             <Section>
               <Timeseries layout="S" dataset={dataset || []}/>
@@ -81,7 +81,7 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
       );
     default:
       return (
-        <CSSTransition timeout={200} classNames="fade" in={true}>
+        <CSSTransition timeout={100} classNames="fade" in={true}>
           <Wrapper>
             <Section>
               <Timeseries layout="S" dataset={dataset || []}/>

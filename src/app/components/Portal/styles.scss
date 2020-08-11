@@ -5,12 +5,21 @@ div#portal{
   flex-direction:column;
   &>div#header{
     height:50px;
-    padding:0.2em;
     @include paint(#263238);
     display:flex;
     justify-content:space-between;
     &>div{
       display:flex;
+      & div.icon{
+          height:100%;
+          width:60px;
+          color:#29b6f6;
+          text-align:center;
+          &>svg{
+            height:40px;
+            width:50px;
+          }
+      }
     }
     & div#logo{
       width:70px;
@@ -35,6 +44,12 @@ div#portal{
     &>div#space{
       width:100%;
       position:relative;
+    }
+    &>div#sidebar{
+      width:60px;
+      height:100%;
+      background-color:#263238;
+      border-left:1px outset #263238;
     }
   }
   & .level-100{

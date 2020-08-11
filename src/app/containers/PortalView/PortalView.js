@@ -2,6 +2,7 @@ import {connect} from "react-redux";
 
 import Portal from "../../components/Portal";
 import languageSlice from "../../features/general/languageSlice";
+import stocksTimeseriesSlice from "../../features/portal/stocksTimeseriesSlice";
 import loadStocksSearch from "../../features/portal/loadstockssearch";
 import {daily, weekly, monthly} from "../../features/portal/loadstockstimeseries";
 
@@ -17,8 +18,8 @@ function matchDispatchToProps(dispatch){
   return {
     setUserLanguage:(language)=>dispatch(languageSlice.actions.changeLanguage(language)),
     getStocksList: (search)=>dispatch(loadStocksSearch(search)),
-    getStocksTimeseries: (period, stockSymbol)=>{
-      switch(period){
+    getStocksTimeseries: (duration, stockSymbol)=>{
+      switch(duration){
         case "DAILY":
           return dispatch(daily(stockSymbol));
         case "WEEKLY":
@@ -28,7 +29,8 @@ function matchDispatchToProps(dispatch){
         default:
           return dispatch(daily(stockSymbol));
       }
-    }
+    },
+    clearStocksTimeseries:()=>dispatch(stocksTimeseriesSlice.actions.clearData())
   }
 }
 

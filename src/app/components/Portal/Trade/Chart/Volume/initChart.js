@@ -6,21 +6,22 @@ import {max} from "d3-array";
 import {format} from "d3-format";
 
 export default function initChart(dataset){
-  let bbox, //bounding box
-    horzDist, //Full horizontal distance
+  let horzDist, //Full horizontal distance
     vertScale, //Vertical scale
     horzScale, //Horizontal scale
     vertAxis, //Vertical axis
     chartZoom, //Zoom behavior
     numFormat; //Number format function
   
-  bbox = select("svg.chart.volume").node().getBBox();
+  //Get the chart dimensions
+  let {x, y, width, height, top, right, bottom, left} = select("div.volume svg.chart.volume").node().getBoundingClientRect();
+  
   horzDist = dataset.length * 5;
   
   //Scale functions
   vertScale = scaleLinear()
   .domain([0, max(dataset, (d)=>d.volume)])
-  .range([bbox.height, 0]);
+  .range([height, 0]);
   horzScale = scaleBand(dataset.map((d)=>d.date).reverse(), [0, horzDist]).padding(0.1);
   
   numFormat = format(" ,");
@@ -29,7 +30,9 @@ export default function initChart(dataset){
   vertAxis = axisRight(vertScale);
   
   //Zoom behavior
-  chartZoom = zoom().scaleExtent([1, 1])
+  chartZoom = zoom()
+  .scaleExtent([1, 1]) //Limit the  zoom scaling
+  .translateExtent([[0, 0], [horzDist, height]])//Limit the zoom translation
   .on("zoom", function(){
     let transform = event.transform;
     transform.y = 1;
@@ -42,7 +45,7 @@ export default function initChart(dataset){
   .join("rect")
   .classed("bar", true)
   .attr("width", horzScale.bandwidth())
-  .attr("height", (d)=>(bbox.height - vertScale(d.volume)))
+  .attr("height", (d)=>(height - vertScale(d.volume)))
   .attr("x", (d)=>horzScale(d.date))
   .attr("y", (d)=>vertScale(d.volume))
   .append("title")
@@ -53,7 +56,7 @@ export default function initChart(dataset){
   select("div.volume svg.axis.y > g").call(vertAxis);
   
   select("div.volume svg.chart.volume > rect.zoombase")
-  .call(chartZoom.transform, zoomIdentity.translate((bbox.width - horzDist), 0))
+  .call(chartZoom.transform, zoomIdentity.translate((width - horzDist), 0))
   .call(chartZoom)
   .on("mousemove", function(){
     let [x, y] = mouse(this);

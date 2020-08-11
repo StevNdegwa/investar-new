@@ -2,13 +2,14 @@ import {createSlice} from  "@reduxjs/toolkit";
 
 const stocksTimeseriesSlice  =  createSlice({
   name:"stocksTimeseries",
-  initialState:{daily:[], weekly:[], monthly:[]},
+  initialState:{DAILY:[], WEEKLY:[], MONTHLY:[]},
   reducers:{
     setData(state, action){
-      
-      state[action.payload.period] = action.payload.data || [];
-      
+      state[action.payload.duration] = action.payload.data || [];
       return state;
+    },
+    clearData(state, action){
+      return {DAILY:[], WEEKLY:[], MONTHLY:[]};
     }
   }
 })

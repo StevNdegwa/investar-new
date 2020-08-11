@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {AiOutlineMenu,AiFillMessage,AiOutlineGlobal} from "react-icons/ai";
+import {MdMenu, MdClear} from "react-icons/md";
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 
 import './styles.scss';
@@ -63,7 +64,9 @@ export default function Portal(props){
                   stocksList={props.stocksList} 
                   getStocksList={props.getStocksList} 
                   stocksTimeseries={props.stocksTimeseries} 
-                  getStocksTimeseries={props.getStocksTimeseries}/>
+                  getStocksTimeseries={props.getStocksTimeseries}
+                  clearStocksTimeseries={props.clearStocksTimeseries}
+                  />
               </ErrorBoundary>
             </Route>
           </Switch>
@@ -80,5 +83,6 @@ Portal.propTypes = {
   getStocksList: PropTypes.func.isRequired,
   demo: PropTypes.bool,
   stocksTimeseries: PropTypes.object.isRequired,
-  getStocksTimeseries: PropTypes.func.isRequired
+  getStocksTimeseries: PropTypes.func.isRequired,
+  clearStocksTimeseries: PropTypes.func.isRequired
 }

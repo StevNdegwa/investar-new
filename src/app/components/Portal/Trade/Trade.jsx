@@ -31,7 +31,11 @@ export default function Trade(props){
     >
     <Wrapper>
       <DialogContainer show={activeItem.dialog} close={()=>setActiveItem({type:"CLOSE_DIALOG"})}>
-        <SelectTradeItem stocksList={props.stocksList} getStocksList={props.getStocksList}/>
+        <SelectTradeItem 
+          stocksList={props.stocksList} 
+          getStocksList={props.getStocksList}
+          clearStocksTimeseries={props.clearStocksTimeseries}
+          />
       </DialogContainer>
       <DialogContainer show={layout.dialog} close={()=>setLayout({type:"CLOSE_DIALOG"})}>
         <SetLayout/>
@@ -45,14 +49,17 @@ export default function Trade(props){
           <button 
             className={`${(duration === "DAILY") && "active"}`} 
             onClick={()=>setDuration("DAILY")}
+            title="Daily"
           >D</button>
           <button 
             className={`${(duration === "WEEKLY") && "active"}`} 
             onClick={()=>setDuration("WEEKLY")}
+            title="Weekly"
           >W</button>
           <button 
-            className={`${(duration === "MONTLY") && "active"}`}
-            onClick={()=>setDuration("MONTLY")}
+            className={`${(duration === "MONTHLY") && "active"}`}
+            onClick={()=>setDuration("MONTHLY")}
+            title="Monthly"
           >M</button>
         </Tool>
         <Tool onClick={()=>setLayout({type:"OPEN_DIALOG"})}>
@@ -71,7 +78,8 @@ Trade.propTypes = {
   stocksList: PropTypes.object.isRequired,
   getStocksList: PropTypes.func.isRequired,
   stocksTimeseries: PropTypes.object.isRequired,
-  getStocksTimeseries: PropTypes.func.isRequired
+  getStocksTimeseries: PropTypes.func.isRequired,
+  clearStocksTimeseries: PropTypes.func.isRequired
 }
 
 function activeItemReducer(state, action){
