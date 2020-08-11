@@ -12,10 +12,12 @@ import DialogContainer from "./DialogContainer";
 import ConfirmExit from "./ConfirmExit";
 import ErrorBoundary from "./ErrorBoundary";
 import Trade from "./Trade";
+import Sidebar from "./Sidebar";
 
 export default function Portal(props){
   const [selectLanguage, setSelectLanguage] = React.useState(false);
   const [logOut, setLogOut] = React.useState({confirmed:false, dialog:false});
+  const [sidebar, setSidebar] = React.useState(false);
   
   if(logOut.confirmed){
     return <Redirect to="/"/>
@@ -29,6 +31,9 @@ export default function Portal(props){
       </div>
       <div className="lSide">
         {props.demo && <button className="o-r-a">Open Real Account</button>}
+        {<div className="icon" onClick={()=>setSidebar((s)=>!s)}>
+          {sidebar ? <MdClear/> : <MdMenu/>}
+        </div>}
       </div>
     </div>
     <div id="main">
@@ -71,6 +76,7 @@ export default function Portal(props){
             </Route>
           </Switch>
         </div>
+        <Sidebar open={sidebar}/>
       </Router>
     </div>
   </div>)

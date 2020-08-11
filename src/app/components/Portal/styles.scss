@@ -10,11 +10,15 @@ div#portal{
     justify-content:space-between;
     &>div{
       display:flex;
+      padding:0.2em 0;
       & div.icon{
           height:100%;
           width:60px;
           color:#29b6f6;
           text-align:center;
+          &:hover{
+            background-color:#37474f;
+          }
           &>svg{
             height:40px;
             width:50px;
@@ -29,6 +33,7 @@ div#portal{
       }
     }
   }
+  
   &>div#main{
     height:100%;
     display:flex;
@@ -49,7 +54,6 @@ div#portal{
       width:60px;
       height:100%;
       background-color:#263238;
-      border-left:1px outset #263238;
     }
   }
   & .level-100{
