@@ -6,7 +6,7 @@ import InitChart from "./initChart";
 import {Wrapper, Graph, VertAxis, HorzAxis, ToolBar, Tool} from "./styles";
 
 export default function Timeseries({layout, dataset}){
-  const [chart, setChart] = React.useState(()=>(new InitChart()))
+  const [chart] = React.useState(()=>(new InitChart()))
   
   React.useEffect(()=>{
     chart.draw(dataset);

@@ -5,7 +5,6 @@ import {mouse, select, event} from "d3-selection";
 import {extent, max, min} from "d3-array";
 import {format} from "d3-format";
 import {timeFormat} from "d3-time-format";
-import {transition} from "d3-transition";
 import {interpolateNumber} from "d3-interpolate"
 
 let numberFormat = format(" ,");
@@ -87,22 +86,24 @@ class InitChart{
     .scaleExtent([1, 8]) //Limit zoom scaling
     .on("zoom", function(){
       let transform = event.transform;
-    
+      
       let newHorzScale = transform.rescaleX(chart.horzLinearScale);
       chart.horzAxis.scale(newHorzScale);
       
       let newVertScale = transform.rescaleY(chart.vertScale);
       chart.vertAxis.scale(newVertScale);
       
-      select("div.timeseries svg.axis.y > g").transition().duration(300).call(chart.vertAxis);
-      select("div.timeseries svg.axis.x > g").transition().duration(300).call(chart.horzAxis);
       select("div.timeseries svg.chart.timeseries > g.graph")
       .transition().duration(300).attr("transform", transform);
+      
+      select("div.timeseries svg.axis.y > g").transition().duration(300).call(chart.vertAxis);
+      select("div.timeseries svg.axis.x > g").transition().duration(300).call(chart.horzAxis);
     })
     
     select("div.timeseries svg.chart.timeseries > .zoombase")
     .call(chart.chartZoom.transform, zoomIdentity.translate((width - chart.horzDist), 0))
     .call(chart.chartZoom)
+    .on("dblclick.zoom", null) //Prevent zoom on double click
     .on("mousemove", function(){
       let [x, y] = mouse(this);
     
@@ -117,7 +118,7 @@ class InitChart{
     switch(action){
       case "ZOOM_IN":
         //Can't scale over 4
-        if(chart.currentZoomLevel < 4){
+        if(chart.currentZoomLevel < 8){
           chart.chartZoom.scaleBy(zm, 2);
           chart.currentZoomLevel++;
         }

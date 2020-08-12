@@ -23,6 +23,12 @@ svg.chart{
     fill:white;
   }
   
+  &.timeseries{
+    & line.wick{
+      stroke-width:0.5;
+    }
+  }
+  
   &.volume{
     & rect.bar{
       fill:red;

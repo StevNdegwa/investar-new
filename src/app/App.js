@@ -2,7 +2,7 @@ import React from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom"; 
 import {IconContext} from "react-icons";
 
-import PortalView from "./containers/PortalView";
+import PortalLoader from "./components/PortalLoader";
 import HomeView from "./containers/HomeView";
 import UserContext from "./UserContext";
 
@@ -12,7 +12,9 @@ import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
 import reducer from "./features/reducer";
 
-const reduxStore = configureStore({reducer})
+const reduxStore = configureStore({reducer});
+
+const Portal = React.lazy(()=>import("./containers/PortalView"));
 
 export default function App(){
   return (<Provider store={reduxStore}>
@@ -23,7 +25,9 @@ export default function App(){
           <Route path="/app">
             {(renderParams, t)=>{
               let queries = new URLSearchParams(renderParams.location.search);
-              return <PortalView  demo={Boolean(queries.get("demo") === "true")}/>
+              return (<React.Suspense fallback={<PortalLoader/>}>
+                <Portal  demo={Boolean(queries.get("demo") === "true")}/>
+              </React.Suspense>)
             }}
           </Route>
           <Route path="/">

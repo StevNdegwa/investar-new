@@ -1,6 +1,6 @@
 import React from "react";
-
-import {Wrapper, Contacts, Message, Input, Textarea, Submit} from "./styles";
+import {MdHeadsetMic} from "react-icons/md";
+import {Wrapper, Contacts, Message, Input, Textarea, Submit, CallUs} from "./styles";
 
 export default function Help(){
   
@@ -10,7 +10,10 @@ export default function Help(){
   
   return (
     <Wrapper>
-      <Contacts></Contacts>
+      <Contacts>
+        <MdHeadsetMic/>
+        <CallUs>Call our support team</CallUs>
+      </Contacts>
       <Message onSubmit={handleMessageSubmit}>
         <Input type="text" placeholder="Your Name"/>
         <Input type="email" placeholder="Your email adress"/>

@@ -21,8 +21,10 @@ export default function Root({setOpen, open,language}){
         <div className="fot">{getTranslation("Fast online trading")}</div>
         <div>
           <OpenDemo to="/app?demo=true">
-            <span>{getTranslation("Try free demo")}</span> 
-            <AiFillRightCircle size="1.2em" color="#81d4fa"/>
+            <div>
+              <div className="label">{getTranslation("Try free demo")}</div> 
+              <div className="icon"><AiFillRightCircle color="#81d4fa"/></div>
+            </div>
           </OpenDemo>
         </div>
       </div>

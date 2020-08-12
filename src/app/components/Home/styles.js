@@ -110,13 +110,36 @@ color:white;
 margin:auto;
 background-color:#03a9f4;
 box-shadow:0px 0px 5px #03a9f4;
-padding:0 1em;
 width:300px;
 &:hover{
   box-shadow:0px 0px 10px #03a9f4;
   text-shadow:0px 0px 10px white;
+  & div.icon svg{
+    width:30px;
+  }
+}
+border:1px solid #03a9f4;
+border-radius:3px;
+height:50px;
+font-size:1.1em;
+&>div{
+  height:100%;
+  width:150px;
+  margin:auto;
+  display:flex;
+  justify-content:space-around;
+}
+& div.label{
+  height:100%;
+  line-height:50px;
+}
+& div.icon{
+  height:100%;
   &>svg{
-    transform: scale(1.15);
+    display:inline-block;
+    height:50px;
+    width:20px;
+    transition:width 200ms;
   }
 }
 ${(props)=>props.loading && css`
@@ -126,16 +149,6 @@ ${(props)=>props.loading && css`
   animation-iteration-count:infinite;
   animation-timing-function:linear;
 `};
-border:1px solid #03a9f4;
-border-radius:3px;
-height:50px;
-text-align:center;
-line-height:50px;
-font-size:1.3em;
-&>svg{
-  float:right;
-  margin-top:0.65em;
-}
 `;
 
 export const Container = styled.div`
