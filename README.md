@@ -11,7 +11,7 @@ Online Investment Platform
 4.  Redux: A state management framework for javascipt applications.
 
 ## Features
->> Some of the features in this app:
+> Some of the features in this app:
 * Well applied component transitions to provide a great user experience.
 * Candlestick charts - For visualizing stock time-series data
 * Zoomable charts.
