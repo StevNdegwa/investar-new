@@ -50,7 +50,7 @@ align-items:center;
 color:#29b6f6;
 &>div.investar{
   font-size:5em;
-  font-weight:bold;
+  font-weight:600;
   animation-name:${textAnim};
   animation-duration:2s;
   animation-iteration-count:infinite;

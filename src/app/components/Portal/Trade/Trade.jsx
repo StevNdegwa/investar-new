@@ -14,7 +14,10 @@ import {Wrapper, ToolBar, Tool} from "./styles";
 import TradeContext from "./TradeContext";
 
 export default function Trade(props){
-  const [activeItem, setActiveItem] = React.useReducer(activeItemReducer, {dialog:false, item:"A"});
+  const [activeItem, setActiveItem] = 
+    React.useReducer(activeItemReducer, 
+      {dialog:false, item:{name:"Agilent Technologies Inc.", symbol:"A"}});
+      
   const [layout, setLayout] = React.useReducer(layoutReducer, {dialog:false, active:"S"});
   const [duration, setDuration]  = React.useState("DAILY");
   
@@ -42,7 +45,7 @@ export default function Trade(props){
       </DialogContainer>
       <ToolBar className="level-300">
         <Tool onClick={()=>setActiveItem({type:"OPEN_DIALOG"})}>
-          <div>{activeItem.item}</div>
+          <div>{activeItem.item.symbol}</div>
           <div className="icon"><MdExpandMore/></div>
         </Tool>
         <Tool>
@@ -62,7 +65,7 @@ export default function Trade(props){
             title="Monthly"
           >M</button>
         </Tool>
-        <Tool onClick={()=>setLayout({type:"OPEN_DIALOG"})}>
+        <Tool onClick={()=>setLayout({type:"OPEN_DIALOG"})} title="Select Layout">
           <div className="icon"><MdTune/></div>
         </Tool>
       </ToolBar>

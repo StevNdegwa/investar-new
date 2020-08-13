@@ -20,7 +20,7 @@ export default function SelectTradeItem(props){
     <CSSTransition in={tradeContext.activeItem.dialog} timeout={200} classNames="pop">
       <Wrapper> 
         <Title>
-          <div className="trade-item">{selectedItem}</div>
+          <div className="trade-item">{selectedItem.symbol}</div>
           <div className="clear-icon" 
             onClick={()=>tradeContext.activeItem.setActiveItem({type:"CLOSE_DIALOG"})}
           ><MdClear/></div>

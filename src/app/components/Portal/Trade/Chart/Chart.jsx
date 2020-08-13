@@ -3,7 +3,6 @@ import {CSSTransition} from "react-transition-group";
 
 import "./styles.scss";
 
-import ChartLoader from "./ChartLoader.jsx";
 import Timeseries from "./Timeseries";
 import Volume from "./Volume";
 import TradeContext from  "../TradeContext";
@@ -12,7 +11,7 @@ import {Wrapper, Spinner, Section, ErrorInfo} from "./styles";
 
 export default function Chart({stocksTimeseries, getStocksTimeseries}){
   const [dataset, setDataset] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState("true");
   const [error, setError] = React.useState({error:false, message:"No Error"})
   let tradeContext = React.useContext(TradeContext);
   
@@ -25,7 +24,7 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
     setError({error:false, message:"No Error"});
     try{
       
-      let data = await getStocksTimeseries(tradeContext.duration, tradeContext.activeItem.item);
+      let data = await getStocksTimeseries(tradeContext.duration, tradeContext.activeItem.item.symbol);
       
       data = data.map((d)=>{
         return {...d, date: new Date(d.date)}
@@ -60,7 +59,11 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
       return (
         <Wrapper>
             <Section height="70%">
-              <Timeseries layout="S_V" dataset={dataset || []}/>
+              <Timeseries 
+                layout = "S_V" 
+                dataset = {dataset || []} 
+                item = {tradeContext.activeItem.item}
+              />
             </Section>
             <CSSTransition timeout={100} classNames="slide-up" in={true}>
               <Section height="30%" dataset={dataset || []}>
@@ -74,7 +77,11 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
         <CSSTransition timeout={100} classNames="fade" in={true}>
           <Wrapper>
             <Section>
-              <Timeseries layout="S" dataset={dataset || []}/>
+              <Timeseries 
+                layout = "S" 
+                dataset = {dataset || []}
+                item = {tradeContext.activeItem.item}
+              />
             </Section>
           </Wrapper>
         </CSSTransition>

@@ -5,7 +5,7 @@ import {MdZoomIn, MdZoomOut, MdZoomOutMap} from "react-icons/md";
 import InitChart from "./initChart";
 import {Wrapper, Graph, VertAxis, HorzAxis, ToolBar, Tool} from "./styles";
 
-export default function Timeseries({layout, dataset}){
+export default function Timeseries({layout, dataset, item}){
   const [chart] = React.useState(()=>(new InitChart()))
   
   React.useEffect(()=>{
@@ -16,13 +16,13 @@ export default function Timeseries({layout, dataset}){
   return (<Wrapper className="timeseries">
     <Graph>
       <ToolBar className="level-300">
-        <Tool onClick={()=>chart.zoomChart("ZOOM_OUT")}>
+        <Tool onClick={()=>chart.zoomChart("ZOOM_OUT")} title="Zoom In">
           <div className="icon"><MdZoomOut/></div>
         </Tool>
-        <Tool onClick={()=>chart.zoomChart("UNZOOM")}>
+        <Tool onClick={()=>chart.zoomChart("UNZOOM")} title="Unzoom">
           <div className="icon"><MdZoomOutMap/></div>
         </Tool>
-        <Tool onClick={()=>chart.zoomChart("ZOOM_IN")}>
+        <Tool onClick={()=>chart.zoomChart("ZOOM_IN")} title="Zoom Out">
           <div className="icon"><MdZoomIn/></div>
         </Tool>
       </ToolBar>
@@ -33,8 +33,9 @@ export default function Timeseries({layout, dataset}){
             <line x1="50" y1="0" x2="50" y2="150"/>
           </pattern>
         </defs>
-        <line className="indicator x" x1="0" y1="0" x2="100%" y2="0"/>
-        <line className="indicator y" x1="0" y1="0" x2="0" y2="100%"/>
+        <text className="company-name" x="50%" y="50%" pointerEvents="none">{item.name}</text>
+        <line className="indicator x" x1="0" y1="0" x2="100%" y2="0" pointerEvents="none"/>
+        <line className="indicator y" x1="0" y1="0" x2="0" y2="100%" pointerEvents="none"/>
         <rect className="zoombase" width="100%" height="100%" pointerEvents="all"/>
         <g className="graph"></g>
       </svg>

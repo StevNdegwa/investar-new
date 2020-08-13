@@ -11,7 +11,7 @@ export const ToolBar = styled.div`
 position: absolute;
 top: 40px;
 left: 40px;
-height: 50px;
+height: 40px;
 border-radius:5px;
 border:1px solid #78909c;
 background-color: #263238;
@@ -21,7 +21,7 @@ display:flex;
 
 export const Tool = styled.div`
 height:100%;
-line-height:50px;
+line-height:40px;
 padding:0 0.5em;
 color:#e0e0e0;
 font-size:1.2em;
@@ -30,10 +30,9 @@ justify-content:space-between;
 cursor:pointer;
 border-right:1px solid #78909c;
 &>div.icon{
-  padding:0.35em;
   &>svg{
-    width:1.5em;
-    height:1.5em;
+    width:30px;
+    height:40px;
   }
 }
 &:hover{

@@ -31,7 +31,7 @@ grid-row:2 /span 1;
 export const ToolBar = styled.div`
 position:absolute;
 top:20px;
-right:20px;
+right:50px;
 min-width:30px;
 height:30px;
 border-radius:5px;

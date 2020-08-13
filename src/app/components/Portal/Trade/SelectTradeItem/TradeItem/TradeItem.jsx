@@ -33,7 +33,7 @@ export default function TradeItem({currList, selectPage, loading, activeItem, se
         <SearchResults value={filter} data={currList} 
           renderResults = {(results)=>{
             return results.map((s)=>{
-                return (<Item key={s.symbol} active={s.symbol === activeItem} onClick={()=>setActiveItem(s.symbol)}>
+                return (<Item key={s.symbol} active={s.symbol === activeItem.symbol} onClick={()=>setActiveItem(s)}>
                   <div className="symbol">{s.symbol}</div>
                   <div className="name">{s.name}</div>
               </Item>)})}

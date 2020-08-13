@@ -6,6 +6,19 @@ height:100%;
 display:flex;
 `;
 
+export const Contacts = styled.div`
+width:500px;
+height:100%;
+border-right:1px outset #37474f;
+padding:1em;
+color:#eceff1;
+text-align:center;
+&>svg{
+  width:400px;
+  height:400px;
+}
+`;
+
 export const CallUs = styled.button`
 width:200px;
 height:50px;
@@ -21,19 +34,6 @@ outline:none;
   outline:none;
 }
 `
-
-export const Contacts = styled.div`
-width:500px;
-height:100%;
-border-right:1px outset #37474f;
-padding:1em;
-color:#eceff1;
-text-align:center;
-&>svg{
-  width:400px;
-  height:400px;
-}
-`;
 
 export const Message = styled.form`
 width:100%;
@@ -77,6 +77,7 @@ font-weight:500;
 font-size:1.1em;
 outline:none;
 min-width:500px;
+font-family:"PT Serif", serif;
 &:focus{
   box-shadow:0px 0px 3px #263238;
   outline:none;

@@ -27,6 +27,13 @@ svg.chart{
     & line.wick{
       stroke-width:0.5;
     }
+    & .company-name{
+      font-size:4em;
+      font-weight:400;
+      fill-opacity:0.1;
+      font-style:italic;
+      text-anchor:middle;
+    }
   }
   
   &.volume{

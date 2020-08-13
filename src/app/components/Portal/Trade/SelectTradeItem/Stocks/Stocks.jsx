@@ -21,7 +21,7 @@ export default function Stocks({stocksList, getStocksList, setSelectedItem, sele
       
       setCurrList(list || []);
       
-      setSelectedItem(list[0] && list[0].symbol);
+      list[0] && setSelectedItem(list[0]);
       
       setLoading(false);
       

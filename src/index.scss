@@ -7,13 +7,14 @@
   scrollbar-width:thin;
 }
 body{
-  font-family:"Segoe UI", Verdana, Helvetica;
+  font-family:"PT Serif", serif;
   font-size:16px;
   background-image:url("/assets/images/main-background.jpg");
 }
 
 html, body, div#root{
   height:100%;
+  overflow:hidden;
 }
 
 ::-webkit-scrollbar{

@@ -7,7 +7,7 @@ import {format} from "d3-format";
 import {timeFormat} from "d3-time-format";
 import {interpolateNumber} from "d3-interpolate"
 
-let numberFormat = format(" ,");
+let numberFormat = format(" $,");
 
 class InitChart{
   constructor(){
@@ -72,7 +72,7 @@ class InitChart{
     .call(show)
     .append("title")
     .text((d, i)=>{
-      return `Trade Date: ${d.date.toDateString()},\nOpen: ${numberFormat(d.open)},\nClose: ${numberFormat(d.close)},\nHigh: ${numberFormat(d.high)},\nLow: ${numberFormat(d.low)}`;
+      return `Trade Date: ${d.date.toDateString()}.\nOpen: ${numberFormat(d.open)}.\nClose: ${numberFormat(d.close)}.\nHigh: ${numberFormat(d.high)}.\nLow: ${numberFormat(d.low)}`;
     })
     
     chart.vertAxis.scale(chart.vertScale);
@@ -82,7 +82,7 @@ class InitChart{
     select("div.timeseries svg.axis.x > g").call(chart.horzAxis);
     
     chart.chartZoom
-    .translateExtent([[0, 0], [chart.horzDist, height]])//Limit the zoom translation
+    .translateExtent([[0, 0], [Infinity, height]])//Limit the zoom translation
     .scaleExtent([1, 8]) //Limit zoom scaling
     .on("zoom", function(){
       let transform = event.transform;
