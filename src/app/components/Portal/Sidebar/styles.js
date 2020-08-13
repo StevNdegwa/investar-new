@@ -15,18 +15,11 @@ cursor:pointer;
 &>div.icon{
   width:100%;
   text-align:center;
-  height:30px;
+  height:60px;
   &>svg{
-    height:30px;
+    height:60px;
     width:30px;
   }
-}
-&>div.label{
-  width:100%;
-  height:30px;
-  text-align:center;
-  line-height:30px;
-  color:white;
 }
 ${({selected})=>selected && css`
 background-color:#37474f;

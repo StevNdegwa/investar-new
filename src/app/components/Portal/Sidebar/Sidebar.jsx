@@ -1,5 +1,5 @@
 import React from "react";
-import {MdInfoOutline} from "react-icons/md";
+import {MdNotifications} from "react-icons/md";
 import {useLocation} from "react-router-dom";
 
 import Content from "./Content"
@@ -14,11 +14,10 @@ const Sidebar = React.memo(({open})=>{
     {open && <Content>
       <b>Investar</b>
     </Content>}
-    <Tab selected={open && (tab === "info")} onClick={()=>setTab("info")}>
+    <Tab selected={open && (tab === "info")} onClick={()=>setTab("info")} title="Notifications">
       <div className="icon">
-        <MdInfoOutline/>
+        <MdNotifications/>
       </div>
-      <div className="label">Info</div>
     </Tab>
   </Wrapper>)
 })
