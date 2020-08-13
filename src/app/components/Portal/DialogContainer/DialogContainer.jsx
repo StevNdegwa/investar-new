@@ -1,4 +1,5 @@
 import React  from "react";
+import PropTypes from "prop-types";
 import {CSSTransition} from "react-transition-group";
 import {createPortal} from "react-dom";
 
@@ -11,4 +12,9 @@ export default function DialogContainer({children, show, close}){
       <div className="level-500">{children}</div>
     </Wrapper>
   </CSSTransition>, document.getElementById("root"));
+}
+
+DialogContainer.propTypes = {
+show:PropTypes.bool.isRequired,
+close:PropTypes.func.isRequired  
 }

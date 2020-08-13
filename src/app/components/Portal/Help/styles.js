@@ -19,9 +19,7 @@ text-align:center;
 }
 `;
 
-export const CallUs = styled.button`
-width:200px;
-height:50px;
+export const Button = styled.button`
 background-color:#29b6f6;
 color:white;
 display:inline-block;
@@ -34,6 +32,11 @@ outline:none;
   outline:none;
 }
 `
+
+export const CallUs = styled(Button)`
+width:200px;
+height:50px;
+`;
 
 export const Message = styled.form`
 width:100%;
@@ -84,15 +87,7 @@ font-family:"PT Serif", serif;
 }
 `;
 
-export const Submit = styled.button`
+export const Submit = styled(Button)`
 height:30px;
-min-width:100px;
-margin:0.5em 0;
-background-color:#29b6f6;
-color:white;
-border:#29b6f6;
-outline:none;
-&:hover{
-  box-shadow:0px 0px 5px #29b6f6;
-}
+width:100px;
 `;

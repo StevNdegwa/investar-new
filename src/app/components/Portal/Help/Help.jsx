@@ -1,8 +1,12 @@
 import React from "react";
 import {MdHeadsetMic} from "react-icons/md";
+
+import DialogContainer from "../DialogContainer";
+import CallSupport from "./CallSupport";
 import {Wrapper, Contacts, Message, Input, Textarea, Submit, CallUs} from "./styles";
 
 export default function Help(){
+  const [callSupport, setCallSupport] = React.useState(false)
   
   function handleMessageSubmit(evt){
     evt.preventDefault();
@@ -10,9 +14,12 @@ export default function Help(){
   
   return (
     <Wrapper>
+      <DialogContainer show={callSupport} close={()=>setCallSupport(false)}>
+        <CallSupport close={()=>setCallSupport(false)}/>
+      </DialogContainer>
       <Contacts>
         <MdHeadsetMic/>
-        <CallUs>Call our support team</CallUs>
+        <CallUs onClick={()=>setCallSupport(true)}>Call our support team</CallUs>
       </Contacts>
       <Message onSubmit={handleMessageSubmit}>
         <Input type="text" placeholder="Your Name"/>

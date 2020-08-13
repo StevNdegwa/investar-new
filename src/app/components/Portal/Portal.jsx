@@ -13,6 +13,7 @@ import ConfirmExit from "./ConfirmExit";
 import ErrorBoundary from "./ErrorBoundary";
 import Trade from "./Trade";
 import Help from "./Help";
+import Analytics from "./Analytics";
 import Sidebar from "./Sidebar";
 
 export default function Portal(props){
@@ -56,7 +57,7 @@ export default function Portal(props){
               <div>Platforms</div>
             </Route>
             <Route path="/analytics">
-              <div>Analytics</div>
+              <Analytics/>
             </Route>
             <Route path="/education">
               <div>Education</div>
