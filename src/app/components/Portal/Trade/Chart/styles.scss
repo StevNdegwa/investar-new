@@ -4,7 +4,8 @@ svg.chart{
   height:100%;
   & #bg-grid{
     stroke:#fafafa;
-    stroke-width:0.1;
+    stroke-width:0.5;
+    stroke-opacity:0.3;
   }
 
   & .indicator{

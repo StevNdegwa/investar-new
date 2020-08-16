@@ -1,8 +1,7 @@
 @import '../../styles/general';
 div#portal{
-  height:99.9%;
-  display:flex;
-  flex-direction:column;
+  height:100%;
+  overflow:hidden;
   &>div#header{
     height:50px;
     @include paint(#263238);
@@ -35,7 +34,7 @@ div#portal{
   }
   
   &>div#main{
-    height:100%;
+    height:calc(100% - 50px);
     display:flex;
     background-color:#455a64;
     &>div#sidenav{

@@ -8,5 +8,5 @@ export default function CryptoCurrencies(){
   const [activeStock, setActiveStock] = React.useState("");
 
   
-  return (<TradeItem loading={loading} currList={currList} selectPage={setPage} activeItem={activeStock}  setActiveItem={setActiveStock}/>);
+  return (<TradeItem loading={loading} currList={currList} selectPage={setPage} activeItem={{}}  setActiveItem={setActiveStock}/>);
 }

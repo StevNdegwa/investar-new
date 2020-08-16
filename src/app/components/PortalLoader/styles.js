@@ -2,7 +2,8 @@ import styled, {keyframes} from "styled-components";
 
 export const Wrapper = styled.div`
 width:100%;
-height:99.9%;
+height:100%;
+overflow:hidden;
 background-color:#37474f;
 `;
 
@@ -54,6 +55,7 @@ color:#29b6f6;
   animation-name:${textAnim};
   animation-duration:2s;
   animation-iteration-count:infinite;
+  animation-timing-function:ease-in-out;
 }
 &>div.copyright{
   color:white;

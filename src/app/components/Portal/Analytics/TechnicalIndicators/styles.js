@@ -1,16 +1,14 @@
-import styled, {css} from "styled-components";
+import styled, {css, keyframes} from "styled-components";
 
 export const Wrapper = styled.div`
 width:100%;
 height:100%;
-display:flex;
-flex-direction:column;
 `;
 
 export const Search = styled.div`
 width:100%;
-height:auto;
-min-height:60px;
+height:60px;
+position:relative;
 &>form{
   height:50px;
   width:700px;
@@ -61,7 +59,38 @@ min-height:60px;
 }
 `;
 
-export const Empty = styled.div`
+export const ResultOptions = styled.ul`
+position:absolute;
+top:60px;
+max-height:600px;
+width:100%;
+list-style-type:none;
+font-size:1.1em;
+font-weight:500;
+color:#eceff1;
+cursor:pointer;
+overflow:auto;
+padding-bottom:10px;
+&>li{
+  width:700px;
+  background-color:#263238;
+  margin:0 auto;
+  padding:0 0.5em;
+  height:40px;
+  line-height:40px;
+  border:1px solid #37474f;
+  border-top:none;
+  &:first-child{
+    border-radius:5px 5px 0px 0px;
+  }
+  &:last-child{
+    border-radius:0px 0px 5px 5px;
+    box-shadow:0px 5px 10px #263238;
+  }
+}
+`;
+
+export const Info = styled.div`
 height:100%;
 width:100%;
 display:flex;
@@ -78,16 +107,40 @@ align-items:center;
 }
 `;
 
+const loaderAnim = keyframes`
+from{
+  background-image:linear-gradient(to bottom right, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6);
+}
+to{
+  background-image:linear-gradient(to bottom right, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa);
+}
+`;
+
+export const Loader = styled.div`
+width:150px;
+height:20px;
+border-radius:10px;
+animation-name:${loaderAnim};
+animation-duration:500ms;
+animationn-timing-function:linear;
+animation-iteration-count:infinite;
+`;
+
+export const Title = styled.h4`
+width:100%;
+height:40px;
+line-height:40px;
+font-size:1.3em;
+font-weight:600;
+text-align:center;
+color:#eceff1;
+`;
+
 export const Indicators = styled.div`
 display:flex;
-flex-wrap:wrap;
 width:100%;
 height:40px;
 background-color:#263238;
-`;
-
-export const Results = styled.div`
-width:100%;
 `;
 
 export const Indicator = styled.button`

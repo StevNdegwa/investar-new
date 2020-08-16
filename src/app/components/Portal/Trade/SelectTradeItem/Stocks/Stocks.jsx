@@ -38,6 +38,6 @@ export default function Stocks({stocksList, getStocksList, setSelectedItem, sele
 Stocks.propTypes = {
   stocksList: PropTypes.object.isRequired,
   getStocksList: PropTypes.func.isRequired,
-  selectedItem: PropTypes.string.isRequired,
+  selectedItem: PropTypes.object.isRequired,
   setSelectedItem: PropTypes.func.isRequired
 }

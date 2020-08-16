@@ -7,7 +7,7 @@ import {Control, Action} from "./styles";
 const Sidenav = React.memo(({logOut})=>(
   <div id="sidenav" className="level-100">
     <div>
-      <Control to="/" activeClassName="selected" exact trade>
+      <Control to="/" activeClassName="selected" exact className="trade">
         <div className="icon"><MdTrendingUp/></div>
         <div className="label">Trade</div>
       </Control>

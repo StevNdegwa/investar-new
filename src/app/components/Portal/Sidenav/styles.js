@@ -45,12 +45,10 @@ transition:border-left 200ms, background-color 200ms;
   &>div.label{
     color:white;
   }
+  &.trade{
+    background-color:#000033 !important;
+  }
 }
-${({trade})=>trade && css`
-&.selected{
-  background-color:#000033 !important;
-}
-`}
 `;
 
 export const Action = styled.div`

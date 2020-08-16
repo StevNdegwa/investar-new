@@ -52,6 +52,6 @@ TradeItem.propTypes = {
   currList: PropTypes.array.isRequired,
   selectPage: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  activeItem: PropTypes.string.isRequired, 
+  activeItem: PropTypes.object.isRequired, 
   setActiveItem: PropTypes.func.isRequired
 }
