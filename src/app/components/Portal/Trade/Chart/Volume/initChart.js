@@ -5,62 +5,76 @@ import {mouse, select, event} from "d3-selection";
 import {max} from "d3-array";
 import {format} from "d3-format";
 
-export default function initChart(dataset){
-  let horzDist, //Full horizontal distance
-    vertScale, //Vertical scale
-    horzScale, //Horizontal scale
-    vertAxis, //Vertical axis
-    chartZoom, //Zoom behavior
-    numFormat; //Number format function
+const numFormat = format(" ,");
+
+class InitChart{
+  constructor(){
+    this.horzDist = 0;
+    this.vertScale = scaleLinear();
+    this.horzScale = scaleBand().padding(0.1);;
+    this.vertAxis = axisRight(this.vertScale);
+    this.chartZoom = zoom();
+    this.dataset = [];
+  }
   
-  //Get the chart dimensions
-  let {x, y, width, height, top, right, bottom, left} = select("div.volume svg.chart.volume").node().getBoundingClientRect();
+  get currentDataset(){
+    return this.dataset;
+  }
   
-  horzDist = dataset.length * 5;
+  set currentDataset(dataset){
+    this.dataset = dataset;
+  }
   
-  //Scale functions
-  vertScale = scaleLinear()
-  .domain([0, max(dataset, (d)=>d.volume)])
-  .range([height, 0]);
-  horzScale = scaleBand(dataset.map((d)=>d.date).reverse(), [0, horzDist]).padding(0.1);
+  draw(dataset){
+    let chart = this;
+    
+    chart.dataset = dataset;
+    
+    //Get the chart dimensions
+    let {width, height} = select("div.volume svg.chart.volume").node().getBoundingClientRect();
   
-  numFormat = format(" ,");
+    chart.vertScale.domain([0, max(dataset, (d)=>d.volume)]).range([height, 0]);
+    
+    chart.horzDist = dataset.length * 5;
   
-  //Axis functions
-  vertAxis = axisRight(vertScale);
+    chart.horzScale.domain(dataset.map((d)=>d.date).reverse()).range([0, chart.horzDist]);
   
-  //Zoom behavior
-  chartZoom = zoom()
-  .scaleExtent([1, 1]) //Limit the  zoom scaling
-  .translateExtent([[0, 0], [horzDist, height]])//Limit the zoom translation
-  .on("zoom", function(){
-    let transform = event.transform;
-    transform.y = 1;
-    select("div.volume svg.chart.volume > g.graph").attr("transform", transform)
-  })
+    chart.chartZoom
+      .scaleExtent([1, 1]) //Limit the  zoom scaling
+      .translateExtent([[0, 0], [chart.horzDist, height]])//Limit the zoom translation
+      .on("zoom", function(){
+        let transform = event.transform;
+        transform.y = 1;
+        select("div.volume svg.chart.volume > g.graph").attr("transform", transform)
+      })
+    
+    
+    select("div.volume svg.chart.volume > g.graph")
+      .selectAll("rect.bar")
+      .data(dataset)
+      .join("rect")
+      .classed("bar", true)
+      .attr("width", chart.horzScale.bandwidth())
+      .attr("height", (d)=>(height - chart.vertScale(d.volume)))
+      .attr("x", (d)=>chart.horzScale(d.date))
+      .attr("y", (d)=>chart.vertScale(d.volume))
+      .append("title")
+      .text((d, i)=>{
+        return `Trade Date: ${d.date.toDateString()}\nTrade Volume: ${numFormat(d.volume)}`
+      })
   
-  select("div.volume svg.chart.volume > g.graph")
-  .selectAll("rect.bar")
-  .data(dataset)
-  .join("rect")
-  .classed("bar", true)
-  .attr("width", horzScale.bandwidth())
-  .attr("height", (d)=>(height - vertScale(d.volume)))
-  .attr("x", (d)=>horzScale(d.date))
-  .attr("y", (d)=>vertScale(d.volume))
-  .append("title")
-  .text((d, i)=>{
-    return `Trade Date: ${d.date.toDateString()}\nTrade Volume: ${numFormat(d.volume)}`
-  })
+    select("div.volume svg.axis.y > g").call(chart.vertAxis);
   
-  select("div.volume svg.axis.y > g").call(vertAxis);
+    select("div.volume svg.chart.volume > rect.zoombase")
+      .call(chart.chartZoom.transform, zoomIdentity.translate((width - chart.horzDist), 0))
+      .call(chart.chartZoom)
+      .on("mousemove", function(){
+        let [x, y] = mouse(this);
+        select("svg.chart.volume line.indicator.x").attr("y1", y).attr("y2", y);
+        select("svg.chart.volume line.indicator.y").attr("x1", x).attr("x2", x);
+      })
+  }
   
-  select("div.volume svg.chart.volume > rect.zoombase")
-  .call(chartZoom.transform, zoomIdentity.translate((width - horzDist), 0))
-  .call(chartZoom)
-  .on("mousemove", function(){
-    let [x, y] = mouse(this);
-    select("svg.chart.volume line.indicator.x").attr("y1", y).attr("y2", y);
-    select("svg.chart.volume line.indicator.y").attr("x1", x).attr("x2", x);
-  })
 }
+
+export default InitChart;

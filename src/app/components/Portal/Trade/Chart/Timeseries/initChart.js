@@ -19,12 +19,24 @@ class InitChart{
     this.vertAxis = axisRight();
     this.horzAxis = axisBottom().tickFormat(timeFormat("%b, %Y"));
     this.currentZoomLevel = 1;
+    this.dataset = [];
+  }
+  
+  get currentDataset(){
+    return this.dataset;
+  }
+  
+  set currentDataset(d){
+    this.dataset =  d;
   }
   
   draw(dataset){
     let chart = this;
+    
+    this.dataset = dataset;
+    
     //Get the chart dimensions
-    let {x, y, width, height, top, right, bottom, left} = select("div.timeseries svg.chart.timeseries").node().getBoundingClientRect();
+    let {width, height} = select("div.timeseries svg.chart.timeseries").node().getBoundingClientRect();
     
     chart.horzDist = dataset.length * 5;
    

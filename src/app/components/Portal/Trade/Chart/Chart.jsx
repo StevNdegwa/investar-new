@@ -16,7 +16,11 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
   let tradeContext = React.useContext(TradeContext);
   
   React.useEffect(()=>{
-    loadData()
+    loadData();
+    
+    return function(){
+      setDataset([])
+    }
   }, [tradeContext.duration, tradeContext.activeItem.item]);
   
   async function loadData(){

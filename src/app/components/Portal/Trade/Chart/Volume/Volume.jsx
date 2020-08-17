@@ -1,12 +1,13 @@
 import React from "react";
 
-import initChart from "./initChart";
+import InitChart from "./initChart";
 import {Graph, VertAxis, HorzAxis, Wrapper} from "./styles";
 
 export default function Volume({dataset}){
+  const [chart] = React.useState(()=>(new InitChart()));
   
   React.useEffect(()=>{
-    initChart(dataset);
+    chart.draw(dataset);
     return function(){
       
     }
