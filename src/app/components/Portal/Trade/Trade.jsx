@@ -1,10 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {MdChevronRight, MdExpandMore, MdTune, MdZoomOutMap} from "react-icons/md";
- 
-import {select} from "d3-selection";
-import {zoom, zoomIdentity} from "d3-zoom";
- 
+import {MdExpandMore, MdTune} from "react-icons/md";
+
 import DialogContainer from "../DialogContainer";
 import SelectTradeItem from "./SelectTradeItem";
 import SetLayout from "./SetLayout";
@@ -24,7 +21,7 @@ export default function Trade(props){
   
   return (
     <TradeContext.Provider 
-      value={
+      value = {
         {
           activeItem: {...activeItem, setActiveItem},
           duration,

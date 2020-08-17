@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {AiOutlineMenu,AiFillMessage,AiOutlineGlobal} from "react-icons/ai";
+import {AiOutlineGlobal} from "react-icons/ai";
 import {MdMenu, MdClear} from "react-icons/md";
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 
