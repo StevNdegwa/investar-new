@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect} from "react-router-dom"
+import {Redirect, useLocation} from "react-router-dom"
 import {Formik} from 'formik';
 
 import {Loader} from "../../styles";
@@ -7,9 +7,18 @@ import {Loader} from "../../styles";
 export default function Login({style}){
   const [openPortal, setOpenPortal] = React.useState(false)
   
+  /**
+  const location= useLocation();
+  
   if(openPortal){
-    return <Redirect to="/app?demo=false"/>
+    switch(location.pathname){
+      case "/":
+        return <Redirect to="/app?demo=false"/>
+      default:
+        return <Redirect to="?demo=false"/>
+    }
   }
+  **/
   
   return (
     <Formik initialValues={{ email: '', password: '' }}
@@ -24,7 +33,7 @@ export default function Login({style}){
       }}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-          setOpenPortal(true);
+          
           setSubmitting(false);
         }, 400);
       }}
@@ -34,7 +43,7 @@ export default function Login({style}){
         <form onSubmit={handleSubmit} style={style}>
           <input type="email" name="email" placeholder="Email" onChange={handleChange} onBlur={handleBlur} value={values.email}/>
           <p className="input-error">{errors.email && touched.email && errors.email}</p>
-          <input type="password" name="password" placeholder="Password" autocomplete="new-password" onChange={handleChange} onBlur={handleBlur} value={values.password}/>
+          <input type="password" name="password" placeholder="Password" autoComplete="new-password" onChange={handleChange} onBlur={handleBlur} value={values.password}/>
           <p className="input-error">{errors.password && touched.password && errors.password}</p>
           <div className="actions">
             <div><a href="#">Forgot Your Password?</a></div>

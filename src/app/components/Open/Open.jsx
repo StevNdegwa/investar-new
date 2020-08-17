@@ -6,7 +6,7 @@ import "./styles.scss";
 import Login from "./Login";
 import Signup from "./Signup";
 
-export default function Open({openApplication, defaultTab}){
+export default function Open({defaultTab}){
   const [tab, setTab] = React.useState({[defaultTab]:true});
   
   function handleTabClick(tab){
@@ -20,10 +20,10 @@ export default function Open({openApplication, defaultTab}){
         <div className={`tab ${tab.signup && "active"}`} onClick={()=>handleTabClick("signup")}>Signup</div>
       </div>
       <CSSTransition in={tab.login} classNames="open-dialog" timeout={200}>
-        <Login openApplication={openApplication} style={{display:tab.login ? "block" : "none"}}/>
+        <Login style={{display:tab.login ? "block" : "none"}}/>
       </CSSTransition>
       <CSSTransition in={tab.signup} classNames="open-dialog" timeout={200}>
-        <Signup openApplication={openApplication}  style={{display:tab.signup ? "block" : "none"}}/>
+        <Signup style={{display:tab.signup ? "block" : "none"}}/>
       </CSSTransition>
   </div>);
 }

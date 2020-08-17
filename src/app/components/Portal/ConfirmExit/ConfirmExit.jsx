@@ -4,6 +4,11 @@ import {CSSTransition} from "react-transition-group";
 import {Wrapper} from "./styles";
 
 const ConfirmExit = React.memo(({show, close})=>{
+  function logOut(){
+    localStorage.removeItem("investar-user");
+    close({confirmed:true, dialog:false});
+  }
+  
   return (
   <CSSTransition in={show} timeout={300} className="pop">
     <Wrapper show={show} className="level-500">
@@ -12,7 +17,7 @@ const ConfirmExit = React.memo(({show, close})=>{
         Are you sure you want to quit?
       </p>
       <div>
-        <button onClick={()=>close({confirmed:true, dialog:false})}>Exit</button>
+        <button onClick={()=>logOut()}>Exit</button>
         <button onClick={()=>close({confirmed:false, dialog:false})}>Cancel</button>
       </div>
     </Wrapper>

@@ -1,30 +1,48 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.ul`
-min-width:200px;
-min-height:50px;
-line-height:50px;
-font-size:1.1em;
-font-weight:600;
+export const Wrapper = styled.div`
+height:100%;
+position:relative;
 background-color:#263238;
+background-image:linear-gradient(#263238,#37474f,#37474f,#263238);
+border:1px solid #37474f;
+padding:0 0.1em;
 color:white;
-position:absolute;
-top:${({position})=>position.top};
-left:${({position})=>position.left};
-display:${(props)=>(props.show ? "block" : "none")};
 list-style-type:none;
-z-index:360;
-border-radius:0 0 3px 3px;
-box-shadow:0px 2px 5px #263238;
-overflow:hidden;
-&>li{
-  cursor:pointer;
-  padding:0.3em;
-  height:50px;
-  vertical-align:middle;
-  &:hover{
-    background-color:#546e7a;
-    border:1px inset #546e7a;
+cursor:pointer;
+&>div{
+  display:flex;
+  &>div.icon{
+    width:30px;
+    &>svg{
+      height:50px;
+      width:30px;
+    }
+  }
+  &>div.label{
+    padding:0 0.2em;
+    font-weight:600;
   }
 }
 `;
+
+export const Ul = styled.ul`
+position:absolute;
+top:105%;
+left:0px;
+width:150px;
+display:${(props)=>(props.show ? "block" : "none")};
+border-radius:0 0 3px 3px;
+background-color:#263238;
+overflow:hidden;
+padding:0.2em;
+&>li{
+  cursor:pointer;
+  height:40px;
+  line-height:40px;
+  padding:0 0.1em;
+  &:hover{
+    background-color:#37474f;
+  }
+}
+` 

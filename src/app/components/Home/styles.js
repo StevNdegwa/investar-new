@@ -13,7 +13,6 @@ export const Header = styled.div`
 height:100px;
 position:sticky;
 top:0;
-z-index:350;
 &>nav{
   background-color:#37474f;
   border-right:1px outset #37474f;
@@ -122,9 +121,9 @@ border:1px solid #03a9f4;
 border-radius:3px;
 height:50px;
 font-size:1.1em;
+padding:0 1em;
 &>div{
   height:100%;
-  width:150px;
   margin:auto;
   display:flex;
   justify-content:space-around;

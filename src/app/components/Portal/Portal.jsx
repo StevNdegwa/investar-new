@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {AiOutlineGlobal} from "react-icons/ai";
 import {MdMenu, MdClear} from "react-icons/md";
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 
@@ -14,41 +13,47 @@ import ErrorBoundary from "./ErrorBoundary";
 import Trade from "./Trade";
 import Help from "./Help";
 import Analytics from "./Analytics";
+import Finances from "./Finances";
 import Sidebar from "./Sidebar";
+import UserContext from "../../UserContext";
 
 export default function Portal(props){
-  const [selectLanguage, setSelectLanguage] = React.useState(false);
   const [logOut, setLogOut] = React.useState({confirmed:false, dialog:false});
   const [sidebar, setSidebar] = React.useState(false);
   
+  let userContext = React.useContext(UserContext);
+  
   if(logOut.confirmed){
     return <Redirect to="/"/>
+  }
+  
+  function getTranslation(text){
+    return userContext.translate(props.language.key, text)
   }
   
   return (<div id="portal">
     <div id="header" className="level-100">
       <div className="rSide">
         <div id="logo"><img src={logo} alt="Log"/></div>
-        <button onClick={()=>setSelectLanguage(s=>(s ? false : true))}><AiOutlineGlobal/>{props.language.name}</button>
+        <Languages setUserLanguage={props.setUserLanguage} currentLanguage={props.language}/>
       </div>
       <div className="lSide">
         {props.demo && <button className="o-r-a">Open Real Account</button>}
-        {<div className="icon" onClick={()=>setSidebar((s)=>!s)}>
+        {<div className="icon sidebar" onClick={()=>setSidebar((s)=>!s)}>
           {sidebar ? <MdClear/> : <MdMenu/>}
         </div>}
       </div>
     </div>
     <div id="main">
       <Router basename="/app">
-        <Sidenav logOut={()=>setLogOut({confirmed:false, dialog:true})}/>
+        <Sidenav logOut={()=>setLogOut({confirmed:false, dialog:true})} language={props.language}/>
         <div id="space">
-          <Languages show={selectLanguage} setUserLanguage={props.setUserLanguage} close={()=>setSelectLanguage(false)} position={{top:"0px", left:"10px"}}/>
           <DialogContainer show={logOut.dialog} close={()=>setLogOut({confirmed:false, dialog:false})}>
             <ConfirmExit close={setLogOut} show={logOut.dialog}/>
           </DialogContainer>
           <Switch>
             <Route path="/billing">
-              <div>Finance</div>
+              <Finances demo={props.demo}/>
             </Route>
             <Route path="/user">
               <div>User Profile</div>

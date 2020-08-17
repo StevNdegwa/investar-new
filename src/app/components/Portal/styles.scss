@@ -4,31 +4,31 @@ div#portal{
   overflow:hidden;
   &>div#header{
     height:50px;
+    line-height:50px;
+    font-size:1.2em;
     @include paint(#263238);
     display:flex;
     justify-content:space-between;
-    &>div{
+    & > div{
       display:flex;
-      padding:0.2em 0;
-      & div.icon{
-          height:100%;
-          width:60px;
-          color:#29b6f6;
-          text-align:center;
-          &:hover{
-            background-color:#37474f;
-          }
-          &>svg{
-            height:40px;
-            width:50px;
-          }
-      }
     }
     & div#logo{
       width:70px;
       cursor:pointer;
       &>img{
         height:100%;
+      }
+    }
+    
+    & div.sidebar{
+      width:60px;
+      &:hover{
+        background-color:#37474f;
+      }
+      &>svg{
+        color:#29b6f6;
+        width:60px;
+        height:50px;
       }
     }
   }
@@ -81,6 +81,7 @@ div#header{
       margin-right:5px;
     }
     &.o-r-a{
+      margin:5px;
       background-image:linear-gradient(#69f0ae, #b9f6ca, #69f0ae);
       border:2px solid #b9f6ca;
       &:hover{

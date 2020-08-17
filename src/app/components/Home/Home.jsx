@@ -12,7 +12,6 @@ import {Wrapper, Header} from "./styles";
 
 export default function Home({setUserLanguage, language}){
   const [showMenu, setShowMenu] = React.useState(false);
-  const [showLanguages, setShowLanguages] = React.useState(false);
   
   const menu = React.useRef(), wrapper = React.useRef();
   
@@ -41,11 +40,10 @@ export default function Home({setUserLanguage, language}){
   }
   
   return (<Wrapper ref={wrapper} showingMenu={showMenu}>
-  <Header>
+  <Header className="level-400">
     <nav>
       <div>
         <button onClick={()=>handleShowMenuClick()}><AiOutlineMenu size="25px"/>&nbsp;&nbsp;<span>Menu</span></button>
-        <button onClick={()=>setShowLanguages(s=>!s)}><AiOutlineGlobal size="25px"/>&nbsp;<span>{language.name}</span></button>
         <button className="highlight blue"><AiFillMessage size="25px" color="#42a5f5"/>&nbsp;<span>{getTranslation("Online Chat")}</span></button>
       </div>
       <div>
@@ -53,7 +51,6 @@ export default function Home({setUserLanguage, language}){
         <button className="signup" onClick={()=>setOpen({type:"signup"})}>{getTranslation("Sign Up")}</button>
       </div>
     </nav>
-    <Languages setUserLanguage={setUserLanguage} close={()=>setShowLanguages(false)} show={showLanguages} position={{top:"60px",left:"150px"}}/>
   </Header>
   <Menu showMenu={showMenu} closeMenu={()=>setShowMenu(false)} ref={menu}/>
   <LandingPage open={open} setOpen={setOpen} language={language}/>

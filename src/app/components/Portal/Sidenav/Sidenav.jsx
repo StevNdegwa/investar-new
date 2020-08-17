@@ -2,15 +2,23 @@ import React from "react";
 import {MdTrendingUp, MdInfo, MdWidgets, MdSettings} from "react-icons/md";
 import {FaMoneyBill, FaUser, FaBook, FaChartPie, FaSignOutAlt} from "react-icons/fa";
 
+import UserContext from "../../../UserContext";
 import {Control, Action} from "./styles";
 
-const Sidenav = React.memo(({logOut})=>(
-  <div id="sidenav" className="level-100">
+const Sidenav = React.memo(({logOut, language})=>{
+  let userContext =  React.useContext(UserContext);
+  
+  function getTranslation(text){
+    return userContext.translate(language.key, text);
+  }
+  
+  return (<div id="sidenav" className="level-100">
     <div>
       <Control to="/" activeClassName="selected" exact className="trade">
         <div className="icon"><MdTrendingUp/></div>
         <div className="label">Trade</div>
       </Control>
+      {/**
       <Control to="/billing" activeClassName="selected">
         <div className="icon"><FaMoneyBill/></div>
         <div className="label">Finances</div>
@@ -23,17 +31,20 @@ const Sidenav = React.memo(({logOut})=>(
         <div className="icon"><MdWidgets/></div>
         <div className="label">Apps</div>
       </Control>
+      **/}
       <Control to="/analytics" activeClassName="selected">
         <div className="icon"><FaChartPie/></div>
-        <div className="label">Analytics</div>
+        <div className="label">{getTranslation("Analytics")}</div>
       </Control>
+      {/**
       <Control to="/education" activeClassName="selected">
         <div className="icon"><FaBook/></div>
         <div className="label">Education</div>
       </Control>
+      **/}
       <Control to="/info" activeClassName="selected">
         <div className="icon"><MdInfo/></div>
-        <div className="label">Help</div>
+        <div className="label">{getTranslation("Help")}</div>
       </Control>
     </div>
     <div>
@@ -45,5 +56,6 @@ const Sidenav = React.memo(({logOut})=>(
       </Action>
     </div>
   </div>)
+  }
 )
 export default Sidenav;
