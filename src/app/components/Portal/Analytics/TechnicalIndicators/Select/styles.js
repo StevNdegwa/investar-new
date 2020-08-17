@@ -63,7 +63,8 @@ top:0px;
 background-color:#263238;
 min-width:200px;
 padding:0.3em;
+border:1px outset #546e7a;
 border-radius:3px;
-box-shadow:0px 0px 5px #263238;
+box-shadow:0px 0px 5px #546e7a;
 display:${({show})=>(show ? "block" : "none")} !important;
 `

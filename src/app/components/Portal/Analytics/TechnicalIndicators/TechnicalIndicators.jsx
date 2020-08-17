@@ -1,12 +1,12 @@
 import React from "react";
 import {CSSTransition} from "react-transition-group";
-import {MdSearch, MdInfoOutline} from "react-icons/md";
+import {MdSearch} from "react-icons/md";
 
 import fetchSearchResults from "../../../../lib/alphavantage/fetchsearchresults";
 
 import SMA from "./SMA";
 
-import {Wrapper, Info, Search, Results, Loader, ResultOptions, Main, Title, Indicators, Indicator} from "./styles";
+import {Wrapper, Info, Search, Loader, ResultOptions, Title, Indicators, Indicator} from "./styles";
 
 export default function TechnicalIndicators(){
   const [show, setShow] = React.useState({empty:true, loading:false, main:function(){ return !this.empty && !this.loading}});

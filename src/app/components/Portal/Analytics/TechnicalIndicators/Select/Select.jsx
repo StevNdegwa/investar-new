@@ -47,7 +47,7 @@ Select.propTypes = {
 options:PropTypes.array.isRequired,
 label:PropTypes.string.isRequired,
 info:PropTypes.string.isRequired,
-defaultOption:PropTypes.object.isRequired
+currentOption:PropTypes.object.isRequired
 }
 
 export default Select;

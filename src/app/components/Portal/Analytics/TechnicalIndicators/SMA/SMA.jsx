@@ -1,5 +1,4 @@
 import React from "react";
-import {MdInfoOutline} from "react-icons/md";
 import GetTechnicalIndicators from "../../../../../lib/alphavantage/gettechnicalindicators";
 
 import Select from "../Select";
@@ -7,9 +6,9 @@ import {Loader} from "../styles";
 import {Wrapper, Controls, Main, Table} from "./styles";
 
 export default function SMA({selectedItem}){
-  const [interval, setInterval] = React.useState({label:"Weekly", value:"weekly"})
+  const [interval, setInterval] = React.useState({label:"Daily", value:"daily"})
   const [seriesType, setSeriesType] = React.useState({label:"Close", value:"close"})
-  const [timePeriod, setTimePeriod] = React.useState({label:"30 points", value:30});
+  const [timePeriod, setTimePeriod] = React.useState({label:"200 points", value:200});
   const [show, setShow] = React.useState({loading:true});
   const [dataset, setDataset] = React.useState([]);
   
@@ -22,6 +21,8 @@ export default function SMA({selectedItem}){
       setShow((state)=>({...state, loading:true}));
       
       let data = await GetTechnicalIndicators.sma(selectedItem.symbol, interval.value, timePeriod.value, seriesType.value);
+      
+      setDataset(data);
       
       setShow((state)=>({...state, loading:false}));
     }catch(error){
@@ -40,11 +41,6 @@ export default function SMA({selectedItem}){
         label = "Interval"
         info = "Time interval between two consecutive data points in the time series."
         options = {[
-          {label:"1 Min", value:"1min"},
-          {label:"5 Min", value:"5min"},
-          {label:"15 Min", value:"15min"},
-          {label:"30 Min", value:"30min"},
-          {label:"60 Min", value:"60min"},
           {label:"Daily", value:"daily"},
           {label:"Weekly", value:"weekly"},
           {label:"Monthly", value:"monthly"}
@@ -79,13 +75,30 @@ export default function SMA({selectedItem}){
       />
     </Controls>
     <Main>
-      <Table>
-        <tr>
-          <th>Date</th>
-          <th>SMA</th>
-        </tr>
-        <tr><td>{new Date("2020-08-14").toDateString()}</td><td>123.2440</td></tr>
-      </Table>
+      {show.loading ? 
+        <Loader/>
+        :
+        <Table>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Date</th>
+              <th>SMA</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              dataset.map((d, idx)=>{
+                return (<tr key={d.date}>
+                  <td className="index">{idx+1}</td>
+                  <td className="date">{new Date(d.date).toDateString()}</td>
+                  <td>{d.value}</td>
+                </tr>)
+              })
+            }
+          </tbody>
+        </Table>
+      }
     </Main>
   </Wrapper>)
 }

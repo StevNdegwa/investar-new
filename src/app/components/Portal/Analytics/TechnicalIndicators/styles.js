@@ -109,10 +109,10 @@ align-items:center;
 
 const loaderAnim = keyframes`
 from{
-  background-image:linear-gradient(to bottom right, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6);
+  background-image:linear-gradient(120deg, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6);
 }
 to{
-  background-image:linear-gradient(to bottom right, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa);
+  background-image:linear-gradient(120deg, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa, #29b6f6, #81d4fa);
 }
 `;
 

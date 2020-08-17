@@ -38,17 +38,20 @@ export const Table = styled.table`
 width:400px;
 border-collapse:collapse;
 color:#263238;
-& th, td:first-child{
+& thead, td.index, td.date{
   background-color:#263238;
   color:#eceff1;
 }
-&>tr,td,th{
+& tr,td,th{
   border:1px solid #90a4ae;
   text-align:center;
   height:40px;
   line-height:40px;
 }
-& td:first-child{
+& td.index{
+  width:50px;
+}
+&  td.date{
   width:150px;
 }
 `;
