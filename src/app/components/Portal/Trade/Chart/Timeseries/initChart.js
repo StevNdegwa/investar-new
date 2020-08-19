@@ -30,7 +30,7 @@ class InitChart{
     this.dataset =  d;
   }
   
-  draw(dataset){
+  candlesticks(dataset){
     let chart = this;
     
     this.dataset = dataset;

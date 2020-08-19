@@ -12,7 +12,7 @@ const Sidebar = React.memo(({open})=>{
   
   return (<Wrapper id="sidebar">
     {open && <Content>
-      <b>Investar</b>
+      <b>Notifications</b>
     </Content>}
     <Tab selected={open && (tab === "info")} onClick={()=>setTab("info")} title="Notifications">
       <div className="icon">

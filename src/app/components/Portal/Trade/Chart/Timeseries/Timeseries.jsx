@@ -8,8 +8,8 @@ import {Wrapper, Graph, VertAxis, HorzAxis, ToolBar, Tool} from "./styles";
 export default function Timeseries({layout, dataset, item}){
   const [chart] = React.useState(()=>(new InitChart()))
   
-  React.useEffect(()=>{
-    chart.draw(dataset);
+  React.useLayoutEffect(()=>{
+    chart.candlesticks(dataset);
   }, [dataset, layout])
   
   

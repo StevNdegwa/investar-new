@@ -1,8 +1,7 @@
 let CACHE_NAME = "investar-new-cache";
 
 let urlsToCache = [
-  "/",
-  "/assets/images/main-background.jpg"
+  "/"
 ]
 
 self.addEventListener("install",function(event){

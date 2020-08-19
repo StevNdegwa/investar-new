@@ -63,13 +63,9 @@ width:80%;
   }
 }
 @media only screen and (max-width:600px){
-  height:410px;
   &>div.content{
     flex-direction:column;
     min-height:360px;
-  }
-  &>h1{
-    font-size:0.9em;
   }
 }
 `;
@@ -113,8 +109,6 @@ width:90%;
   }
 }
 @media only screen and (max-width:600px){
-  &>h1{
-    font-size:0.8em;
-  }
+  
 }
 `;

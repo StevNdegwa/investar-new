@@ -93,7 +93,7 @@ position:relative;
 @media only screen and (max-width:600px){
   & div.fot{
     height:50px;
-    font-size:1.6em;
+    font-size:2em;
     line-height:50px;
     font-weight:500;
   }
@@ -171,5 +171,16 @@ margin:1em 0;
     height:100px;
     line-height:100px;
   }
+}
+@media only screen and (max-width:600px){
+  margin:0.5em 0;
+  &>div{
+    &>h1{
+      font-weight:500;
+      font-size:2em;
+      height:50px;
+      line-height:50px;
+    }
+  }  
 }
 `;
