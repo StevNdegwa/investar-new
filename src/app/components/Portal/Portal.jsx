@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {MdMenu, MdClear} from "react-icons/md";
+import {MdMenu, MdClear, MdFullscreen, MdFullscreenExit} from "react-icons/md";
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 
 import './styles.scss';
 import logo from "./images/logo.png";
+
 import Sidenav from "./Sidenav";
 import Languages from "../Languages";
 import DialogContainer from "./DialogContainer";
@@ -16,14 +17,41 @@ import Analytics from "./Analytics";
 import Finances from "./Finances";
 import Sidebar from "./Sidebar";
 import Settings from "./Settings";
+
 import UserContext from "../../UserContext";
 
 export default function Portal(props){
   const [logOut, setLogOut] = React.useState({confirmed:false, dialog:false});
   const [sidebar, setSidebar] = React.useState(false);
   const [settingsDialog, setSettingsDialog] = React.useState(false);
+  const [fullscreen, setFullscreen] = React.useState(false);
   
   let userContext = React.useContext(UserContext);
+  
+  const enterFullscreen = React.useCallback(()=>{
+    let root = document.getElementById("root");
+    
+    let requestFullscreen = root.requestFullscreen || root.mozRequestFullScreen || root.webkitRequestFullscreen || root.msRequestFullscreen;
+    
+    let exitFullscreen = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
+    
+    let fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+    
+    if(!fullscreenElement){
+      
+      requestFullscreen.call(root);
+      
+      setFullscreen(true);
+      
+    }else{
+      
+      exitFullscreen.call(document);
+      
+      setFullscreen(false);
+      
+    }
+    
+  },[]);
   
   if(logOut.confirmed){
     return <Redirect to="/"/>
@@ -38,10 +66,13 @@ export default function Portal(props){
       <div className="rSide">
         <div id="logo"><img src={logo} alt="Log"/></div>
         <Languages setUserLanguage={props.setUserLanguage} currentLanguage={props.language}/>
+        <div className="icon control fullscreen" onClick={()=>enterFullscreen()} title="Fullscreen">
+          {fullscreen ? <MdFullscreenExit/> : <MdFullscreen/>}
+        </div>
       </div>
       <div className="lSide">
         {props.demo && <button className="o-r-a">Open Real Account</button>}
-        {<div className="icon sidebar" onClick={()=>setSidebar((s)=>!s)}>
+        {<div className="icon sidebar control" onClick={()=>setSidebar((s)=>!s)}>
           {sidebar ? <MdClear/> : <MdMenu/>}
         </div>}
       </div>
