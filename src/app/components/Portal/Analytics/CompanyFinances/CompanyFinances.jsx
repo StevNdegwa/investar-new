@@ -4,11 +4,9 @@ import {MdSearch} from "react-icons/md";
 
 import fetchSearchResults from "../../../../lib/alphavantage/fetchsearchresults";
 
-import SMA from "./SMA";
-
 import {Wrapper, Info, Search, Loader, ResultOptions, Title, Indicators, Indicator} from "./styles";
 
-export default function TechnicalIndicators(){
+export default function CompanyFinances(){
   const [show, setShow] = React.useState({empty:true, loading:false, main:function(){ return !this.empty && !this.loading}});
   const [search, setSearch] = React.useState("");
   const [searchResults, setSearchResults] = React.useState([]);
@@ -71,10 +69,6 @@ export default function TechnicalIndicators(){
     {show.main() ?
       <>
         <Title>{selectedItem.symbol}, {selectedItem.name}</Title>
-        <Indicators>
-          <Indicator selected={currentIndicator === "SMA"}>SMA</Indicator>
-        </Indicators>
-        <SMA selectedItem={selectedItem}/>
       </>
       :
       <Info>

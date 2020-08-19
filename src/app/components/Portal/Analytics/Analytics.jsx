@@ -1,6 +1,6 @@
 import React from "react";
 
-import TechnicalIndicators from "./TechnicalIndicators";
+import CompanyFinances from "./CompanyFinances";
 
 import {Wrapper, Tabs, Tab, Content} from "./styles";
 
@@ -9,10 +9,10 @@ export default function Analytics(){
   
   return (<Wrapper>
     <Tabs>
-      <Tab>Technical indicators</Tab>
+      <Tab>Company Finances</Tab>
     </Tabs>
     <Content>
-      <TechnicalIndicators/>
+      <CompanyFinances/>
     </Content>
   </Wrapper>);
 }
