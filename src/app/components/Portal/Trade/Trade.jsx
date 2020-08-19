@@ -1,23 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {MdExpandMore, MdTune} from "react-icons/md";
+import {MdExpandMore, MdTune, MdMultilineChart} from "react-icons/md";
 
 import DialogContainer from "../DialogContainer";
 import SelectTradeItem from "./SelectTradeItem";
 import SetLayout from "./SetLayout";
 import Chart from "./Chart";
+import SetTechnicalIndicators from "./SetTechnicalIndicators";
 import {Wrapper, ToolBar, Tool} from "./styles";
 
 import TradeContext from "./TradeContext";
 
 export default function Trade(props){
-  const [activeItem, setActiveItem] = 
-    React.useReducer(activeItemReducer, 
-      {dialog:false, item:{name:"Agilent Technologies Inc.", symbol:"A"}});
-      
+  const [activeItem, setActiveItem] = React.useReducer(activeItemReducer, {dialog:false, item:{name:"Agilent Technologies Inc.", symbol:"A"}});
   const [layout, setLayout] = React.useReducer(layoutReducer, {dialog:false, active:"S"});
   const [duration, setDuration]  = React.useState("DAILY");
-  
+  const [technicalIndicators, setTechnicalIndicators] = React.useState(false);
   
   return (
     <TradeContext.Provider 
@@ -39,6 +37,14 @@ export default function Trade(props){
       </DialogContainer>
       <DialogContainer show={layout.dialog} close={()=>setLayout({type:"CLOSE_DIALOG"})}>
         <SetLayout/>
+      </DialogContainer>
+      <DialogContainer show={technicalIndicators} close={()=>setTechnicalIndicators(false)}>
+        <SetTechnicalIndicators 
+          indicatorsList={props.technicalIndicatorsList} 
+          updateOptions={props.updateTechnicalIndicatorOptions}
+          setActive={props.setActiveTechnicalIndicators}
+          closeDialog={()=>setTechnicalIndicators(false)}
+        />
       </DialogContainer>
       <ToolBar className="level-300">
         <Tool onClick={()=>setActiveItem({type:"OPEN_DIALOG"})}>
@@ -65,6 +71,9 @@ export default function Trade(props){
         <Tool onClick={()=>setLayout({type:"OPEN_DIALOG"})} title="Select Layout">
           <div className="icon"><MdTune/></div>
         </Tool>
+        <Tool onClick={()=>setTechnicalIndicators(true)} title="Set Technical Indicators">
+          <div className="icon"><MdMultilineChart/></div>
+        </Tool>
       </ToolBar>
       <Chart stocksTimeseries={props.stocksTimeseries} getStocksTimeseries={props.getStocksTimeseries}/>
     </Wrapper>
@@ -76,7 +85,10 @@ Trade.propTypes = {
   getStocksList: PropTypes.func.isRequired,
   stocksTimeseries: PropTypes.object.isRequired,
   getStocksTimeseries: PropTypes.func.isRequired,
-  clearStocksTimeseries: PropTypes.func.isRequired
+  clearStocksTimeseries: PropTypes.func.isRequired,
+  technicalIndicatorsList: PropTypes.array.isRequired,
+  updateTechnicalIndicatorOptions: PropTypes.func.isRequired,
+  setActiveTechnicalIndicators: PropTypes.func.isRequired
 }
 
 function activeItemReducer(state, action){

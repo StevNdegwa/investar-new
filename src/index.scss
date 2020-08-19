@@ -84,6 +84,26 @@ ul{
   transition:transform 200ms;
 }
 
+
+.slide-right-enter{
+  transform:translate(100px, 0px);
+}
+
+.slide-right-enter-active{
+  transform:translate(0px, 0px);
+  background-color:red;
+  transition:transform 200ms;
+}
+
+.slide-right-exit{
+  transform:translate(0px, 0px);
+}
+
+.slide-right-exit-active{
+  transform:translate(100px, 0);
+  transition:transform 200ms;
+}
+
 .level-100{
   z-index:100;
 }

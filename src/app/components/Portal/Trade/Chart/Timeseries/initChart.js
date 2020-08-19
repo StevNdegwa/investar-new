@@ -49,7 +49,7 @@ class InitChart{
     //Axis functions
     chart.horzAxis.ticks(parseInt(dataset.length / 30)) 
     
-    let show = (g)=>g.transition().duration(Math.max(500, dataset.length))
+    let show = (g)=>g.transition().duration(Math.max(500, dataset.length/2))
     .attrTween("opacity", ()=>interpolateNumber(0, 1))
   
     select("div.timeseries svg.chart.timeseries > g.graph").selectAll("g.candlestick").remove();

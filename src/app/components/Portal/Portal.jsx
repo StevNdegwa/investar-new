@@ -78,6 +78,9 @@ export default function Portal(props){
                   stocksTimeseries={props.stocksTimeseries} 
                   getStocksTimeseries={props.getStocksTimeseries}
                   clearStocksTimeseries={props.clearStocksTimeseries}
+                  technicalIndicatorsList={props.technicalIndicatorsList}
+                  updateTechnicalIndicatorOptions={props.updateTechnicalIndicatorOptions}
+                  setActiveTechnicalIndicators={props.setActiveTechnicalIndicators}
                   />
               </ErrorBoundary>
             </Route>
@@ -97,5 +100,8 @@ Portal.propTypes = {
   demo: PropTypes.bool,
   stocksTimeseries: PropTypes.object.isRequired,
   getStocksTimeseries: PropTypes.func.isRequired,
-  clearStocksTimeseries: PropTypes.func.isRequired
+  clearStocksTimeseries: PropTypes.func.isRequired,
+  technicalIndicatorsList:PropTypes.array.isRequired,
+  updateTechnicalIndicatorOptions:PropTypes.func.isRequired,
+  setActiveTechnicalIndicators:PropTypes.func.isRequired
 }
