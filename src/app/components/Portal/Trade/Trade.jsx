@@ -12,8 +12,8 @@ import {Wrapper, ToolBar, Tool} from "./styles";
 import TradeContext from "./TradeContext";
 
 export default function Trade(props){
-  const [activeItem, setActiveItem] = React.useReducer(activeItemReducer, {dialog:false, item:{name:"Agilent Technologies Inc.", symbol:"A"}});
-  const [layout, setLayout] = React.useReducer(layoutReducer, {dialog:false, active:"S"});
+  const [activeItemDialog, setActiveItemDialog] = React.useState(false);
+  const [layoutDialog, setLayoutDialog] = React.useState(false);
   const [duration, setDuration]  = React.useState("DAILY");
   const [technicalIndicators, setTechnicalIndicators] = React.useState(false);
   
@@ -21,22 +21,23 @@ export default function Trade(props){
     <TradeContext.Provider 
       value = {
         {
-          activeItem: {...activeItem, setActiveItem},
+          activeItem: {item:props.activeItem, setActiveItem:props.setActiveItem, closeDialog:()=>setActiveItemDialog(false)},
           duration,
-          layout: {...layout, setLayout}
+          layout: {active:props.viewLayout, setLayout:props.setViewLayout}
         }
       }
     >
     <Wrapper>
-      <DialogContainer show={activeItem.dialog} close={()=>setActiveItem({type:"CLOSE_DIALOG"})}>
-        <SelectTradeItem 
+      <DialogContainer show={activeItemDialog} close={()=>setActiveItemDialog(false)}>
+        <SelectTradeItem
+          activeItemDialog={activeItemDialog}
           stocksList={props.stocksList} 
           getStocksList={props.getStocksList}
           clearStocksTimeseries={props.clearStocksTimeseries}
           />
       </DialogContainer>
-      <DialogContainer show={layout.dialog} close={()=>setLayout({type:"CLOSE_DIALOG"})}>
-        <SetLayout/>
+      <DialogContainer show={layoutDialog} close={()=>setLayoutDialog(false)}>
+        <SetLayout layoutDialog={layoutDialog} closeDialog={()=>setLayoutDialog(false)}/>
       </DialogContainer>
       <DialogContainer show={technicalIndicators} close={()=>setTechnicalIndicators(false)}>
         <SetTechnicalIndicators 
@@ -47,8 +48,8 @@ export default function Trade(props){
         />
       </DialogContainer>
       <ToolBar className="level-300">
-        <Tool onClick={()=>setActiveItem({type:"OPEN_DIALOG"})}>
-          <div>{activeItem.item.symbol}</div>
+        <Tool onClick={()=>setActiveItemDialog(true)}>
+          <div>{props.activeItem.symbol}</div>
           <div className="icon"><MdExpandMore/></div>
         </Tool>
         <Tool>
@@ -68,7 +69,7 @@ export default function Trade(props){
             title="Monthly"
           >M</button>
         </Tool>
-        <Tool onClick={()=>setLayout({type:"OPEN_DIALOG"})} title="Select Layout">
+        <Tool onClick={()=>setLayoutDialog(true)} title="Select Layout">
           <div className="icon"><MdTune/></div>
         </Tool>
         <Tool onClick={()=>setTechnicalIndicators(true)} title="Set Technical Indicators">
@@ -88,31 +89,9 @@ Trade.propTypes = {
   clearStocksTimeseries: PropTypes.func.isRequired,
   technicalIndicatorsList: PropTypes.array.isRequired,
   updateTechnicalIndicatorOptions: PropTypes.func.isRequired,
-  setActiveTechnicalIndicators: PropTypes.func.isRequired
-}
-
-function activeItemReducer(state, action){
-  switch(action.type){
-    case "SET_ITEM":
-      return {dialog:false, item: action.item};
-    case "OPEN_DIALOG":
-      return {...state, dialog:true};
-    case "CLOSE_DIALOG":
-      return {...state, dialog:false};
-    default:
-      return state;
-  }
-}
-
-function layoutReducer(state, action){
-  switch(action.type){
-    case "SET_LAYOUT":
-      return {dialog: false, active: action.layout};
-    case "OPEN_DIALOG":
-      return {...state, dialog: true}
-    case "CLOSE_DIALOG":
-      return {...state, dialog: false};
-    default:
-      return state;
-  }
+  setActiveTechnicalIndicators: PropTypes.func.isRequired,
+  activeItem:PropTypes.object.isRequired,
+  setActiveItem:PropTypes.func.isRequired,
+  viewLayout:PropTypes.string.isRequired,
+  setViewLayout:PropTypes.func.isRequired
 }

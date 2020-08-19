@@ -12,17 +12,18 @@ import TradeContext from "../TradeContext"
 import {Wrapper, Title, Main, Tabs, Tab, Pages, Page} from "./styles";
 
 export default function SelectTradeItem(props){
-  const [tabs, setTabs] = React.useReducer(tabsReducer, {stocks:true, forex:false, currencies:false});
   let tradeContext = React.useContext(TradeContext);
+  const [tabs, setTabs] = React.useReducer(tabsReducer, {stocks:true, forex:false, currencies:false});
   const [selectedItem, setSelectedItem] = React.useState(tradeContext.activeItem.item);
   
+  
   return (
-    <CSSTransition in={tradeContext.activeItem.dialog} timeout={200} classNames="pop">
+    <CSSTransition in={props.activeItemDialog} timeout={200} classNames="pop">
       <Wrapper> 
         <Title>
           <div className="trade-item">{selectedItem.symbol}</div>
           <div className="clear-icon" 
-            onClick={()=>tradeContext.activeItem.setActiveItem({type:"CLOSE_DIALOG"})}
+            onClick={()=>tradeContext.activeItem.closeDialog()}
           ><MdClear/></div>
         </Title>
         <Main>
@@ -65,7 +66,8 @@ export default function SelectTradeItem(props){
 
 SelectTradeItem.propTypes = {
   getStocksList: PropTypes.func.isRequired,
-  stocksList: PropTypes.object.isRequired
+  stocksList: PropTypes.object.isRequired,
+  activeItemDialog:PropTypes.bool.isRequired
 }
 
 function tabsReducer(state, action){

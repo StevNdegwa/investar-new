@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-export const technicalIndicatorsListSlice = createSlice({
+const technicalIndicatorsListSlice = createSlice({
   name:"technicalIndicatorsList",
   initialState:[
     {sf:"SMA", lf:"Simple Moving Average", active:false, options:{interval:"daily", seriesType:"close", timePeriod:200}},

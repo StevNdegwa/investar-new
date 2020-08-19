@@ -47,6 +47,7 @@ color:#cfd8dc;
 background-color:#37474f;
 line-height:40px;
 display:flex;
+box-shadow:inset 0px 0px 10px #263238;
 &>div.level{
   height:100%;
   cursor:pointer;

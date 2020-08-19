@@ -81,6 +81,10 @@ export default function Portal(props){
                   technicalIndicatorsList={props.technicalIndicatorsList}
                   updateTechnicalIndicatorOptions={props.updateTechnicalIndicatorOptions}
                   setActiveTechnicalIndicators={props.setActiveTechnicalIndicators}
+                  activeItem={props.activeTradeItem}
+                  setActiveItem={props.setActiveTradeItem}
+                  viewLayout={props.tradeViewLayout}
+                  setViewLayout={props.setTradeViewLayout}
                   />
               </ErrorBoundary>
             </Route>
@@ -103,5 +107,9 @@ Portal.propTypes = {
   clearStocksTimeseries: PropTypes.func.isRequired,
   technicalIndicatorsList:PropTypes.array.isRequired,
   updateTechnicalIndicatorOptions:PropTypes.func.isRequired,
-  setActiveTechnicalIndicators:PropTypes.func.isRequired
+  setActiveTechnicalIndicators:PropTypes.func.isRequired,
+  activeTradeItem:PropTypes.object.isRequired,
+  setActiveTradeItem:PropTypes.func.isRequired,
+  tradeViewLayout:PropTypes.string.isRequired,
+  setTradeViewLayout:PropTypes.func.isRequired
 }

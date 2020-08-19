@@ -20,7 +20,8 @@ export default function TradeItem({currList, selectPage, loading, activeItem, se
   }
   
   function applyChanges(){
-    tradeContext.activeItem.setActiveItem({type:"SET_ITEM", item:activeItem})
+    tradeContext.activeItem.setActiveItem(activeItem)
+    tradeContext.activeItem.closeDialog()
   }
   
   return (<Wrapper>

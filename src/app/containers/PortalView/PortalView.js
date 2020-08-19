@@ -5,6 +5,8 @@ import languageSlice from "../../features/general/languageSlice";
 import stocksTimeseriesSlice from "../../features/portal/stocksTimeseriesSlice";
 import loadStocksSearch from "../../features/portal/loadstockssearch";
 import technicalIndicatorsListSlice from "../../features/portal/technicalIndicatorsListSlice";
+import activeTradeItemSlice from "../../features/portal/activeTradeItemSlice";
+import tradeViewLayoutSlice from "../../features/portal/tradeViewLayoutSlice";
 import {daily, weekly, monthly} from "../../features/portal/loadstockstimeseries";
 
 function mapStateToProps(state){
@@ -12,14 +14,16 @@ function mapStateToProps(state){
     language: state.language,
     stocksList: state.stocksList,
     stocksTimeseries: state.stocksTimeseries, 
-    technicalIndicatorsList: state.technicalIndicatorsList
+    technicalIndicatorsList: state.technicalIndicatorsList,
+    activeTradeItem: state.activeTradeItem,
+    tradeViewLayout: state.tradeViewLayout
   }
 }
 
 function matchDispatchToProps(dispatch){
   return {
     setUserLanguage:(language)=>dispatch(languageSlice.actions.changeLanguage(language)),
-    getStocksList: (search)=>dispatch(loadStocksSearch(search)),
+    getStocksList:(search)=>dispatch(loadStocksSearch(search)),
     getStocksTimeseries: (duration, stockSymbol)=>{
       switch(duration){
         case "DAILY":
@@ -34,7 +38,9 @@ function matchDispatchToProps(dispatch){
     },
     clearStocksTimeseries:()=>dispatch(stocksTimeseriesSlice.actions.clearData()),
     updateTechnicalIndicatorOptions:(indicator, options)=>dispatch(technicalIndicatorsListSlice.actions.updateOptions({indicator, options})),
-    setActiveTechnicalIndicators:(indicators)=>dispatch(technicalIndicatorsListSlice.actions.setActive({indicators}))
+    setActiveTechnicalIndicators:(indicators)=>dispatch(technicalIndicatorsListSlice.actions.setActive({indicators})),
+    setActiveTradeItem:(item)=>dispatch(activeTradeItemSlice.actions.setTradeItem({item})),
+    setTradeViewLayout:(layout)=>dispatch(tradeViewLayoutSlice.actions.setLayout({layout}))
   }
 }
 

@@ -1,29 +1,31 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {MdClear} from  "react-icons/md";
 import {CSSTransition} from "react-transition-group";
 
 import TradeContext from "../TradeContext";
 import {Wrapper, Controls, Main, Apply, Layout, SectionTop, SectionBottom} from "./styles";
 
-const SetLayout = ()=>{
+const SetLayout = React.memo(({layoutDialog, closeDialog})=>{
   let tradeContext = React.useContext(TradeContext);
   let [layout, setLayout] = React.useState(tradeContext.layout.active);
   
-  function closeDialog(){
-    tradeContext.layout.setLayout({type:"CLOSE_DIALOG"});
+  function close(){
+    closeDialog();
     setLayout(tradeContext.layout.active);
   }
   
   function applyLayout(){
-    tradeContext.layout.setLayout({type:"SET_LAYOUT", layout})
+    tradeContext.layout.setLayout(layout);
+    closeDialog();
   }
   
   return (
-    <CSSTransition in={tradeContext.layout.dialog} timeout={200} classNames="pop">
+    <CSSTransition in={layoutDialog} timeout={200} classNames="pop">
       <Wrapper>
         <Controls>
           <div></div>
-          <div className="icon" onClick={()=>closeDialog()}>
+          <div className="icon" onClick={()=>close()}>
             <MdClear/>
           </div>
         </Controls>
@@ -48,6 +50,11 @@ const SetLayout = ()=>{
         </Controls>
       </Wrapper>
   </CSSTransition>)
-};
+});
+
+SetLayout.propTypes = {
+layoutDialog:PropTypes.bool.isRequired,
+closeDialog:PropTypes.func.isRequired
+}
 
 export default SetLayout;
