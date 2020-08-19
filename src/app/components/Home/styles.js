@@ -90,6 +90,14 @@ position:relative;
   font-weight:600;
   color:white;
 }
+@media only screen and (max-width:600px){
+  & div.fot{
+    height:50px;
+    font-size:1.6em;
+    line-height:50px;
+    font-weight:500;
+  }
+}
 `;
 
 

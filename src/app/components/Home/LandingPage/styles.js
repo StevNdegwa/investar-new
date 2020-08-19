@@ -66,7 +66,10 @@ width:80%;
   height:410px;
   &>div.content{
     flex-direction:column;
-    height:360px;
+    min-height:360px;
+  }
+  &>h1{
+    font-size:0.9em;
   }
 }
 `;
@@ -107,6 +110,11 @@ width:90%;
         box-shadow:inset 0px 0px 4px #81d4fa;
       }
     }
+  }
+}
+@media only screen and (max-width:600px){
+  &>h1{
+    font-size:0.8em;
   }
 }
 `;

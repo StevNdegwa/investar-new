@@ -5,7 +5,7 @@ import {FaMoneyBill, FaUser, FaBook, FaChartPie, FaSignOutAlt} from "react-icons
 import UserContext from "../../../UserContext";
 import {Control, Action} from "./styles";
 
-const Sidenav = React.memo(({logOut, language})=>{
+const Sidenav = React.memo(({logOut, language, openSettingsDialog})=>{
   let userContext =  React.useContext(UserContext);
   
   function getTranslation(text){
@@ -48,7 +48,7 @@ const Sidenav = React.memo(({logOut, language})=>{
       </Control>
     </div>
     <div>
-      <Action>
+      <Action onClick={()=>openSettingsDialog()}>
         <MdSettings/>
       </Action>
       <Action onClick={()=>logOut()}>

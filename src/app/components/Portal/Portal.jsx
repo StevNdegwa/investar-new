@@ -15,11 +15,13 @@ import Help from "./Help";
 import Analytics from "./Analytics";
 import Finances from "./Finances";
 import Sidebar from "./Sidebar";
+import Settings from "./Settings";
 import UserContext from "../../UserContext";
 
 export default function Portal(props){
   const [logOut, setLogOut] = React.useState({confirmed:false, dialog:false});
   const [sidebar, setSidebar] = React.useState(false);
+  const [settingsDialog, setSettingsDialog] = React.useState(false);
   
   let userContext = React.useContext(UserContext);
   
@@ -46,10 +48,17 @@ export default function Portal(props){
     </div>
     <div id="main">
       <Router basename="/app">
-        <Sidenav logOut={()=>setLogOut({confirmed:false, dialog:true})} language={props.language}/>
+        <Sidenav 
+          logOut={()=>setLogOut({confirmed:false, dialog:true})} 
+          language={props.language}
+          openSettingsDialog={()=>setSettingsDialog(true)}
+        />
         <div id="space">
           <DialogContainer show={logOut.dialog} close={()=>setLogOut({confirmed:false, dialog:false})}>
             <ConfirmExit close={setLogOut} show={logOut.dialog}/>
+          </DialogContainer>
+          <DialogContainer show={settingsDialog} close={()=>setSettingsDialog(false)}>
+            <Settings/>
           </DialogContainer>
           <Switch>
             <Route path="/billing">

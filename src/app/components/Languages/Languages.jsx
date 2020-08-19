@@ -9,6 +9,17 @@ import {Wrapper, Ul} from "./styles";
 const Languages = React.memo(({setUserLanguage, currentLanguage})=>{
   const [open, setOpen] = React.useState(false);
   
+  function closeMenu(){
+    setOpen(false);
+  }
+  
+  React.useEffect(()=>{
+    document.body.addEventListener("click", closeMenu);
+    return function cleanup(){
+      document.body.removeEventListener("click", closeMenu);
+    }
+  })
+  
   return (
     <Wrapper id="languages" onClick={()=>setOpen((o)=>!o)} className="level-400">
       <div>

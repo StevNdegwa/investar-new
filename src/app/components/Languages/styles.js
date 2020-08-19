@@ -4,7 +4,6 @@ export const Wrapper = styled.div`
 height:100%;
 position:relative;
 background-color:#263238;
-background-image:linear-gradient(#263238,#37474f,#37474f,#263238);
 border:1px solid #37474f;
 padding:0 0.1em;
 color:white;
@@ -40,7 +39,7 @@ padding:0.2em;
   cursor:pointer;
   height:40px;
   line-height:40px;
-  padding:0 0.1em;
+  padding:0 0.5em;
   &:hover{
     background-color:#37474f;
   }
