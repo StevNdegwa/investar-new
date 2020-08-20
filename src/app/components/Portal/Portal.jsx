@@ -24,36 +24,35 @@ export default function Portal(props){
   const [logOut, setLogOut] = React.useState({confirmed:false, dialog:false});
   const [sidebar, setSidebar] = React.useState(false);
   const [settingsDialog, setSettingsDialog] = React.useState(false);
-  const [fullscreen, setFullscreen] = React.useState(false);
   
   let userContext = React.useContext(UserContext);
   
-  const enterFullscreen = React.useCallback(()=>{
-    let root = document.getElementById("root");
+  const enterFullscreen = React.useCallback((exit)=>{
+    try{
+      let root = document.getElementById("root");
     
-    let requestFullscreen = root.requestFullscreen || root.mozRequestFullScreen || root.webkitRequestFullscreen || root.msRequestFullscreen;
+      let requestFullscreen = root.requestFullscreen || root.mozRequestFullScreen || root.webkitRequestFullscreen || root.msRequestFullscreen;
     
-    let exitFullscreen = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
+      let exitFullscreen = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
     
-    let fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+      let fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
     
-    if(!fullscreenElement){
+      if(fullscreenElement){
       
-      requestFullscreen.call(root);
+        exitFullscreen.call(document);
       
-      setFullscreen(true);
+      }else if(!exit){
       
-    }else{
-      
-      exitFullscreen.call(document);
-      
-      setFullscreen(false);
-      
+        requestFullscreen.call(root);
+        
+      }
+    }catch(error){
+      console.log(error);
     }
-    
   },[]);
   
   if(logOut.confirmed){
+    enterFullscreen(true);
     return <Redirect to="/"/>
   }
   
@@ -67,7 +66,7 @@ export default function Portal(props){
         <div id="logo"><img src={logo} alt="Log"/></div>
         <Languages setUserLanguage={props.setUserLanguage} currentLanguage={props.language}/>
         <div className="icon control fullscreen" onClick={()=>enterFullscreen()} title="Fullscreen">
-          {fullscreen ? <MdFullscreenExit/> : <MdFullscreen/>}
+          <MdFullscreen/>
         </div>
       </div>
       <div className="lSide">

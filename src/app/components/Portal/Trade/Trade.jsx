@@ -17,13 +17,18 @@ export default function Trade(props){
   const [duration, setDuration]  = React.useState("DAILY");
   const [technicalIndicators, setTechnicalIndicators] = React.useState(false);
   
+  let activeIndictors = React.useMemo(()=>{
+    return props.technicalIndicatorsList.filter((i)=>i.active);
+  }, [props.technicalIndicatorsList]);
+  
   return (
     <TradeContext.Provider 
       value = {
         {
           activeItem: {item:props.activeItem, setActiveItem:props.setActiveItem, closeDialog:()=>setActiveItemDialog(false)},
           duration,
-          layout: {active:props.viewLayout, setLayout:props.setViewLayout}
+          layout: {active:props.viewLayout, setLayout:props.setViewLayout},
+          activeIndictors
         }
       }
     >

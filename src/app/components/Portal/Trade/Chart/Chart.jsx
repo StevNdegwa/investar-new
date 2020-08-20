@@ -11,7 +11,7 @@ import {Wrapper, Spinner, Section, ErrorInfo} from "./styles";
 
 export default function Chart({stocksTimeseries, getStocksTimeseries}){
   const [dataset, setDataset] = React.useState([]);
-  const [loading, setLoading] = React.useState("true");
+  const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState({error:false, message:"No Error"})
   let tradeContext = React.useContext(TradeContext);
   

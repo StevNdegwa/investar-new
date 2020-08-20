@@ -5,10 +5,13 @@ import {MdZoomIn, MdZoomOut, MdZoomOutMap} from "react-icons/md";
 import InitChart from "./initChart";
 import {Wrapper, Graph, VertAxis, HorzAxis, ToolBar, Tool} from "./styles";
 
+import TradeContext from "../../TradeContext";
+
 export default function Timeseries({layout, dataset, item}){
   const [chart] = React.useState(()=>(new InitChart()))
+  let tradeContext  = React.useContext(TradeContext);
   
-  React.useLayoutEffect(()=>{
+  React.useEffect(()=>{
     chart.candlesticks(dataset);
   }, [dataset, layout])
   
