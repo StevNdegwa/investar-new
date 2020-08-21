@@ -11,12 +11,13 @@ import Languages from "../Languages";
 import DialogContainer from "./DialogContainer";
 import ConfirmExit from "./ConfirmExit";
 import ErrorBoundary from "./ErrorBoundary";
-import Trade from "./Trade";
 import Help from "./Help";
 import Analytics from "./Analytics";
 import Finances from "./Finances";
 import Sidebar from "./Sidebar";
 import Settings from "./Settings";
+
+import TradeView from "../../containers/TradeView";
 
 import UserContext from "../../UserContext";
 
@@ -111,22 +112,7 @@ export default function Portal(props){
             </Route>
             <Route path="/" exact>
               <ErrorBoundary>
-                <Trade 
-                  stocksList={props.stocksList} 
-                  getStocksList={props.getStocksList} 
-                  stocksTimeseries={props.stocksTimeseries} 
-                  getStocksTimeseries={props.getStocksTimeseries}
-                  clearStocksTimeseries={props.clearStocksTimeseries}
-                  technicalIndicatorsList={props.technicalIndicatorsList}
-                  updateTechnicalIndicatorOptions={props.updateTechnicalIndicatorOptions}
-                  setActiveTechnicalIndicators={props.setActiveTechnicalIndicators}
-                  activeItem={props.activeTradeItem}
-                  setActiveItem={props.setActiveTradeItem}
-                  viewLayout={props.tradeViewLayout}
-                  setViewLayout={props.setTradeViewLayout}
-                  timeseriesChartType={props.timeseriesChartType}
-                  setTimeseriesChartType={props.setTimeseriesChartType}
-                  />
+                <TradeView/>
               </ErrorBoundary>
             </Route>
           </Switch>
@@ -139,20 +125,5 @@ export default function Portal(props){
 
 Portal.propTypes = {
   language:PropTypes.object.isRequired,
-  setUserLanguage:PropTypes.func.isRequired,
-  stocksList: PropTypes.object.isRequired,
-  getStocksList: PropTypes.func.isRequired,
   demo: PropTypes.bool,
-  stocksTimeseries: PropTypes.object.isRequired,
-  getStocksTimeseries: PropTypes.func.isRequired,
-  clearStocksTimeseries: PropTypes.func.isRequired,
-  technicalIndicatorsList:PropTypes.array.isRequired,
-  updateTechnicalIndicatorOptions:PropTypes.func.isRequired,
-  setActiveTechnicalIndicators:PropTypes.func.isRequired,
-  activeTradeItem:PropTypes.object.isRequired,
-  setActiveTradeItem:PropTypes.func.isRequired,
-  tradeViewLayout:PropTypes.string.isRequired,
-  setTradeViewLayout:PropTypes.func.isRequired,
-  timeseriesChartType:PropTypes.string.isRequired,
-  setTimeseriesChartType:PropTypes.func.isRequired
 }

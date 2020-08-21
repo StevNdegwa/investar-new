@@ -15,15 +15,15 @@ class InitChart{
   constructor(){
     this.chartZoom = zoom();
     this.horzDist = 0;
-    this.vertScale = scaleLinear();
-    this.horzLinearScale = scaleUtc();
-    this.horzBandScale = scaleBand().padding(0.4);
-    this.vertAxis = axisRight();
-    this.horzAxis = axisBottom().tickFormat(formatTime);
-    this.currentZoomLevel = 1;
-    this.dataset = [];
     this.width = 0;
     this.height = 0;
+    this.horzLinearScale = scaleUtc();
+    this.horzBandScale = scaleBand().padding(0.4);
+    this.vertScale = scaleLinear();
+    this.vertAxis = axisRight(this.vertScale);
+    this.horzAxis = axisBottom(this.horzLinearScale).tickFormat(formatTime);
+    this.currentZoomLevel = 1;
+    this.dataset = [];
     this.show = null;
   }
   
@@ -35,18 +35,39 @@ class InitChart{
     this.dataset =  d;
   }
   
-  graph(dataset){
-    let chart = this,
-        svg = select("div.timeseries svg.chart.timeseries"),
-        graphContainer = select("div.timeseries svg.chart.timeseries > g.graph-container"),
-        vertAxisGraph = select("div.timeseries svg.axis.y > g.graph"),
-        horzAxisGraph = select("div.timeseries svg.axis.x > g.graph"),
-        vertAxisPointer = select("div.timeseries svg.axis.y > g.pointer"),
-        horzAxisPointer = select("div.timeseries svg.axis.x > g.pointer"),
-        horzIndicator = select("div.timeseries line.indicator.x"),
-        vertIndicator = select("div.timeseries line.indicator.y")
-    
+  
+  init(dataset){
     this.dataset = dataset;
+    
+    let chart = this;
+    
+    chart.horzDist = dataset.length * 10;
+    
+    chart.show = (g)=>g.transition().duration(Math.max(500, chart.dataset.length / 2))
+    .attrTween("opacity", ()=>interpolateNumber(0, 1))
+    
+    chart.vertScale.domain([min(dataset, (d)=>d.low), max(dataset, (d)=>d.high)]);
+    
+    chart.horzLinearScale.domain(extent(dataset, (d)=>d.date)).range([0, chart.horzDist]);
+    chart.horzBandScale.domain(dataset.map((d)=>d.date).reverse()).range([0, chart.horzDist]);
+    
+    //Axis functions
+    chart.horzAxis.ticks(parseInt(dataset.length / 30)) 
+    
+  }
+  
+  graph(){
+    let chart = this,
+      graphContainer = select("div.timeseries svg.chart.timeseries > g.graph-container"),
+      vertAxisGraph = select("div.timeseries svg.axis.y > g.graph"),
+      horzAxisGraph = select("div.timeseries svg.axis.x > g.graph"),
+      vertAxisPointer = select("div.timeseries svg.axis.y > g.pointer"),
+      horzAxisPointer = select("div.timeseries svg.axis.x > g.pointer"),
+      indicator = select("div.timeseries svg.chart.timeseries > g.indicator"),
+      horzIndicator = select("div.timeseries svg.chart.timeseries > g.indicator > line.horizontal"),
+      vertIndicator = select("div.timeseries svg.chart.timeseries > g.indicator > line.vertical"),
+      indicatorBoard = select("div.timeseries svg.chart.timeseries > g.indicator > rect.board"),
+      zoomBase = select("div.timeseries svg.chart.timeseries > .zoombase");
     
     //Get the chart dimensions
     let {width, height} = select("div.timeseries svg.chart.timeseries").node().getBoundingClientRect();
@@ -55,28 +76,13 @@ class InitChart{
     
     chart.height = height;
     
-    chart.horzDist = dataset.length * 10;
-    
-    chart.show = (g)=>g.transition().duration(Math.max(500, chart.dataset.length/2))
-    .attrTween("opacity", ()=>interpolateNumber(0, 1))
-    
-    chart.vertScale.domain([min(dataset, (d)=>d.low), max(dataset, (d)=>d.high)])
-    .range([height, 0]);
-    
-    chart.horzLinearScale.domain(extent(dataset, (d)=>d.date)).range([0, chart.horzDist]);
-    chart.horzBandScale.domain(dataset.map((d)=>d.date).reverse()).range([0, chart.horzDist]);
-    
-    //Axis functions
-    chart.horzAxis.ticks(parseInt(dataset.length / 30)) 
-    
-    chart.vertAxis.scale(chart.vertScale);
-    chart.horzAxis.scale(chart.horzLinearScale)
+    chart.vertScale.range([chart.height, 0])
     
     vertAxisGraph.call(chart.vertAxis);
     horzAxisGraph.call(chart.horzAxis);
-    
+   
     chart.chartZoom
-    .translateExtent([[0, 0], [Infinity, height]])//Limit the zoom translation
+    .translateExtent([[0, 0], [Infinity, chart.height]])//Limit the zoom translation
     .scaleExtent([1, 8]) //Limit zoom scaling
     .on("zoom", function(){
       let transform = event.transform;
@@ -87,14 +93,17 @@ class InitChart{
       let newVertScale = transform.rescaleY(chart.vertScale);
       chart.vertAxis.scale(newVertScale);
       
+      
+      //indicator.transition().duration(300).attr("transform", transform);
+      //vertIndicator.transition().duration(300).attr("transform", `translate(${-transform.x}, 0)`);
       graphContainer.transition().duration(300).attr("transform", transform);
       
       vertAxisGraph.transition().duration(300).call(chart.vertAxis);
       horzAxisGraph.transition().duration(300).call(chart.horzAxis);
     })
     
-    select("div.timeseries svg.chart.timeseries > .zoombase")
-    .call(chart.chartZoom.transform, zoomIdentity.translate((width - chart.horzDist), 0))
+    zoomBase
+    .call(chart.chartZoom.transform, zoomIdentity.translate((chart.width - chart.horzDist), 0))
     .call(chart.chartZoom)
     .on("dblclick.zoom", null) //Prevent zoom on double click
     .on("mousemove", function(){
@@ -151,9 +160,6 @@ class InitChart{
   
   lineChart(){
     let chart = this;
-    
-    let show = (g)=>g.transition().duration(Math.max(500, chart.dataset.length/2))
-    .attrTween("opacity", ()=>interpolateNumber(0, 1));
     
     let graphContainer = select("div.timeseries svg.chart.timeseries > g.graph-container");
     

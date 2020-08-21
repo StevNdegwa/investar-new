@@ -26,12 +26,30 @@ let timePeriods = [
   {label:"200 points", value:200}
 ]
 
-export default function SMA({back, saveOptions, currentOptions}){
+let activeStatus = [
+  {label:"On", value:true},
+  {label:"Off", value:false}
+]
+
+export default function SMA({back, saveOptions, currentOptions, closeDialog}){
   const [interval, setInterval] = React.useState(()=>intervals.find((i)=>i.value === currentOptions.interval))
   const [seriesType, setSeriesType] = React.useState(()=>seriesTypes.find((i)=>i.value === currentOptions.seriesType))
   const [timePeriod, setTimePeriod] = React.useState(()=>timePeriods.find((i)=>i.value === currentOptions.timePeriod));
+  const [active, setActive] = React.useState(()=>activeStatus.find((i)=>i.value === currentOptions.active));
+  
+  function applySelectedOptions(){
+    saveOptions({active:active.value, interval:interval.value, seriesType:seriesType.value, timePeriod:timePeriod.value});
+    closeDialog();
+  }
   
   return (<Wrapper>
+      <Select
+        label = "Active"
+        info = "Select whether the indicator should be shown."
+        options = {activeStatus}
+        currentOption = {active}
+        selectOption = {setActive}
+      />
       <Select
         label = "Interval"
         info = "Time interval between two consecutive data points in the time series."
@@ -57,9 +75,7 @@ export default function SMA({back, saveOptions, currentOptions}){
         <div></div>
         <div>
           <button onClick={()=>back()}>Back</button>
-          <button onClick={
-            ()=>saveOptions({interval:interval.value, seriesType:seriesType.value, timePeriod:timePeriod.value})}
-          >Save</button>
+          <button onClick={()=>applySelectedOptions()}>Apply Changes</button>
         </div>
       </Controls>
   </Wrapper>)

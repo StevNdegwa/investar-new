@@ -15,6 +15,8 @@ class InitChart{
     this.vertAxis = axisRight(this.vertScale);
     this.chartZoom = zoom();
     this.dataset = [];
+    this.width = 0;
+    this.height = 0;
   }
   
   get currentDataset(){
@@ -26,13 +28,21 @@ class InitChart{
   }
   
   draw(dataset){
-    let chart = this;
+    let chart = this,
+      graphContainer = select("div.volume svg.chart.volume > g.graph-container"),
+      zoomBase = select("div.volume svg.chart.volume > rect.zoombase"),
+      horzIndicator = select("svg.chart.volume > g.indicator > line.horizontal"),
+      vertIndicator = select("svg.chart.volume > g.indicator > line.vertical"),
+      vertAxisGraph = select("div.volume svg.axis.y > g.graph");
     
     chart.dataset = dataset;
     
     //Get the chart dimensions
     let {width, height} = select("div.volume svg.chart.volume").node().getBoundingClientRect();
-  
+    
+    chart.width = width;
+    chart.height = height;
+    
     chart.vertScale.domain([0, max(dataset, (d)=>d.volume)]).range([height, 0]);
     
     chart.horzDist = dataset.length * 5;
@@ -45,34 +55,34 @@ class InitChart{
       .on("zoom", function(){
         let transform = event.transform;
         transform.y = 1;
-        select("div.volume svg.chart.volume > g.graph").attr("transform", transform)
+        graphContainer.attr("transform", transform)
       })
     
     
-    select("div.volume svg.chart.volume > g.graph")
-      .selectAll("rect.bar")
-      .data(dataset)
-      .join("rect")
-      .classed("bar", true)
-      .attr("width", chart.horzScale.bandwidth())
-      .attr("height", (d)=>(height - chart.vertScale(d.volume)))
-      .attr("x", (d)=>chart.horzScale(d.date))
-      .attr("y", (d)=>chart.vertScale(d.volume))
-      .append("title")
-      .text((d, i)=>{
-        return `Trade Date: ${d.date.toDateString()}\nTrade Volume: ${numFormat(d.volume)}`
-      })
+    graphContainer
+    .selectAll("rect.bar")
+    .data(dataset)
+    .join("rect")
+    .classed("bar", true)
+    .attr("width", chart.horzScale.bandwidth())
+    .attr("height", (d)=>(height - chart.vertScale(d.volume)))
+    .attr("x", (d)=>chart.horzScale(d.date))
+    .attr("y", (d)=>chart.vertScale(d.volume))
+    .append("title")
+    .text((d, i)=>{
+      return `Trade Date: ${d.date.toDateString()}\nTrade Volume: ${numFormat(d.volume)}`
+    })
   
-    select("div.volume svg.axis.y > g").call(chart.vertAxis);
+    vertAxisGraph.call(chart.vertAxis);
   
-    select("div.volume svg.chart.volume > rect.zoombase")
-      .call(chart.chartZoom.transform, zoomIdentity.translate((width - chart.horzDist), 0))
-      .call(chart.chartZoom)
-      .on("mousemove", function(){
-        let [x, y] = mouse(this);
-        select("svg.chart.volume line.indicator.x").attr("y1", y).attr("y2", y);
-        select("svg.chart.volume line.indicator.y").attr("x1", x).attr("x2", x);
-      })
+    zoomBase
+    .call(chart.chartZoom.transform, zoomIdentity.translate((width - chart.horzDist), 0))
+    .call(chart.chartZoom)
+    .on("mousemove", function(){
+      let [x, y] = mouse(this);
+      horzIndicator.attr("y1", y).attr("y2", y);
+      vertIndicator.attr("x1", x).attr("x2", x);
+    })
   }
   
 }

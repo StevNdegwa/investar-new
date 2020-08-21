@@ -3,9 +3,9 @@ import {createSlice} from "@reduxjs/toolkit";
 const technicalIndicatorsListSlice = createSlice({
   name:"technicalIndicatorsList",
   initialState:[
-    {sf:"SMA", lf:"Simple Moving Average", active:false, options:{interval:"daily", seriesType:"close", timePeriod:200}},
-    {sf:"EMA", lf:"Exponential  Moving Average", active:false, options:{interval:"daily", seriesType:"close", timePeriod:200}},
-    {sf:"WMA", lf:"Weighted  Moving Average", active:false, options:{interval:"daily", seriesType:"close", timePeriod:200}},
+    {sf:"SMA", lf:"Simple Moving Average", options:{active:false, interval:"daily", seriesType:"close", timePeriod:200}},
+    {sf:"EMA", lf:"Exponential  Moving Average", options:{active:false, interval:"daily", seriesType:"close", timePeriod:200}},
+    {sf:"WMA", lf:"Weighted  Moving Average", options:{active:false, interval:"daily", seriesType:"close", timePeriod:200}},
   ],
   reducers:{
     updateOptions(state, action){

@@ -36,25 +36,37 @@ export default function SetTechnicalIndicators({indicatorsList, updateOptions, s
   function main(){
     switch(levels[levels.length - 1]){
       case "SMA":
-        return (<SMA currentOptions={indicatorsList.find((i)=>(i.sf === "SMA")).options} 
-          back={()=>setLevel({type:"UP"})} saveOptions={(options)=>handleSaveOptions("SMA", options)}/>);
+        return (<SMA 
+          currentOptions = {indicatorsList.find((i)=>(i.sf === "SMA")).options} 
+          back = {()=>setLevel({type:"UP"})} 
+          saveOptions = {(options)=>handleSaveOptions("SMA", options)}
+          closeDialog = {closeDialog}
+          />);
       case "EMA":
-        return (<EMA currentOptions={indicatorsList.find((i)=>(i.sf === "EMA")).options} 
-          back={()=>setLevel({type:"UP"})} saveOptions={(options)=>handleSaveOptions("EMA", options)}/>);
+        return (<EMA 
+          currentOptions = {indicatorsList.find((i)=>(i.sf === "EMA")).options} 
+          back = {()=>setLevel({type:"UP"})} 
+          saveOptions = {(options)=>handleSaveOptions("EMA", options)}
+          closeDialog = {closeDialog}
+          />);
       case "WMA":
-        return (<WMA currentOptions={indicatorsList.find((i)=>(i.sf === "WMA")).options} 
-          back={()=>setLevel({type:"UP"})} saveOptions={(options)=>handleSaveOptions("WMA", options)}/>);
+        return (<WMA 
+          currentOptions = {indicatorsList.find((i)=>(i.sf === "WMA")).options} 
+          back = {()=>setLevel({type:"UP"})} 
+          saveOptions = {(options)=>handleSaveOptions("WMA", options)}
+          closeDialog = {closeDialog}
+        />);
       default:
         return (<Main onSubmit={(evt)=>{evt.preventDefault()}}>
-          {indicatorsList.map((i)=>{
+          {indicatorsList.map((indicator)=>{
             return (
-              <Indicator key={i.sf}>
+              <Indicator key={indicator.sf}>
                 <label>
-                  <input type="checkbox" checked={indicators.includes(i.sf)} onChange={(evt)=>handleIndicatorClick(evt, i.sf)}/>
+                  <input type="checkbox" checked={indicator.options.active} readOnly/>
                   <span className="check"><FaCheckSquare/></span>
-                  <span className="label">{i.sf}&nbsp;({i.lf})</span>
+                  <span className="label">{indicator.sf}&nbsp;({indicator.lf})</span>
                 </label>
-                <div className="settings" onClick={()=>setLevel({type:"DOWN", to:i.sf})}><MdSettings/></div>
+                <div className="settings" onClick={()=>setLevel({type:"DOWN", to:indicator.sf})}><MdSettings/></div>
               </Indicator>
             )
           })}
@@ -62,7 +74,6 @@ export default function SetTechnicalIndicators({indicatorsList, updateOptions, s
             <div></div>
             <div>
               <button onClick={()=>closeDialog()}>Cancel</button>
-              <button onClick={()=>handleSaveIndicators()}>Save</button>
             </div>
           </Controls>
         </Main>)

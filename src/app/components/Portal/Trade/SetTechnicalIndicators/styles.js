@@ -13,8 +13,9 @@ padding:5px;
 display:flex;
 justify-content:space-between;
 & button{
-  width:80px;
+  min-width:80px;
   margin:0 5px;
+  padding:0 1em;
   height:40px;
   background-color:#455a64;
   border:none;
