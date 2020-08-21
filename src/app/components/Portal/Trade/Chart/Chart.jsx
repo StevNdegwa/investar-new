@@ -33,7 +33,7 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
       setLoading(false);
       setError({error:true, message:"Application error"})
     }
-  }, [])
+  }, []);
   
   React.useEffect(()=>{
     loadData();

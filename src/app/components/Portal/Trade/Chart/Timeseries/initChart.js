@@ -8,7 +8,8 @@ import {format} from "d3-format";
 import {timeFormat} from "d3-time-format";
 import {interpolateNumber} from "d3-interpolate";
 
-let numberFormat = format(" $,");
+let numberFormat = format(" $,.2f"),
+  formatTime = timeFormat("%b, %Y");
 
 class InitChart{
   constructor(){
@@ -18,7 +19,7 @@ class InitChart{
     this.horzLinearScale = scaleUtc();
     this.horzBandScale = scaleBand().padding(0.4);
     this.vertAxis = axisRight();
-    this.horzAxis = axisBottom().tickFormat(timeFormat("%b, %Y"));
+    this.horzAxis = axisBottom().tickFormat(formatTime);
     this.currentZoomLevel = 1;
     this.dataset = [];
     this.width = 0;
@@ -35,7 +36,15 @@ class InitChart{
   }
   
   graph(dataset){
-    let chart = this;
+    let chart = this,
+        svg = select("div.timeseries svg.chart.timeseries"),
+        graphContainer = select("div.timeseries svg.chart.timeseries > g.graph-container"),
+        vertAxisGraph = select("div.timeseries svg.axis.y > g.graph"),
+        horzAxisGraph = select("div.timeseries svg.axis.x > g.graph"),
+        vertAxisPointer = select("div.timeseries svg.axis.y > g.pointer"),
+        horzAxisPointer = select("div.timeseries svg.axis.x > g.pointer"),
+        horzIndicator = select("div.timeseries line.indicator.x"),
+        vertIndicator = select("div.timeseries line.indicator.y")
     
     this.dataset = dataset;
     
@@ -63,8 +72,8 @@ class InitChart{
     chart.vertAxis.scale(chart.vertScale);
     chart.horzAxis.scale(chart.horzLinearScale)
     
-    select("div.timeseries svg.axis.y > g").call(chart.vertAxis);
-    select("div.timeseries svg.axis.x > g").call(chart.horzAxis);
+    vertAxisGraph.call(chart.vertAxis);
+    horzAxisGraph.call(chart.horzAxis);
     
     chart.chartZoom
     .translateExtent([[0, 0], [Infinity, height]])//Limit the zoom translation
@@ -78,11 +87,10 @@ class InitChart{
       let newVertScale = transform.rescaleY(chart.vertScale);
       chart.vertAxis.scale(newVertScale);
       
-      select("div.timeseries svg.chart.timeseries > g.graph-container")
-      .transition().duration(300).attr("transform", transform);
+      graphContainer.transition().duration(300).attr("transform", transform);
       
-      select("div.timeseries svg.axis.y > g").transition().duration(300).call(chart.vertAxis);
-      select("div.timeseries svg.axis.x > g").transition().duration(300).call(chart.horzAxis);
+      vertAxisGraph.transition().duration(300).call(chart.vertAxis);
+      horzAxisGraph.transition().duration(300).call(chart.horzAxis);
     })
     
     select("div.timeseries svg.chart.timeseries > .zoombase")
@@ -92,8 +100,10 @@ class InitChart{
     .on("mousemove", function(){
       let [x, y] = mouse(this);
     
-      select("div.timeseries line.indicator.x").attr("y1", y).attr("y2", y);
-      select("div.timeseries line.indicator.y").attr("x1", x).attr("x2", x);
+      horzIndicator.attr("y1", y).attr("y2", y);
+      vertAxisPointer.attr("transform", `translate(0, ${y-10})`).select("text").text(0);
+      vertIndicator.attr("x1", x).attr("x2", x);
+      horzAxisPointer.attr("transform", `translate(${x-50}, 0)`).select("text").text("-");
     })
   }
   
@@ -131,11 +141,12 @@ class InitChart{
       .attr("y2", (d, i)=>(chart.vertScale(d.low)))
       .attr("stroke", (d, i)=>(d.close > d.open ? "#00FF00" : "red"))
     })
-    .call(chart.show)
     .append("title")
     .text((d, i)=>{
       return `Trade Date: ${d.date.toDateString()}.\nOpen: ${numberFormat(d.open)}.\nClose: ${numberFormat(d.close)}.\nHigh: ${numberFormat(d.high)}.\nLow: ${numberFormat(d.low)}`;
     })
+    
+    graphContainer.call(chart.show);
   }
   
   lineChart(){

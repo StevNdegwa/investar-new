@@ -58,20 +58,28 @@ export default function Timeseries({layout, dataset, item, type}){
         <text className="company-name" x="50%" y="50%" pointerEvents="none">{item.name}</text>
         <line className="indicator x" x1="0" y1="0" x2="100%" y2="0" pointerEvents="none"/>
         <line className="indicator y" x1="0" y1="0" x2="0" y2="100%" pointerEvents="none"/>
-        <g className="graph-container"></g>
         <rect className="zoombase" width="100%" height="100%" pointerEvents="all"/>
+        <g className="graph-container"></g>
       </svg>
     </Graph>
     <VertAxis>
       <svg className="y axis">
-        <g></g>
+        <g className="graph"></g>
         <rect className="bg" width="100%" height="100%" pointerEvents="none"/>
+        <g className="pointer"  pointerEvents="none">
+          <rect x="0" rx="5px"/>
+          <text x="50%" y="15px"></text>
+        </g>
       </svg>
     </VertAxis>
     <HorzAxis>
       <svg className="x axis">
-        <g></g>
+        <g className="graph"></g>
         <rect className="bg" width="100%" height="100%" pointerEvents="none"/>
+        <g className="pointer"  pointerEvents="none">
+          <rect y="0" rx="5px"/>
+          <text x="50px" y="15px"></text>
+        </g>
       </svg>
     </HorzAxis>
   </Wrapper>)
