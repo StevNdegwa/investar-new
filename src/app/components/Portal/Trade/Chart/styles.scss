@@ -35,6 +35,19 @@ svg.chart{
       font-style:italic;
       text-anchor:middle;
     }
+    & .line{
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    & .line.graph{
+      stroke:#03a9f4;
+      fill:none;
+    }
+    & .area.graph{
+      stroke:none;
+      fill:url(#area-shade);
+    }
   }
   
   &.volume{

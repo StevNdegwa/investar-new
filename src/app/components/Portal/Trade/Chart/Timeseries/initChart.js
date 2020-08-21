@@ -1,11 +1,12 @@
 import {scaleUtc, scaleLinear, scaleBand} from "d3-scale";
+import {line, area} from "d3-shape";
 import {axisBottom, axisRight} from "d3-axis";
 import {zoom, zoomIdentity} from "d3-zoom";
 import {mouse, select, event} from "d3-selection";
 import {extent, max, min} from "d3-array";
 import {format} from "d3-format";
 import {timeFormat} from "d3-time-format";
-import {interpolateNumber} from "d3-interpolate"
+import {interpolateNumber} from "d3-interpolate";
 
 let numberFormat = format(" $,");
 
@@ -20,6 +21,9 @@ class InitChart{
     this.horzAxis = axisBottom().tickFormat(timeFormat("%b, %Y"));
     this.currentZoomLevel = 1;
     this.dataset = [];
+    this.width = 0;
+    this.height = 0;
+    this.show = null;
   }
   
   get currentDataset(){
@@ -30,7 +34,7 @@ class InitChart{
     this.dataset =  d;
   }
   
-  candlesticks(dataset){
+  graph(dataset){
     let chart = this;
     
     this.dataset = dataset;
@@ -38,8 +42,15 @@ class InitChart{
     //Get the chart dimensions
     let {width, height} = select("div.timeseries svg.chart.timeseries").node().getBoundingClientRect();
     
-    chart.horzDist = dataset.length * 5;
-   
+    chart.width = width;
+    
+    chart.height = height;
+    
+    chart.horzDist = dataset.length * 10;
+    
+    chart.show = (g)=>g.transition().duration(Math.max(500, chart.dataset.length/2))
+    .attrTween("opacity", ()=>interpolateNumber(0, 1))
+    
     chart.vertScale.domain([min(dataset, (d)=>d.low), max(dataset, (d)=>d.high)])
     .range([height, 0]);
     
@@ -49,16 +60,55 @@ class InitChart{
     //Axis functions
     chart.horzAxis.ticks(parseInt(dataset.length / 30)) 
     
-    let show = (g)=>g.transition().duration(Math.max(500, dataset.length/2))
-    .attrTween("opacity", ()=>interpolateNumber(0, 1))
+    chart.vertAxis.scale(chart.vertScale);
+    chart.horzAxis.scale(chart.horzLinearScale)
+    
+    select("div.timeseries svg.axis.y > g").call(chart.vertAxis);
+    select("div.timeseries svg.axis.x > g").call(chart.horzAxis);
+    
+    chart.chartZoom
+    .translateExtent([[0, 0], [Infinity, height]])//Limit the zoom translation
+    .scaleExtent([1, 8]) //Limit zoom scaling
+    .on("zoom", function(){
+      let transform = event.transform;
+      
+      let newHorzScale = transform.rescaleX(chart.horzLinearScale);
+      chart.horzAxis.scale(newHorzScale);
+      
+      let newVertScale = transform.rescaleY(chart.vertScale);
+      chart.vertAxis.scale(newVertScale);
+      
+      select("div.timeseries svg.chart.timeseries > g.graph-container")
+      .transition().duration(300).attr("transform", transform);
+      
+      select("div.timeseries svg.axis.y > g").transition().duration(300).call(chart.vertAxis);
+      select("div.timeseries svg.axis.x > g").transition().duration(300).call(chart.horzAxis);
+    })
+    
+    select("div.timeseries svg.chart.timeseries > .zoombase")
+    .call(chart.chartZoom.transform, zoomIdentity.translate((width - chart.horzDist), 0))
+    .call(chart.chartZoom)
+    .on("dblclick.zoom", null) //Prevent zoom on double click
+    .on("mousemove", function(){
+      let [x, y] = mouse(this);
+    
+      select("div.timeseries line.indicator.x").attr("y1", y).attr("y2", y);
+      select("div.timeseries line.indicator.y").attr("x1", x).attr("x2", x);
+    })
+  }
   
-    select("div.timeseries svg.chart.timeseries > g.graph").selectAll("g.candlestick").remove();
+  candlesticks(){
+    let chart = this;
+    
+    let graphContainer = select("div.timeseries svg.chart.timeseries > g.graph-container");
+    
+    graphContainer.selectAll(".graph").remove();
   
-    select("div.timeseries svg.chart.timeseries > g.graph")
-    .selectAll("g.candlestick")
-    .data(dataset)
+    graphContainer
+    .selectAll("g.candlestick.graph")
+    .data(chart.dataset)
     .join("g")
-    .classed("candlestick", true)
+    .classed("candlestick graph", true)
     .attr("transform", (d, i)=>{
       return`translate(${this.horzBandScale(d.date)}, 0)`;
     })
@@ -81,47 +131,40 @@ class InitChart{
       .attr("y2", (d, i)=>(chart.vertScale(d.low)))
       .attr("stroke", (d, i)=>(d.close > d.open ? "#00FF00" : "red"))
     })
-    .call(show)
+    .call(chart.show)
     .append("title")
     .text((d, i)=>{
       return `Trade Date: ${d.date.toDateString()}.\nOpen: ${numberFormat(d.open)}.\nClose: ${numberFormat(d.close)}.\nHigh: ${numberFormat(d.high)}.\nLow: ${numberFormat(d.low)}`;
     })
+  }
+  
+  lineChart(){
+    let chart = this;
     
-    chart.vertAxis.scale(chart.vertScale);
-    chart.horzAxis.scale(chart.horzLinearScale)
+    let show = (g)=>g.transition().duration(Math.max(500, chart.dataset.length/2))
+    .attrTween("opacity", ()=>interpolateNumber(0, 1));
     
-    select("div.timeseries svg.axis.y > g").call(chart.vertAxis);
-    select("div.timeseries svg.axis.x > g").call(chart.horzAxis);
+    let graphContainer = select("div.timeseries svg.chart.timeseries > g.graph-container");
     
-    chart.chartZoom
-    .translateExtent([[0, 0], [Infinity, height]])//Limit the zoom translation
-    .scaleExtent([1, 8]) //Limit zoom scaling
-    .on("zoom", function(){
-      let transform = event.transform;
-      
-      let newHorzScale = transform.rescaleX(chart.horzLinearScale);
-      chart.horzAxis.scale(newHorzScale);
-      
-      let newVertScale = transform.rescaleY(chart.vertScale);
-      chart.vertAxis.scale(newVertScale);
-      
-      select("div.timeseries svg.chart.timeseries > g.graph")
-      .transition().duration(300).attr("transform", transform);
-      
-      select("div.timeseries svg.axis.y > g").transition().duration(300).call(chart.vertAxis);
-      select("div.timeseries svg.axis.x > g").transition().duration(300).call(chart.horzAxis);
-    })
+    graphContainer.selectAll(".graph").remove();
     
-    select("div.timeseries svg.chart.timeseries > .zoombase")
-    .call(chart.chartZoom.transform, zoomIdentity.translate((width - chart.horzDist), 0))
-    .call(chart.chartZoom)
-    .on("dblclick.zoom", null) //Prevent zoom on double click
-    .on("mousemove", function(){
-      let [x, y] = mouse(this);
+    let lineGraph = line().x((d)=>chart.horzLinearScale(d.date)).y((d)=>chart.vertScale(d.close));
     
-      select("div.timeseries line.indicator.x").attr("y1", y).attr("y2", y);
-      select("div.timeseries line.indicator.y").attr("x1", x).attr("x2", x);
-    })
+    let areaGraph = area().x((d)=>chart.horzLinearScale(d.date)).y0(()=>chart.vertScale(0)).y1((d)=>chart.vertScale(d.close));
+    
+    graphContainer
+    .append("path")
+    .classed("line graph", true)
+    .datum(chart.dataset)
+    .attr("d", lineGraph)
+    
+    graphContainer
+    .append("path")
+    .classed("area graph", true)
+    .datum(chart.dataset)
+    .attr("d", areaGraph)
+    
+    graphContainer.call(chart.show);
   }
   
   zoomChart(action){

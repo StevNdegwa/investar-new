@@ -124,6 +124,8 @@ export default function Portal(props){
                   setActiveItem={props.setActiveTradeItem}
                   viewLayout={props.tradeViewLayout}
                   setViewLayout={props.setTradeViewLayout}
+                  timeseriesChartType={props.timeseriesChartType}
+                  setTimeseriesChartType={props.setTimeseriesChartType}
                   />
               </ErrorBoundary>
             </Route>
@@ -150,5 +152,7 @@ Portal.propTypes = {
   activeTradeItem:PropTypes.object.isRequired,
   setActiveTradeItem:PropTypes.func.isRequired,
   tradeViewLayout:PropTypes.string.isRequired,
-  setTradeViewLayout:PropTypes.func.isRequired
+  setTradeViewLayout:PropTypes.func.isRequired,
+  timeseriesChartType:PropTypes.string.isRequired,
+  setTimeseriesChartType:PropTypes.func.isRequired
 }

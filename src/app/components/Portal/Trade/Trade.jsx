@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {MdExpandMore, MdTune, MdMultilineChart} from "react-icons/md";
+import {MdExpandMore, MdTune, MdMultilineChart, MdShowChart} from "react-icons/md";
 
 import DialogContainer from "../DialogContainer";
 import SelectTradeItem from "./SelectTradeItem";
 import SetLayout from "./SetLayout";
 import Chart from "./Chart";
+import ChartType from "./ChartType";
 import SetTechnicalIndicators from "./SetTechnicalIndicators";
 import {Wrapper, ToolBar, Tool} from "./styles";
 
@@ -14,6 +15,7 @@ import TradeContext from "./TradeContext";
 export default function Trade(props){
   const [activeItemDialog, setActiveItemDialog] = React.useState(false);
   const [layoutDialog, setLayoutDialog] = React.useState(false);
+  const [chartTypeDialog, setChartTypeDialog] = React.useState(false);
   const [duration, setDuration]  = React.useState("DAILY");
   const [technicalIndicators, setTechnicalIndicators] = React.useState(false);
   
@@ -25,9 +27,10 @@ export default function Trade(props){
     <TradeContext.Provider 
       value = {
         {
-          activeItem: {item:props.activeItem, setActiveItem:props.setActiveItem, closeDialog:()=>setActiveItemDialog(false)},
+          activeItem: {item: props.activeItem, setActiveItem: props.setActiveItem, closeDialog: ()=>setActiveItemDialog(false)},
           duration,
-          layout: {active:props.viewLayout, setLayout:props.setViewLayout},
+          layout: {active: props.viewLayout, setLayout: props.setViewLayout},
+          timeseriesChartType:{active: props.timeseriesChartType, setChartType: props.setTimeseriesChartType},
           activeIndictors
         }
       }
@@ -51,6 +54,11 @@ export default function Trade(props){
           setActive={props.setActiveTechnicalIndicators}
           closeDialog={()=>setTechnicalIndicators(false)}
         />
+      </DialogContainer>
+      <DialogContainer show={chartTypeDialog} close={()=>setChartTypeDialog(false)}>
+        <ChartType 
+          open={chartTypeDialog} 
+          closeDialog={()=>setChartTypeDialog(false)}/>
       </DialogContainer>
       <ToolBar className="level-300">
         <Tool onClick={()=>setActiveItemDialog(true)}>
@@ -80,6 +88,9 @@ export default function Trade(props){
         <Tool onClick={()=>setTechnicalIndicators(true)} title="Set Technical Indicators">
           <div className="icon"><MdMultilineChart/></div>
         </Tool>
+        <Tool onClick={()=>setChartTypeDialog(true)}>
+          <div className="icon"><MdShowChart/></div>
+        </Tool>
       </ToolBar>
       <Chart stocksTimeseries={props.stocksTimeseries} getStocksTimeseries={props.getStocksTimeseries}/>
     </Wrapper>
@@ -98,5 +109,7 @@ Trade.propTypes = {
   activeItem:PropTypes.object.isRequired,
   setActiveItem:PropTypes.func.isRequired,
   viewLayout:PropTypes.string.isRequired,
-  setViewLayout:PropTypes.func.isRequired
+  setViewLayout:PropTypes.func.isRequired,
+  timeseriesChartType:PropTypes.string.isRequired,
+  setTimeseriesChartType:PropTypes.func.isRequired
 }

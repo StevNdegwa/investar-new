@@ -21,7 +21,7 @@ const SetLayout = React.memo(({layoutDialog, closeDialog})=>{
   }
   
   return (
-    <CSSTransition in={layoutDialog} timeout={200} classNames="pop">
+    <CSSTransition in={layoutDialog} timeout={100} classNames="pop">
       <Wrapper>
         <Controls>
           <div></div>

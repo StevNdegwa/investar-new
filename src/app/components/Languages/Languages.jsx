@@ -21,7 +21,7 @@ const Languages = React.memo(({setUserLanguage, currentLanguage})=>{
   })
   
   return (
-    <Wrapper id="languages" onClick={()=>setOpen((o)=>!o)} className="level-400">
+    <Wrapper id="languages" onClick={()=>setOpen((o)=>!o)}>
       <div>
         <div className="icon">
           <MdLanguage/>
@@ -31,7 +31,7 @@ const Languages = React.memo(({setUserLanguage, currentLanguage})=>{
           {open ?  <MdExpandLess/> : <MdExpandMore/>}
         </div>
       </div>
-      <Ul show={open}>
+      <Ul show={open} className="level-400">
         {languages.map((l)=>{
           return (<li key={l.key} onClick={()=>setUserLanguage(l)}>{l.name}</li>)
         })}

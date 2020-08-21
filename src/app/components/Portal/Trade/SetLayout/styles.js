@@ -5,7 +5,7 @@ width:500px;
 height:250px;
 background-color:#263238;
 border-radius:10px;
-`
+`;
 
 export const Controls = styled.div`
 height:50px;

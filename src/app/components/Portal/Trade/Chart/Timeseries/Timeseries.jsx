@@ -5,15 +5,30 @@ import {MdZoomIn, MdZoomOut, MdZoomOutMap} from "react-icons/md";
 import InitChart from "./initChart";
 import {Wrapper, Graph, VertAxis, HorzAxis, ToolBar, Tool} from "./styles";
 
-import TradeContext from "../../TradeContext";
 
-export default function Timeseries({layout, dataset, item}){
-  const [chart] = React.useState(()=>(new InitChart()))
-  let tradeContext  = React.useContext(TradeContext);
+export default function Timeseries({layout, dataset, item, type}){
+  const [chart] = React.useState(()=>(new InitChart()));
+  
+  function drawChart(){
+    switch(type){
+      case "LC":
+        chart.lineChart();
+        break;
+      default:
+        chart.candlesticks();
+        break;
+    }
+  }
   
   React.useEffect(()=>{
-    chart.candlesticks(dataset);
+    chart.graph(dataset);
+    drawChart();
   }, [dataset, layout])
+  
+  
+  React.useEffect(()=>{
+    drawChart();
+  },[type]);
   
   
   return (<Wrapper className="timeseries">
@@ -35,12 +50,16 @@ export default function Timeseries({layout, dataset, item}){
             <line x1="0" y1="75" x2="100" y2="75"/>
             <line x1="50" y1="0" x2="50" y2="150"/>
           </pattern>
+          <linearGradient id="area-shade" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style={{stopColor:"#03a9f4",stopOpacity:1}}/>
+            <stop offset="100%" style={{stopColor:"#03a9f4",stopOpacity:0}}/>
+          </linearGradient>
         </defs>
         <text className="company-name" x="50%" y="50%" pointerEvents="none">{item.name}</text>
         <line className="indicator x" x1="0" y1="0" x2="100%" y2="0" pointerEvents="none"/>
         <line className="indicator y" x1="0" y1="0" x2="0" y2="100%" pointerEvents="none"/>
+        <g className="graph-container"></g>
         <rect className="zoombase" width="100%" height="100%" pointerEvents="all"/>
-        <g className="graph"></g>
       </svg>
     </Graph>
     <VertAxis>

@@ -15,15 +15,7 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
   const [error, setError] = React.useState({error:false, message:"No Error"})
   let tradeContext = React.useContext(TradeContext);
   
-  React.useEffect(()=>{
-    loadData();
-    
-    return function(){
-      setDataset([])
-    }
-  }, [tradeContext.duration, tradeContext.activeItem.item]);
-  
-  async function loadData(){
+  let loadData = React.useCallback(async function(){
     setLoading(true);
     setError({error:false, message:"No Error"});
     try{
@@ -41,7 +33,16 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
       setLoading(false);
       setError({error:true, message:"Application error"})
     }
-  }
+  }, [])
+  
+  React.useEffect(()=>{
+    loadData();
+    
+    return function(){
+      setDataset([])
+    }
+  }, [tradeContext.duration, tradeContext.activeItem.item]);
+  
   
   if(loading){
     return (<Wrapper>
@@ -67,6 +68,7 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
                 layout = "S_V" 
                 dataset = {dataset || []} 
                 item = {tradeContext.activeItem.item}
+                type = {tradeContext.timeseriesChartType.active}
               />
             </Section>
             <CSSTransition timeout={100} classNames="slide-up" in={true}>
@@ -85,6 +87,7 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
                 layout = "S" 
                 dataset = {dataset || []}
                 item = {tradeContext.activeItem.item}
+                type = {tradeContext.timeseriesChartType.active}
               />
             </Section>
           </Wrapper>

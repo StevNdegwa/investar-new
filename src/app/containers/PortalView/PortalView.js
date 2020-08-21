@@ -7,6 +7,7 @@ import loadStocksSearch from "../../features/portal/loadstockssearch";
 import technicalIndicatorsListSlice from "../../features/portal/technicalIndicatorsListSlice";
 import activeTradeItemSlice from "../../features/portal/activeTradeItemSlice";
 import tradeViewLayoutSlice from "../../features/portal/tradeViewLayoutSlice";
+import timeseriesChartTypeSlice from "../../features/portal/timeseriesChartTypeSlice";
 import {daily, weekly, monthly} from "../../features/portal/loadstockstimeseries";
 
 function mapStateToProps(state){
@@ -16,7 +17,8 @@ function mapStateToProps(state){
     stocksTimeseries: state.stocksTimeseries, 
     technicalIndicatorsList: state.technicalIndicatorsList,
     activeTradeItem: state.activeTradeItem,
-    tradeViewLayout: state.tradeViewLayout
+    tradeViewLayout: state.tradeViewLayout,
+    timeseriesChartType: state.timeseriesChartType
   }
 }
 
@@ -40,7 +42,8 @@ function matchDispatchToProps(dispatch){
     updateTechnicalIndicatorOptions:(indicator, options)=>dispatch(technicalIndicatorsListSlice.actions.updateOptions({indicator, options})),
     setActiveTechnicalIndicators:(indicators)=>dispatch(technicalIndicatorsListSlice.actions.setActive({indicators})),
     setActiveTradeItem:(item)=>dispatch(activeTradeItemSlice.actions.setTradeItem({item})),
-    setTradeViewLayout:(layout)=>dispatch(tradeViewLayoutSlice.actions.setLayout({layout}))
+    setTradeViewLayout:(layout)=>dispatch(tradeViewLayoutSlice.actions.setLayout({layout})),
+    setTimeseriesChartType:(chartType)=>dispatch(timeseriesChartTypeSlice.actions.setChartType({chartType}))
   }
 }
 
