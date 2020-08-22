@@ -66,8 +66,8 @@ export default function Timeseries({layout, dataset, item, type}){
           <line className="vertical" x1="0" y1="0" x2="0" y2="100%" pointerEvents="none"/>
           <rect className="board"/>
         </g>
-        <rect className="zoombase" width="100%" height="100%" pointerEvents="all"/>
         <g className="graph-container"></g>
+        <rect className="zoombase" width="100%" height="100%" pointerEvents="all"/>
       </svg>
     </Graph>
     <VertAxis>
