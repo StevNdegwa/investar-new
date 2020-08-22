@@ -10,11 +10,25 @@ Online Investment Platform
 3.  styled-components: A react based framework for styling components with css.
 4.  Redux: A state management framework for javascipt applications.
 
-## Features
+## Application Features
 > Some of the features in this app:
 * Well applied component transitions to provide a great user experience.
 * Candlestick charts, Area charts, Line charts, Bar charts - For visualizing stock time-series data
 * Zoomable charts.
+
+## Technical Features
+> React features
+* Memoization: memo, useCallback, useMemo
+* React hooks: useEffect, useReducer
+* Error boundaries
+> State management
+* Redux toolkit
+> D3 features
+* Transitions
+* Zooming
+* Scaling
+* Shapes: Area, Line
+
 
 ## Data sources:
 1.  Stock market, Forex and Crypto Currency data; REST API homepage: https://www.alphavantage.co/
