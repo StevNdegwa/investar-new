@@ -3,11 +3,10 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
 width:100%;
 height:100%;
-background-image:linear-gradient(#03a9f4, #29b6f6, #81d4fa);
-position:absolute;
 padding:1em;
+position:fixed;
+background-image:linear-gradient(#03a9f4, #29b6f6, #81d4fa);
 display:${(props)=>(props.show ? "block" : "none")};
-z-index:400;
 &>section{
   width:100%;
   padding-left:100px;
@@ -45,8 +44,7 @@ cursor:pointer;
     }
   }
 }
-& a{
-  text-decoration:none;
+&>a{
   color:#eeeeee;
   &.active{
     color:white;

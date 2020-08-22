@@ -31,7 +31,6 @@ export default function Home({setUserLanguage, language}){
   const context = React.useContext(UserContext);
   
   function handleShowMenuClick(){
-    wrapper.current.scrollIntoView({behavior:"smooth"});
     setShowMenu(true)
   }
   
@@ -39,16 +38,26 @@ export default function Home({setUserLanguage, language}){
     return context.translate(language.key, text)
   }
   
-  return (<Wrapper ref={wrapper} showingMenu={showMenu}>
+  return (<Wrapper ref={wrapper}>
   <Header className="level-400">
     <nav>
       <div>
-        <button onClick={()=>handleShowMenuClick()}><AiOutlineMenu size="25px"/>&nbsp;&nbsp;<span>Menu</span></button>
-        <button className="highlight blue"><AiFillMessage size="25px" color="#42a5f5"/>&nbsp;<span>{getTranslation("Online Chat")}</span></button>
+        <button onClick={()=>handleShowMenuClick()}>
+          <AiOutlineMenu/>
+          <span>&nbsp;Menu</span>
+        </button>
+        <button className="highlight blue">
+          <AiFillMessage color="#42a5f5"/>
+          <span>&nbsp;{getTranslation("Online Chat")}</span>
+        </button>
       </div>
       <div>
-        <button  className="highlight blue" onClick={()=>setOpen({type:"login"})}>{getTranslation("Log In")}</button>
-        <button className="signup" onClick={()=>setOpen({type:"signup"})}>{getTranslation("Sign Up")}</button>
+        <button  className="highlight blue" onClick={()=>setOpen({type:"login"})}>
+          &nbsp;{getTranslation("Log In")}
+        </button>
+        <button className="signup" onClick={()=>setOpen({type:"signup"})}>
+          &nbsp;{getTranslation("Sign Up")}
+        </button>
       </div>
     </nav>
   </Header>

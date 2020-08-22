@@ -8,7 +8,6 @@ height:60px;
 width:102%;
 cursor:pointer;
 padding:0.5em;
-text-decoration:none;
 background-color:transparent;
 border-left:none;
 transition:border-left 200ms, background-color 200ms;

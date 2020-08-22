@@ -1,0 +1,78 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  outline:none;
+  scrollbar-width:thin;
+}
+body{
+  font-family:"PT Serif", serif;
+  font-size:16px;
+  color:#212121;
+  background-color:white;
+  background-image:url("/assets/images/main-background.jpg");
+}
+
+html, body{
+  height:100%;
+}
+
+a{
+  color:white;
+  text-decoration:none;
+  cursor:pointer;
+  transition:text-decoration 500ms;
+}
+
+button{
+  padding:0 0.4em;
+  border-radius:5px;
+  color:white;
+  border:none;
+  cursor:pointer;
+  &>svg{
+    height:100%;
+    float:left;
+  }
+  &>span{
+    height:100%;
+    float:left;
+  }
+  &:focus{
+    outline:none;
+  }
+}
+
+input{
+  border:none;
+  padding:0 0.5em;
+  &:focus{
+    outline:none;
+  }
+}
+
+textarea{
+  padding:0 0.5em;
+  border:none;
+  &:focus{
+    outline:none;
+  }
+}
+
+ul{
+  list-style-type:none;
+}
+
+::-webkit-scrollbar{
+  width:10px;
+  background:#263238;
+  border-radius:5px;
+  cursor:pointer;
+} 
+::-webkit-scrollbar-track{
+  border-radius:5px;
+}
+::-webkit-scrollbar-thumb{
+  background:#78909c;
+  border-radius:5px;
+}

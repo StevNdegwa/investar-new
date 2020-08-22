@@ -20,7 +20,6 @@ export const Info = styled.div`
   display:block;
   height:40px;
   width:70px;
-  color:white;
   background-color:#212121;
   box-shadow:0px 0px 10px #212121;
 }

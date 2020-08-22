@@ -7,7 +7,6 @@ background-color:#263238;
 border:1px solid #37474f;
 padding:0 0.1em;
 color:white;
-list-style-type:none;
 cursor:pointer;
 &>div{
   display:flex;
@@ -26,10 +25,10 @@ cursor:pointer;
 `;
 
 export const Ul = styled.ul`
+width:150px;
 position:absolute;
 top:105%;
 left:0px;
-width:150px;
 display:${(props)=>(props.show ? "block" : "none")};
 border-radius:0 0 3px 3px;
 background-color:#263238;

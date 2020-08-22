@@ -1,108 +1,21 @@
 @import 'app/styles/general';
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  outline:none;
-  scrollbar-width:thin;
-}
-body{
-  font-family:"PT Serif", serif;
-  font-size:16px;
-  background-image:url("/assets/images/main-background.jpg");
-}
-
-html, body, div#root{
+body > div#root{
   height:100%;
-}
-
-::-webkit-scrollbar{
-  width:10px;
-  background:#263238;
-  border-radius:5px;
-  cursor:pointer;
-} 
-::-webkit-scrollbar-track{
-  border-radius:5px;
-}
-::-webkit-scrollbar-thumb{
-  background:#78909c;
-  border-radius:5px;
-}
-
-div#root{
   position:relative;
   overflow:auto;
+  animation-duration:400ms;
+  animation-direction:alternate-reverse;
+  animation-iteration-count:infinite;
+  animation-timing-function:linear;
 }
 
-.ip-icons, button{
+.ip-icons{
+  display:inline-block;
   cursor:pointer;
 }
-ul{
-  list-style-type:none;
-}
-.fade-enter{
-  opacity:0;
-}
-.fade-enter-active{
-  opacity:1;
-  transition:opacity 100ms linear;
-}
-.fade-exit{
-  opacity:1;
-}
-.fade-exit-active{
-  opacity:0;
-  transition:opacity 100ms linear;
-}
-.pop-enter{
-  transform:scale(0.9);
-}
-.pop-enter-active{
-  transform:scale(1);
-  transition:transform 200ms linear;
-}
-.pop-exit{
-  transform:scale(1);
-}
-.pop-exit-active{
-  transform:scale(0.9);
-  transition:transform 200ms linear;
-}
 
-.slide-up-enter{
-  transform:translate(0px, 30px);
-}
-.slide-up-enter-active{
-  transform:translate(0px, 0px);
-  transition:transform 200ms;
-}
-.slide-up-exit{
-  transform:translate(0px, 0px);
-}
-.slide-up-exit-active{
-  transform:translate(0px, 30px);
-  transition:transform 200ms;
-}
-
-
-.slide-right-enter{
-  transform:translate(100px, 0px);
-}
-
-.slide-right-enter-active{
-  transform:translate(0px, 0px);
-  background-color:red;
-  transition:transform 200ms;
-}
-
-.slide-right-exit{
-  transform:translate(0px, 0px);
-}
-
-.slide-right-exit-active{
-  transform:translate(100px, 0);
-  transition:transform 200ms;
+div.icon > svg{
+  height:100%;
 }
 
 .level-100{
@@ -120,3 +33,77 @@ ul{
 .level-500{
   z-index:500;
 }
+
+/** React css transitions **/
+/****/
+.fade-enter{
+  opacity:0;
+}
+.fade-enter-active{
+  opacity:1;
+  transition:opacity 100ms linear;
+}
+.fade-exit{
+  opacity:1;
+}
+.fade-exit-active{
+  opacity:0;
+  transition:opacity 100ms linear;
+}
+
+/****/
+
+.pop-enter{
+  transform:scale(0.9);
+}
+.pop-enter-active{
+  transform:scale(1);
+  transition:transform 100ms linear;
+}
+.pop-exit{
+  transform:scale(1);
+}
+.pop-exit-active{
+  transform:scale(0.9);
+  transition:transform 100ms linear;
+}
+
+/****/
+
+.slide-up-enter{
+  transform:translate(0px, 30px);
+}
+.slide-up-enter-active{
+  transform:translate(0px, 0px);
+  transition:transform 100ms;
+}
+.slide-up-exit{
+  transform:translate(0px, 0px);
+}
+.slide-up-exit-active{
+  transform:translate(0px, 30px);
+  transition:transform 100ms;
+}
+
+/****/
+
+.slide-right-enter{
+  transform:translate(100px, 0px);
+}
+
+.slide-right-enter-active{
+  transform:translate(0px, 0px);
+  background-color:red;
+  transition:transform 100ms;
+}
+
+.slide-right-exit{
+  transform:translate(0px, 0px);
+}
+
+.slide-right-exit-active{
+  transform:translate(100px, 0);
+  transition:transform 100ms;
+}
+
+/****/

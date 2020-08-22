@@ -4,7 +4,8 @@ import {FaCcMastercard, FaCcPaypal, FaCcVisa, FaFacebookSquare, FaInstagramSquar
 
 import {Wrapper, Top, Bottom} from "./styles";
 
-export default function Footer(){
+const Footer  = React.memo(()=>{
+  
   return (<Wrapper>
   <Top>
     <ul>
@@ -68,4 +69,6 @@ export default function Footer(){
     </div>
   </Bottom>
   </Wrapper>)
-}
+})
+
+export default Footer;

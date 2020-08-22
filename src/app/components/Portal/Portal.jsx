@@ -72,9 +72,9 @@ export default function Portal(props){
       </div>
       <div className="lSide">
         {props.demo && <button className="o-r-a">Open Real Account</button>}
-        {<div className="icon sidebar control" onClick={()=>setSidebar((s)=>!s)}>
+        <div className="icon sidebar control" onClick={()=>setSidebar((s)=>!s)}>
           {sidebar ? <MdClear/> : <MdMenu/>}
-        </div>}
+        </div>
       </div>
     </div>
     <div id="main">

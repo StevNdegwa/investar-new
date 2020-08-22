@@ -23,14 +23,13 @@ export default function ChartType({open, closeDialog}){
   return (<CSSTransition timeout={100} in={open} classNames="pop">
     <Wrapper>
       <Controls>
-        <div className="icon" onClick={()=>closeDialog()}><MdClear/></div>
+        <div className="icon" onClick={()=>cancelChanges()}><MdClear/></div>
       </Controls>
       <Main>
         <Type selected={type==="CS"} onClick={()=>setType("CS")}>Candlestick charts</Type>
         <Type selected={type==="LC"} onClick={()=>setType("LC")}>Line Chart</Type>
       </Main>
       <Controls>
-        <button onClick={()=>cancelChanges()}>Cancel</button>
         <button onClick={()=>applyChanges()}>Apply</button>
       </Controls>
     </Wrapper>

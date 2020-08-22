@@ -59,12 +59,12 @@ flex-direction:column;
 
 export const Bottom = styled.div`
 height:50px;
+padding:0.5em;
+font-size:1.3em;
 border-top: 1px solid #cfd8dc;
 display:flex;
 justify-content:space-between;
-padding:0.5em;
 font-weight:500;
-font-size:1.3em;
 color:white;
 &>div.social-media{
   & a{

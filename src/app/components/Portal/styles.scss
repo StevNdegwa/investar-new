@@ -2,7 +2,7 @@
 div#portal{
   height:100%;
   overflow:hidden;
-  &>div#header{
+  & > div#header{
     height:50px;
     line-height:50px;
     font-size:1.2em;
@@ -11,24 +11,47 @@ div#portal{
     justify-content:space-between;
     & > div{
       display:flex;
-    }
-    & div#logo{
-      width:70px;
-      cursor:pointer;
-      &>img{
-        height:100%;
+      & > div#logo{
+        width:70px;
+        cursor:pointer;
+        & > img{
+          height:100%;
+        }
       }
-    }
-    
-    & div.icon.control{
-      width:60px;
-      &:hover{
-        background-color:#37474f;
-      }
-      &>svg{
-        color:#29b6f6;
+      & > div.icon.control{
         width:60px;
-        height:50px;
+        &:hover{
+          background-color:#37474f;
+        }
+        & > svg{
+          color:#29b6f6;
+          width:60px;
+          height:50px;
+        }
+      }
+      & > button{
+        height:40px;
+        font-size:1.1em;
+        font-weight:500;
+        background-color:transparent;
+        background-image:linear-gradient(#455a64,#546e7a,#455a64);
+        border:2px double #546e7a;
+        &:focus{
+          background-image:none;
+        }
+        & > svg{
+          width:1.5em;
+        }
+        &.o-r-a{
+          margin:5px;
+          background-color:#69f0ae;
+          background-image:linear-gradient(#69f0ae, #b9f6ca, #69f0ae);
+          border:2px solid #b9f6ca;
+          &:hover{
+            background-image:none;
+            box-shadow:0px 0px 5px #69f0ae;;
+          }
+        }
       }
     }
   }
@@ -53,42 +76,6 @@ div#portal{
       width:60px;
       height:100%;
       background-color:#263238;
-    }
-  }
-  & .level-100{
-    z-index:100;
-  }
-}
-
-div#header{
-  & button{
-    height:40px;
-    padding:0 0.5em;
-    color:white;
-    font-size:1.1em;
-    font-weight:500;
-    background-image:linear-gradient(#455a64,#546e7a,#455a64);
-    border-radius:3px;
-    border:2px double #546e7a;
-    &:focus{
-      background-image:none;
-      background-color:transparent;
-    }
-    &>svg{
-      float:left;
-      width:1.5em;
-      height:1.5em;
-      margin-right:5px;
-    }
-    &.o-r-a{
-      margin:5px;
-      background-image:linear-gradient(#69f0ae, #b9f6ca, #69f0ae);
-      border:2px solid #b9f6ca;
-      &:hover{
-        background-image:none;
-        background-color:#69f0ae;
-        box-shadow:0px 0px 5px #69f0ae;;
-      }
     }
   }
 }

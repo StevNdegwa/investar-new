@@ -36,7 +36,6 @@ const Languages = React.memo(({setUserLanguage, currentLanguage})=>{
           return (<li key={l.key} onClick={()=>setUserLanguage(l)}>{l.name}</li>)
         })}
       </Ul>
-      
     </Wrapper>
   )
 });

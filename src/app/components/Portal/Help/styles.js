@@ -21,15 +21,9 @@ text-align:center;
 
 export const Button = styled.button`
 background-color:#29b6f6;
-color:white;
 display:inline-block;
-border:none;
-outline:none;
 &:hover{
   box-shadow:0px 0px 5px #29b6f6;
-}
-&:focus{
-  outline:none;
 }
 `
 
@@ -46,21 +40,17 @@ border-left:1px outset #37474f;
 `;
 
 export const Input = styled.input`
-display:block;
 height:40px;
 min-width:500px;
 line-height:40px;
-border:none;
+display:block;
 background-color:#546e7a;
-margin:0.5em 0;
-padding:0 0.5em;
 font-size:1.1em;
 color:#eceff1;
 font-weight:500;
-outline:none;
+margin:0.5em 0;
 &:focus{
   box-shadow:0px 0px 3px #263238;
-  outline:none;
 }
 `;
 
@@ -71,19 +61,15 @@ max-height:200px;
 min-width:500px;
 max-width:500px;
 line-height:40px;
-border:none;
 background-color:#546e7a;
-margin:0.5em 0;
-padding:0 0.5em;
 color:#eceff1;
 font-weight:500;
 font-size:1.1em;
-outline:none;
 min-width:500px;
 font-family:"PT Serif", serif;
+margin:0.5em 0;
 &:focus{
   box-shadow:0px 0px 3px #263238;
-  outline:none;
 }
 `;
 

@@ -12,7 +12,7 @@ const Menu = React.forwardRef(({closeMenu, showMenu}, ref)=>{
   
   return ReactDom.createPortal(
     <CSSTransition in={showMenu} timeout={200} classNames="fade">
-      <Wrapper show={showMenu} ref={ref}>
+      <Wrapper show={showMenu} ref={ref} className="level-500">
         <Header><span onClick={closeMenu}><AiOutlineClose size="2em" color="white"/></span></Header>
         <Main>
           <Dir>

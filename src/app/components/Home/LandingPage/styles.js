@@ -1,34 +1,16 @@
 import styled from "styled-components";
 
 export const OpenDialog = styled.div`
-position:absolute;
 width:450px;
 padding:1em;
+position:absolute;
 background-color:rgba(38, 50, 56,0.8);
 box-shadow:0px 0px 5px #263238;
 display:${(props)=>props.show ? "block" : "none"};
 border-radius:3px;
-& div.close{
-  position:relative;
+&>div.close{
+  text-align:right;
   height:30px;
-  &>span{
-    position:absolute;
-    right:10px;
-  }
-}
-&.open-enter{
-  transform:scale(0.8);
-}
-&.open-enter-active{
-  transform:scale(1);
-  transition:transform 200ms linear;
-}
-&.open-exit{
-  transform:scale(1);
-}
-&.open-exit-active{
-  transform:scale(0.8);
-  transition:transform 200ms linear;
 }
 `;
 
@@ -37,12 +19,12 @@ export const HIW = styled.div`
 min-height:250px;
 width:80%;
 &>div.content{
+  min-height:150px;
+  padding:1em;
   background-color:#263238;
   box-shadow:0px 0px 10px #263238;
   display:flex;
-  min-height:150px;
   border-radius:5px;
-  padding:1em;
   &>article{
     width:100%;
     height:100%;
@@ -81,20 +63,19 @@ width:90%;
   &>div.device{
     height:250px;
     width:250px;
-    background-color:#263238;
     margin:10px;
-    box-shadow:0px 0px 10px #263238;
     padding:1em;
+    background-color:#263238;
+    box-shadow:0px 0px 10px #263238;
     border-radius:3px;
     &>a{
+      width:100%;
+      height:100%;
       display:flex;
       flex-direction:column;
       justify-content:center;
       align-items:center;
       border-radius:3px;
-      width:100%;
-      height:100%;
-      text-decoration:none;
       color:#cfd8dc;
       border:1px solid #81d4fa;
       & div.name{
@@ -104,6 +85,7 @@ width:90%;
       &:hover{
         border:1px inset #81d4fa;
         box-shadow:inset 0px 0px 4px #81d4fa;
+        text-decoration:none;
       }
     }
   }

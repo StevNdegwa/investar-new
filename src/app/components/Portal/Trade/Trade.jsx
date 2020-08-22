@@ -48,7 +48,8 @@ export default function Trade(props){
         <SetLayout layoutDialog={layoutDialog} closeDialog={()=>setLayoutDialog(false)}/>
       </DialogContainer>
       <DialogContainer show={technicalIndicators} close={()=>setTechnicalIndicators(false)}>
-        <SetTechnicalIndicators 
+        <SetTechnicalIndicators
+          show={technicalIndicators}
           indicatorsList={props.technicalIndicatorsList} 
           updateOptions={props.updateTechnicalIndicatorOptions}
           setActive={props.setActiveTechnicalIndicators}

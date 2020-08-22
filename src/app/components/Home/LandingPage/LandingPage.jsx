@@ -28,12 +28,10 @@ export default function Root({setOpen, open,language}){
           </OpenDemo>
         </div>
       </div>
-      <CSSTransition in={open.show} timeout={200} classNames="open">
+      <CSSTransition in={open.show} timeout={200} classNames="pop">
         <OpenDialog show={open.show}>
-          <div className="close">
-            <span onClick={()=>setOpen({type:"close"})}>
-              <AiOutlineClose size="1.5em" color="white"/>
-            </span>
+          <div className="close icon" onClick={()=>setOpen({type:"close"})}>
+            <AiOutlineClose size="1.5em" color="white"/>
           </div>
           {open.show && <Open defaultTab={open.tab}/>}
         </OpenDialog>
@@ -49,7 +47,7 @@ export default function Root({setOpen, open,language}){
           </article>
           <article>
             <h3><AiOutlineRise size="1.2em" color="#42a5f5"/>Trade</h3>
-            <p>Trade any of 100 assets and stocks. Use technical analysis and trade the news.</p>
+            <p>Trade any of 100 assets and stocks. Use technical analysis and trade news.</p>
           </article>
           <article>
             <h3><AiOutlineWallet size="1.2em" color="#42a5f5"/>Withdraw</h3>

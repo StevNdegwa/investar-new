@@ -9,7 +9,7 @@ export default function Analytics(){
   
   return (<Wrapper>
     <Tabs>
-      <Tab>Company Finances</Tab>
+      <Tab>Company Analytics</Tab>
     </Tabs>
     <Content>
       <CompanyFinances/>

@@ -9,7 +9,7 @@ import EMA from "./EMA";
 import WMA from "./WMA";
 import {Wrapper, Header, Main, BreadCrumbs, Indicator, Controls} from "./styles";
 
-export default function SetTechnicalIndicators({indicatorsList, updateOptions, setActive, closeDialog}){
+export default function SetTechnicalIndicators({show, indicatorsList, updateOptions, setActive, closeDialog}){
   const [levels, setLevel] = React.useReducer(levelsReducer, ["Technical indicators"]);
   const [indicators, setIndicators] = React.useReducer(indicatorsReducer, [], function(){
     return indicatorsList.filter((i)=>i.active).map((i)=>i.sf);
@@ -80,7 +80,9 @@ export default function SetTechnicalIndicators({indicatorsList, updateOptions, s
     }
   }
   
-  return (<Wrapper>
+  return (
+    <CSSTransition classNames="pop" in={show} timeout={100}>
+  <Wrapper>
     <Header>
       <div></div>
       <div className="icon" onClick={()=>closeDialog()}>
@@ -96,7 +98,8 @@ export default function SetTechnicalIndicators({indicatorsList, updateOptions, s
       })}
     </BreadCrumbs>
     {main()}
-  </Wrapper>)
+  </Wrapper>
+  </CSSTransition>)
 }
 
 SetTechnicalIndicators.propTypes = {
