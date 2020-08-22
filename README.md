@@ -13,7 +13,7 @@ Online Investment Platform
 ## Features
 > Some of the features in this app:
 * Well applied component transitions to provide a great user experience.
-* Candlestick charts - For visualizing stock time-series data
+* Candlestick charts, Area charts, Line charts, Bar charts - For visualizing stock time-series data
 * Zoomable charts.
 
 ## Data sources:
