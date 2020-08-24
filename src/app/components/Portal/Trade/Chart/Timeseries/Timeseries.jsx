@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {MdZoomIn, MdZoomOut, MdZoomOutMap} from "react-icons/md";
+import {MdZoomIn, MdZoomOut, MdZoomOutMap, MdRefresh, MdMoreVert, MdClear} from "react-icons/md";
 
 import InitChart from "./initChart";
-import {Wrapper, Graph, VertAxis, HorzAxis, ToolBar, Tool} from "./styles";
-
+import GlobalQuote from "./GlobalQuote";
+import {Wrapper, Graph, VertAxis, HorzAxis, ToolBar, Tool, ControlsHub} from "./styles";
 
 export default function Timeseries({layout, dataset, item, type}){
   const [chart] = React.useState(()=>(new InitChart()));
+  const [showGlobalQuote, setShowGlobalQuote] = React.useState(false);
   
   function drawChart(){
     switch(type){
@@ -38,17 +39,15 @@ export default function Timeseries({layout, dataset, item, type}){
   
   return (<Wrapper className="timeseries">
     <Graph>
-      <ToolBar className="level-300">
-        <Tool onClick={()=>chart.zoomChart("ZOOM_OUT")} title="Zoom In">
-          <div className="icon"><MdZoomOut/></div>
-        </Tool>
-        <Tool onClick={()=>chart.zoomChart("UNZOOM")} title="Unzoom">
-          <div className="icon"><MdZoomOutMap/></div>
-        </Tool>
-        <Tool onClick={()=>chart.zoomChart("ZOOM_IN")} title="Zoom Out">
-          <div className="icon"><MdZoomIn/></div>
-        </Tool>
-      </ToolBar>
+      <ControlsHub className="level-300">
+        <ToolBar>
+          <Tool onClick={()=>chart.zoomChart("ZOOM_OUT")} title="Zoom In"><MdZoomOut/></Tool>
+          <Tool onClick={()=>chart.zoomChart("UNZOOM")} title="Unzoom"><MdZoomOutMap/></Tool>
+          <Tool onClick={()=>chart.zoomChart("ZOOM_IN")} title="Zoom Out"><MdZoomIn/></Tool>
+          <Tool onClick={()=>setShowGlobalQuote((g)=>!g)}>{showGlobalQuote ? <MdClear/> : <MdMoreVert/>}</Tool>
+        </ToolBar>
+        {showGlobalQuote && <GlobalQuote/>}
+      </ControlsHub>
       <svg className="chart timeseries">
         <defs>
           <pattern id="bg-grid" width="100" height="150" patternUnits="userSpaceOnUse">
@@ -56,7 +55,7 @@ export default function Timeseries({layout, dataset, item, type}){
             <line x1="50" y1="0" x2="50" y2="150"/>
           </pattern>
           <linearGradient id="area-shade" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style={{stopColor:"#03a9f4",stopOpacity:1}}/>
+            <stop offset="0%" style={{stopColor:"#03a9f4",stopOpacity:0.7}}/>
             <stop offset="100%" style={{stopColor:"#03a9f4",stopOpacity:0}}/>
           </linearGradient>
         </defs>

@@ -1,6 +1,9 @@
 import React from "react";
 import {CSSTransition} from "react-transition-group";
+import {AiTwotoneSliders, AiOutlineAreaChart} from "react-icons/ai";
 import {MdClear} from "react-icons/md";
+
+
 import {Wrapper, Controls, Main, Type} from "./styles";
 
 import TradeContext from "../TradeContext";
@@ -26,8 +29,12 @@ export default function ChartType({open, closeDialog}){
         <div className="icon" onClick={()=>cancelChanges()}><MdClear/></div>
       </Controls>
       <Main>
-        <Type selected={type==="CS"} onClick={()=>setType("CS")}>Candlestick charts</Type>
-        <Type selected={type==="LC"} onClick={()=>setType("LC")}>Line Chart</Type>
+        <Type selected={type==="CS"} onClick={()=>setType("CS")}>
+          <AiTwotoneSliders/>
+        </Type>
+        <Type selected={type==="LC"} onClick={()=>setType("LC")}>
+          <AiOutlineAreaChart/>
+        </Type>
       </Main>
       <Controls>
         <button onClick={()=>applyChanges()}>Apply</button>

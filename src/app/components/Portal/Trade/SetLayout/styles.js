@@ -51,13 +51,14 @@ export const Layout = styled.div`
 width:150px;
 height:150px;
 display:inline-block;
-background-color:#78909c;
 border-radius:10px;
 cursor:pointer;
-color:#f5f5f5;
-border:2px solid #263238;
-box-shadow:inset 0px 0px 3px #2196f3;
+color:#37474f;
+border:1px solid #2196f3;
 transition:box-shadow 500ms, border-color 500ms;
+&:hover{
+  box-shadow:inset 0px 0px 5px #2196f3;
+}
 &>section{
   display:flex;
   align-items:center;
@@ -68,7 +69,9 @@ transition:box-shadow 500ms, border-color 500ms;
 }
 ${({selected})=>selected && css`
 border-color:#2196f3;
-box-shadow:inset 0px 0px 3px #2196f3;
+color:#2196f3;
+box-shadow:inset 0px 0px 5px #2196f3;
+border:4px solid #2196f3;
 `}
 `;
 

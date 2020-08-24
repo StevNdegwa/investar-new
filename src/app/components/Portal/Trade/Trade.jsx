@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {MdExpandMore, MdTune, MdMultilineChart, MdShowChart} from "react-icons/md";
+import {AiOutlineLayout} from "react-icons/ai";
 
 import DialogContainer from "../DialogContainer";
 import SelectTradeItem from "./SelectTradeItem";
@@ -84,12 +85,12 @@ export default function Trade(props){
           >M</button>
         </Tool>
         <Tool onClick={()=>setLayoutDialog(true)} title="Select Layout">
-          <div className="icon"><MdTune/></div>
+          <div className="icon"><AiOutlineLayout/></div>
         </Tool>
         <Tool onClick={()=>setTechnicalIndicators(true)} title="Set Technical Indicators">
           <div className="icon"><MdMultilineChart/></div>
         </Tool>
-        <Tool onClick={()=>setChartTypeDialog(true)}>
+        <Tool onClick={()=>setChartTypeDialog(true)} title="Select chart type">
           <div className="icon"><MdShowChart/></div>
         </Tool>
       </ToolBar>

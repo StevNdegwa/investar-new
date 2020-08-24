@@ -1,5 +1,5 @@
 import {scaleUtc, scaleLinear, scaleBand} from "d3-scale";
-import {line, area} from "d3-shape";
+import {line, area, curveLinear} from "d3-shape";
 import {axisBottom, axisRight} from "d3-axis";
 import {zoom, zoomIdentity} from "d3-zoom";
 import {mouse, select, event} from "d3-selection";
@@ -165,9 +165,9 @@ class InitChart{
     
     graphContainer.selectAll(".graph").remove();
     
-    let lineGraph = line().x((d)=>chart.horzLinearScale(d.date)).y((d)=>chart.vertScale(d.close));
+    let lineGraph = line().x((d)=>chart.horzLinearScale(d.date)).y((d)=>chart.vertScale(d.close)).curve(curveLinear);
     
-    let areaGraph = area().x((d)=>chart.horzLinearScale(d.date)).y0(()=>chart.vertScale(0)).y1((d)=>chart.vertScale(d.close));
+    let areaGraph = area().x((d)=>chart.horzLinearScale(d.date)).y0(()=>chart.vertScale(0)).y1((d)=>chart.vertScale(d.close)).curve(curveLinear);
     
     graphContainer
     .append("path")

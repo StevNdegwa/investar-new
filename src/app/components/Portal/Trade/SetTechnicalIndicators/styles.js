@@ -88,7 +88,6 @@ padding:0 0.5em;
       color:#2196f3;
     }
   }
-  
   &>span.label{
     line-height:50px;
     position:absolute;

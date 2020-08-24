@@ -11,6 +11,7 @@ grid-template-rows:auto 30px;
 export const Graph = styled.div`
 height:100%;
 width:100%;
+position:relative;
 grid-column:1 /span 1;
 grid-row:1 /span 1;
 `;
@@ -20,7 +21,8 @@ width:100%;
 height:100%;
 grid-column:2 /span 1;
 grid-row:1 /span 1;
-`
+`;
+
 export const HorzAxis = styled.div`
 width:100%;
 height:100%;
@@ -28,46 +30,39 @@ grid-column:1 /span 2;
 grid-row:2 /span 1;
 `
 
-export const ToolBar = styled.div`
+export const ControlsHub = styled.div`
+width:200px;
 position:absolute;
-top:20px;
-right:50px;
-min-width:30px;
-height:30px;
-border-radius:5px;
+right:10px;
+top:10px;
+color:#e0e0e0;
 border:1px solid #78909c;
-background-color: #263238;
+border-radius:3px;
+overflow:hidden;
+background-color:rgba(38, 50, 56,0.4);
 box-shadow:0px 0px 10px #263238;
-display:flex;
+cursor:pointer;
+`;
+
+export const ToolBar = styled.div`
+height:30px;
+width:100%;
+background-color:rgba(38, 50, 56, 1);
+text-align:right;
+border-bottom:1px solid #78909c;
 `;
 
 export const Tool = styled.div`
-height:100%;
-line-height:30px;
-padding:0 0.5em;
-color:#e0e0e0;
-font-size:1em;
-display:flex;
-cursor:pointer;
-border-right:1px solid #78909c;
-&>div.icon{
-  &>svg{
-    width:20px;
-    height:30px;
-  }
-}
+width:30px;
+height:30px;
+display:inline-block;
+border-left:1px solid #78909c;
+text-align:center;
 &:hover{
   box-shadow:inset 0px 0px 2px #78909c;
 }
-&>button{
-  min-width:30px;
-  background-color:transparent;
-  border:none;
-  font-size:1em;
-  font-weight:600;
-  color:#e0e0e0;
-  &.active{
-    color:#2196f3;
-  }
+&>svg{
+  height:100%;
+  width:20px;
 }
 `;

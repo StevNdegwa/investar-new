@@ -107,3 +107,20 @@ div.icon > svg{
 }
 
 /****/
+.expand-down-enter{
+  height:0px;
+}
+
+.expand-down-enter-active{
+  height:150px;
+  transition:height 500ms;
+}
+
+.expand-down-exit{
+  height:150px;
+}
+
+.expand-down-exit-active{
+  height:0px;
+  transition:height 500ms;
+}

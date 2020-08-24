@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {MdClear} from  "react-icons/md";
+import {AiTwotoneSliders, AiOutlineBarChart} from "react-icons/ai";
 import {CSSTransition} from "react-transition-group";
 
 import TradeContext from "../TradeContext";
@@ -32,15 +33,15 @@ const SetLayout = React.memo(({layoutDialog, closeDialog})=>{
         <Main>
           <Layout selected={layout === "S_V"} onClick={()=>setLayout("S_V")}>
             <SectionTop height="98px">
-              Stocks Timeseries
+              <AiTwotoneSliders size="90px"/>
             </SectionTop>
             <SectionBottom height="48px">
-              Stocks Volume
+              <AiOutlineBarChart size="40px"/>
             </SectionBottom>
           </Layout>
           <Layout selected={layout === "S"} onClick={()=>setLayout("S")}>
             <section>
-              Stocks Timeseries
+              <AiTwotoneSliders size="130px"/>
             </section>
           </Layout>
         </Main>
