@@ -17,10 +17,12 @@ Online Investment Platform
 * Zoomable charts.
 
 ## Technical Features
+* Web  Workers
 > React features
-* Memoization: memo, useCallback, useMemo
-* React hooks: useEffect, useReducer
+* Memoization
+* React hooks
 * Error boundaries
+* Context API
 > State management
 * Redux toolkit
 > D3 features
