@@ -1,14 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {MdZoomIn, MdZoomOut, MdZoomOutMap, MdRefresh, MdMoreVert, MdClear} from "react-icons/md";
+import {MdZoomIn, MdZoomOut, MdZoomOutMap, MdMoreVert, MdClear} from "react-icons/md";
+
+import WebWorker from "react-webworker";
 
 import InitChart from "./initChart";
 import GlobalQuote from "./GlobalQuote";
 import {Wrapper, Graph, VertAxis, HorzAxis, ToolBar, Tool, ControlsHub} from "./styles";
 
+import TradeContext from "../../TradeContext";
+
 export default function Timeseries({layout, dataset, item, type}){
   const [chart] = React.useState(()=>(new InitChart()));
-  const [showGlobalQuote, setShowGlobalQuote] = React.useState(false);
+  const [showGlobalQuote, setShowGlobalQuote] = React.useState(true);
+  
+  let tradeContext = React.useContext(TradeContext);
   
   function drawChart(){
     switch(type){
@@ -36,17 +42,56 @@ export default function Timeseries({layout, dataset, item, type}){
     drawChart();
   },[type]);
   
+  function loadQuoteData(quote){
+    
+    var {open, high, low, price, volume, change, "latest trading day":latestTradingDay, "previous close":previousClose, "change percent":percentChange} = quote;
+    
+    return {open, high, low, price, volume, change, latestTradingDay:new Date(latestTradingDay).toDateString(), previousClose, percentChange};
+    
+  }
+  
+  let handleWebWorkerPending = React.useCallback(({postMessage})=>{
+    return (<ToolBar>
+      <Tool onClick={()=>chart.zoomChart("ZOOM_OUT")} title="Zoom In"><MdZoomOut/></Tool>
+      <Tool onClick={()=>chart.zoomChart("UNZOOM")} title="Unzoom"><MdZoomOutMap/></Tool>
+      <Tool onClick={()=>chart.zoomChart("ZOOM_IN")} title="Zoom Out"><MdZoomIn/></Tool>
+      <Tool onClick={()=>{
+          let sk = {symbol:tradeContext.activeItem.item.symbol, key:"G2Q7JQRAG9H90QQY"};
+          postMessage(JSON.stringify(sk));
+          setShowGlobalQuote(true);
+        }
+      }><MdMoreVert/></Tool>
+    </ToolBar>)
+  }, [tradeContext.activeItem.item]);
+  
+  let handleWebWorkerData = (data)=>{
+    return (<>
+      <ToolBar>
+        <Tool onClick={()=>chart.zoomChart("ZOOM_OUT")} title="Zoom In"><MdZoomOut/></Tool>
+        <Tool onClick={()=>chart.zoomChart("UNZOOM")} title="Unzoom"><MdZoomOutMap/></Tool>
+        <Tool onClick={()=>chart.zoomChart("ZOOM_IN")} title="Zoom Out"><MdZoomIn/></Tool>
+        <Tool onClick={()=>setShowGlobalQuote((g)=>!g)}>
+          {showGlobalQuote ? <MdClear/> : <MdMoreVert/>}
+        </Tool>
+      </ToolBar>
+      {showGlobalQuote && <GlobalQuote quoteData={loadQuoteData(data)}/>}
+    </>)
+  };
   
   return (<Wrapper className="timeseries">
     <Graph>
       <ControlsHub className="level-300">
-        <ToolBar>
-          <Tool onClick={()=>chart.zoomChart("ZOOM_OUT")} title="Zoom In"><MdZoomOut/></Tool>
-          <Tool onClick={()=>chart.zoomChart("UNZOOM")} title="Unzoom"><MdZoomOutMap/></Tool>
-          <Tool onClick={()=>chart.zoomChart("ZOOM_IN")} title="Zoom Out"><MdZoomIn/></Tool>
-          <Tool onClick={()=>setShowGlobalQuote((g)=>!g)}>{showGlobalQuote ? <MdClear/> : <MdMoreVert/>}</Tool>
-        </ToolBar>
-        {showGlobalQuote && <GlobalQuote/>}
+        <WebWorker url="/assets/workers/alphavantage/globalquote.js" parser={JSON.parse}>
+          <WebWorker.Pending>
+            {handleWebWorkerPending}
+          </WebWorker.Pending>
+          <WebWorker.Data>
+            {handleWebWorkerData}
+          </WebWorker.Data>
+          <WebWorker.Error>
+            {handleWebWorkerPending}
+          </WebWorker.Error>
+        </WebWorker>
       </ControlsHub>
       <svg className="chart timeseries">
         <defs>
@@ -65,8 +110,8 @@ export default function Timeseries({layout, dataset, item, type}){
           <line className="vertical" x1="0" y1="0" x2="0" y2="100%" pointerEvents="none"/>
           <rect className="board"/>
         </g>
-        <g className="graph-container"></g>
         <rect className="zoombase" width="100%" height="100%" pointerEvents="all"/>
+        <g className="graph-container"></g>
       </svg>
     </Graph>
     <VertAxis>

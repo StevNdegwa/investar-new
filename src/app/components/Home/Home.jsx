@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import {AiOutlineMenu,AiFillMessage,AiOutlineGlobal} from "react-icons/ai";
+import {AiOutlineMenu,AiFillMessage} from "react-icons/ai";
 
 import Menu from "./Menu";
 import LandingPage from "./LandingPage";
 import Footer from "./Footer";
-import Languages from "../Languages";
 import UserContext from "../../UserContext";
 import {Wrapper, Header} from "./styles";
 

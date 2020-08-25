@@ -20,7 +20,7 @@ class InitChart{
     this.horzLinearScale = scaleUtc();
     this.horzBandScale = scaleBand().padding(0.4);
     this.vertScale = scaleLinear();
-    this.vertAxis = axisRight(this.vertScale);
+    this.vertAxis = axisRight(this.vertScale).tickFormat(numberFormat);
     this.horzAxis = axisBottom(this.horzLinearScale).tickFormat(formatTime);
     this.currentZoomLevel = 1;
     this.dataset = [];
@@ -180,6 +180,7 @@ class InitChart{
     .classed("area graph", true)
     .datum(chart.dataset)
     .attr("d", areaGraph)
+    .attr("pointer-events", "none")
     
     graphContainer.call(chart.show);
   }

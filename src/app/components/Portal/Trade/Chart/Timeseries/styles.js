@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
 width:100%;
 height:100%;
 display:grid;
-grid-template-columns:auto 50px;
+grid-template-columns:auto 70px;
 grid-template-rows:auto 30px;
 `;
 

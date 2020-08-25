@@ -1,7 +1,7 @@
 import React from "react";
 import {CSSTransition} from "react-transition-group";
-import {MdChevronRight, MdChevronLeft} from "react-icons/md";
 import {AiOutlineDoubleLeft, AiOutlineDoubleRight} from "react-icons/ai";
+
 import {line, curveMonotoneX} from "d3-shape";
 import {scalePoint, scaleLinear} from "d3-scale";
 import {extent} from "d3-array";
@@ -9,19 +9,13 @@ import {select} from "d3-selection";
 import {axisBottom} from "d3-axis";
 import {format} from "d3-format";
 
-import globalQuote from "../../../../../../lib/alphavantage/globalquote";
 import {Wrapper, Ul, Chart} from './styles';
-
-import TradeContext from "../../../TradeContext";
 
 let numberFormat = format(" ,"),
   priceFormat = format("$,.2f");
 
-export default function GlobalQuote(){
+export default function GlobalQuote({quoteData}){
   const [showChart, setShowChart] = React.useState(false);
-  const [quoteData, setQuoteData] = React.useState({open:0, high:0, low:0, price:0, volume:0, change:0, latestTradingDay:new Date().toDateString(), previousClose:0, percentChange:0});
-  
-  let tradeContext = React.useContext(TradeContext);
   
   let lineChart = React.useCallback((dataset)=>{
     let horzScale = scalePoint(dataset.map((d)=>d.label), [15, 170]),
@@ -30,29 +24,6 @@ export default function GlobalQuote(){
       return line().x((d)=>horzScale(d.label)).y((d)=>vertScale(d.value)).curve(curveMonotoneX)(dataset);
   }, []);
   
-  
-  let loadQuoteData = React.useCallback(async ()=>{
-    try{
-      let quote = await globalQuote(tradeContext.activeItem.item.symbol);
-      
-      if(!quote){
-        throw new Error("Empty dataset");
-      }
-      
-      var {name, symbol, open, high, low, price, volume, change, "latest trading day":latestTradingDay, "previous close":previousClose, "change percent":percentChange} = quote;
-      
-      setQuoteData({open, high, low, price, volume, change, latestTradingDay:new Date(latestTradingDay).toDateString(), previousClose, percentChange});
-      
-    }catch(error){
-      
-      setQuoteData({open:0, high:0, low:0, price:0, volume:0, change:0, latestTradingDay:new Date().toDateString(), previousClose:0, percentChange:0});
-      
-    }
-  }, [tradeContext.activeItem.item]);
-  
-  React.useEffect(()=>{
-    loadQuoteData();
-  }, [tradeContext.activeItem.item])
   
   return (<Wrapper>
     <CSSTransition timeout={100} in={!showChart} classNames="expand-down">

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {MdExpandMore, MdTune, MdMultilineChart, MdShowChart} from "react-icons/md";
+import {MdExpandMore, MdMultilineChart, MdShowChart} from "react-icons/md";
 import {AiOutlineLayout} from "react-icons/ai";
 
 import DialogContainer from "../DialogContainer";
@@ -21,7 +21,7 @@ export default function Trade(props){
   const [technicalIndicators, setTechnicalIndicators] = React.useState(false);
   
   let activeIndictors = React.useMemo(()=>{
-    return props.technicalIndicatorsList.filter((i)=>i.active);
+    return props.technicalIndicatorsList.filter((i)=>i.options.active);
   }, [props.technicalIndicatorsList]);
   
   return (

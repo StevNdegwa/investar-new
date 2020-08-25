@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {MdMenu, MdClear, MdFullscreen, MdFullscreenExit} from "react-icons/md";
+import {MdMenu, MdClear, MdFullscreen} from "react-icons/md";
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 
 import './styles.scss';

@@ -1,6 +1,5 @@
 import React from "react";
-import {MdLanguage, MdExpandMore, MdExpandLess} from "react-icons/md"
-import {CSSTransition} from "react-transition-group";
+import {MdLanguage, MdExpandMore, MdExpandLess} from "react-icons/md";
 
 import languages from "../../data/languages/options.json";
 

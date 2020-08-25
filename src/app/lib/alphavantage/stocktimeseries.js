@@ -11,11 +11,11 @@ class StockTimeseries{
       
       data.push({
         date, 
-        open: Number(ts["1. open"]), 
-        high: Number(ts["2. high"]), 
-        low: Number(ts["3. low"]), 
-        close: Number(ts["4. close"]), 
-        volume: Number(ts["5. volume"])
+        open: parseFloat(ts["1. open"]), 
+        high: parseFloat(ts["2. high"]), 
+        low: parseFloat(ts["3. low"]), 
+        close: parseFloat(ts["4. close"]), 
+        volume: parseInt(ts["5. volume"])
       });
       
     }

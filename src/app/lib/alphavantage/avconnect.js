@@ -7,6 +7,7 @@ class AvConnect{
   
   async query(queryParameters){ //Pass a URLSearchParams object
     queryParameters.set('apikey', this.apiKey);
+    console.log(`https://www.alphavantage.co/query?${queryParameters}`)
     var response = await fetch(`https://www.alphavantage.co/query?${queryParameters}`, {method:"GET"})
     .then((response)=>{
       return response.json();

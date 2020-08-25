@@ -13,9 +13,10 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
   const [dataset, setDataset] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState({error:false, message:"No Error"})
+  
   let tradeContext = React.useContext(TradeContext);
   
-  let loadData = React.useCallback(async function(){
+  async function loadData(){
     setLoading(true);
     setError({error:false, message:"No Error"});
     try{
@@ -33,9 +34,10 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
       setLoading(false);
       setError({error:true, message:"Application error"})
     }
-  }, []);
+  }
   
   React.useEffect(()=>{
+    
     loadData();
     
     return function(){
