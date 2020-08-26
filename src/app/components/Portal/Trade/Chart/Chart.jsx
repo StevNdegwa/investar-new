@@ -7,14 +7,73 @@ import Timeseries from "./Timeseries";
 import Volume from "./Volume";
 import TradeContext from  "../TradeContext";
 
-import {Wrapper, Spinner, Section, ErrorInfo} from "./styles";
+import {Wrapper, Spinner, Section, ErrorInfo,Connecting} from "./styles";
 
 export default function Chart({stocksTimeseries, getStocksTimeseries}){
   const [dataset, setDataset] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState({error:false, message:"No Error"})
   
   let tradeContext = React.useContext(TradeContext);
+  
+  React.useEffect(()=>{
+    handleDataLoad();
+    return function(){
+      setDataset([])
+    }
+  }, [tradeContext.duration, tradeContext.activeItem.item]);
+  
+  let loadDataWorker = React.useMemo(()=>{
+    let worker = new Worker("/assets/workers/alphavantage/stocktimeseries.js");
+
+    worker.addEventListener("message", function(e){
+      let data = JSON.parse(e.data);
+      
+      if(data.error){
+        
+        setError({error:true, message:"Connection Error"});
+      
+      }else{
+        
+        data = data.map((d)=>{    
+          return {...d, date: new Date(d.date)};
+        })
+  
+        setDataset(data);
+      
+      }
+      setLoading(false);
+    })
+    
+    worker.addEventListener("error", function(e){
+      
+      setLoading(false);
+      
+      setError({error:true, message:"Connection Error"});
+      
+    })
+    
+    return worker;
+  }, []);
+  
+  function handleDataLoad(){
+    setLoading(true);
+    setError({error:false, message:"No Error"});
+    
+    if(window.Worker){
+      
+      let config = {
+        symbol: tradeContext.activeItem.item.symbol, 
+        duration: tradeContext.duration, 
+        key: "G2Q7JQRAG9H90QQY"
+      };
+      
+      loadDataWorker.postMessage(JSON.stringify(config));
+    }else{
+      loadData();
+    }
+  }
+  
   
   async function loadData(){
     setLoading(true);
@@ -36,26 +95,13 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
     }
   }
   
-  React.useEffect(()=>{
-    
-    loadData();
-    
-    return function(){
-      setDataset([])
-    }
-  }, [tradeContext.duration, tradeContext.activeItem.item]);
   
-  
-  if(loading){
-    return (<Wrapper>
-      <Spinner><div></div></Spinner>
-    </Wrapper>)
-  }else if(error.error){
+  if(error.error){
     return (<Wrapper>
       <ErrorInfo>
         <div>
           <div className="message">{error.message}</div>
-          <div className="action"><button onClick={()=>loadData()}>Reload</button></div>
+          <div className="action"><button onClick={()=>handleDataLoad()}>Reload</button></div>
         </div>
       </ErrorInfo>
     </Wrapper>)
@@ -65,35 +111,41 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
     case "S_V":
       return (
         <Wrapper>
-            <Section height="70%">
-              <Timeseries 
-                layout = "S_V" 
-                dataset = {dataset || []} 
-                item = {tradeContext.activeItem.item}
-                type = {tradeContext.timeseriesChartType.active}
-              />
+          <Connecting className="level-300" is_loading={loading}>
+            <Spinner/><div>Connecting...</div>
+          </Connecting>
+          <Section height="70%">
+            <Timeseries 
+              layout = "S_V" 
+              dataset = {dataset || []} 
+              item = {tradeContext.activeItem.item}
+              type = {tradeContext.timeseriesChartType.active}
+              showLoading = {setLoading}
+            />
+          </Section>
+          <CSSTransition timeout={100} classNames="slide-up" in={true}>
+            <Section height="30%" dataset={dataset || []}>
+              <Volume dataset={dataset || []}/>
             </Section>
-            <CSSTransition timeout={100} classNames="slide-up" in={true}>
-              <Section height="30%" dataset={dataset || []}>
-                <Volume dataset={dataset || []}/>
-              </Section>
-            </CSSTransition>
-          </Wrapper>
+          </CSSTransition>
+        </Wrapper>
       );
     case "S":
       return (
-        <CSSTransition timeout={100} classNames="fade" in={true}>
           <Wrapper>
+            <Connecting className="level-300" is_loading={loading}>
+              <Spinner/><div>Connecting...</div>
+            </Connecting>
             <Section>
               <Timeseries 
                 layout = "S" 
                 dataset = {dataset || []}
                 item = {tradeContext.activeItem.item}
                 type = {tradeContext.timeseriesChartType.active}
+                showLoading = {setLoading}
               />
             </Section>
           </Wrapper>
-        </CSSTransition>
       );
     default:
       return (

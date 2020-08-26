@@ -110,7 +110,7 @@ class InitChart{
       let [x, y] = mouse(this);
     
       horzIndicator.attr("y1", y).attr("y2", y);
-      vertAxisPointer.attr("transform", `translate(0, ${y-10})`).select("text").text(numberFormat(chart.vertScale.invert(y)));
+      vertAxisPointer.attr("transform", `translate(0, ${y-10})`).select("text").text(numberFormat(chart.vertScale.invert(y) || 0));
       vertIndicator.attr("x1", x).attr("x2", x);
       horzAxisPointer.attr("transform", `translate(${x-50}, 0)`).select("text").text("-");
     })

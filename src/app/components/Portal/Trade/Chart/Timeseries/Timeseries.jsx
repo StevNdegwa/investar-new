@@ -10,7 +10,7 @@ import {Wrapper, Graph, VertAxis, HorzAxis, ToolBar, Tool, ControlsHub} from "./
 
 import TradeContext from "../../TradeContext";
 
-export default function Timeseries({layout, dataset, item, type}){
+export default function Timeseries({layout, dataset, item, type, showLoading}){
   const [chart] = React.useState(()=>(new InitChart()));
   const [showGlobalQuote, setShowGlobalQuote] = React.useState(true);
   
@@ -28,6 +28,7 @@ export default function Timeseries({layout, dataset, item, type}){
   }
   
   React.useEffect(()=>{
+    setShowGlobalQuote(false);
     chart.init(dataset);
     chart.graph();
     drawChart();
@@ -50,49 +51,36 @@ export default function Timeseries({layout, dataset, item, type}){
     
   }
   
-  let handleWebWorkerPending = React.useCallback(({postMessage})=>{
-    return (<ToolBar>
-      <Tool onClick={()=>chart.zoomChart("ZOOM_OUT")} title="Zoom In"><MdZoomOut/></Tool>
-      <Tool onClick={()=>chart.zoomChart("UNZOOM")} title="Unzoom"><MdZoomOutMap/></Tool>
-      <Tool onClick={()=>chart.zoomChart("ZOOM_IN")} title="Zoom Out"><MdZoomIn/></Tool>
-      <Tool onClick={()=>{
-          let sk = {symbol:tradeContext.activeItem.item.symbol, key:"G2Q7JQRAG9H90QQY"};
-          postMessage(JSON.stringify(sk));
-          setShowGlobalQuote(true);
-        }
-      }><MdMoreVert/></Tool>
-    </ToolBar>)
-  }, [tradeContext.activeItem.item]);
-  
-  let handleWebWorkerData = (data)=>{
-    return (<>
-      <ToolBar>
-        <Tool onClick={()=>chart.zoomChart("ZOOM_OUT")} title="Zoom In"><MdZoomOut/></Tool>
-        <Tool onClick={()=>chart.zoomChart("UNZOOM")} title="Unzoom"><MdZoomOutMap/></Tool>
-        <Tool onClick={()=>chart.zoomChart("ZOOM_IN")} title="Zoom Out"><MdZoomIn/></Tool>
-        <Tool onClick={()=>setShowGlobalQuote((g)=>!g)}>
-          {showGlobalQuote ? <MdClear/> : <MdMoreVert/>}
-        </Tool>
-      </ToolBar>
-      {showGlobalQuote && <GlobalQuote quoteData={loadQuoteData(data)}/>}
-    </>)
-  };
+  let controlsHub = () => (
+    <WebWorker url="/assets/workers/alphavantage/globalquote.js" parser={JSON.parse} serializer={JSON.stringify}>
+      {({data, error, postMessage})=>{
+        let flag = showGlobalQuote && data;
+        return (
+          <ControlsHub className="level-300">
+            <ToolBar>
+              <Tool onClick={()=>chart.zoomChart("ZOOM_OUT")} title="Zoom In"><MdZoomOut/></Tool>
+              <Tool onClick={()=>chart.zoomChart("UNZOOM")} title="Unzoom"><MdZoomOutMap/></Tool>
+              <Tool onClick={()=>chart.zoomChart("ZOOM_IN")} title="Zoom Out"><MdZoomIn/></Tool>
+              <Tool onClick={()=>{
+                if(showGlobalQuote){
+                  setShowGlobalQuote(false);
+                }else{
+                  let sk = {symbol:tradeContext.activeItem.item.symbol, key:"G2Q7JQRAG9H90QQY"};
+                  postMessage(sk);
+                  setShowGlobalQuote(true);
+                }
+              }}>{flag ? <MdClear/> : <MdMoreVert/>}</Tool>
+            </ToolBar>
+            {flag && <GlobalQuote quoteData={loadQuoteData(data)}/>}
+          </ControlsHub>
+        )}
+      }
+    </WebWorker>
+  );
   
   return (<Wrapper className="timeseries">
     <Graph>
-      <ControlsHub className="level-300">
-        <WebWorker url="/assets/workers/alphavantage/globalquote.js" parser={JSON.parse}>
-          <WebWorker.Pending>
-            {handleWebWorkerPending}
-          </WebWorker.Pending>
-          <WebWorker.Data>
-            {handleWebWorkerData}
-          </WebWorker.Data>
-          <WebWorker.Error>
-            {handleWebWorkerPending}
-          </WebWorker.Error>
-        </WebWorker>
-      </ControlsHub>
+      {controlsHub()}
       <svg className="chart timeseries">
         <defs>
           <pattern id="bg-grid" width="100" height="150" patternUnits="userSpaceOnUse">

@@ -29,12 +29,12 @@ export default function GlobalQuote({quoteData}){
     <CSSTransition timeout={100} in={!showChart} classNames="expand-down">
       <Ul is_showing={!showChart}>
         <li className="control" onClick={()=>setShowChart(true)}><AiOutlineDoubleRight/></li>
-        <li>Date: {quoteData.latestTradingDay}</li>
-        <li>Price: {priceFormat(quoteData.price)}</li>
-        <li>Open: {priceFormat(quoteData.open)}</li>
-        <li>High: {priceFormat(quoteData.high)}</li>
-        <li>Low: {priceFormat(quoteData.low)}</li>
-        <li>Volume: {numberFormat(quoteData.volume)}</li>
+        <li>{quoteData.latestTradingDay}</li>
+        <li>Price: {priceFormat(quoteData.price || 0)}</li>
+        <li>Open: {priceFormat(quoteData.open || 0)}</li>
+        <li>High: {priceFormat(quoteData.high || 0)}</li>
+        <li>Low: {priceFormat(quoteData.low || 0)}</li>
+        <li>Volume: {numberFormat(quoteData.volume || 0)}</li>
       </Ul>
     </CSSTransition>
     <CSSTransition timeout={100} in={showChart} classNames="expand-down">

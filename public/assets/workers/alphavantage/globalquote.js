@@ -1,18 +1,18 @@
 importScripts("avconnect.js");
 
 async function globalQuote(symbol, key){
-  let params = new URLSearchParams();
+  const params = new URLSearchParams();
   params.set('function', 'GLOBAL_QUOTE');
   params.set('symbol', symbol);
   params.set("apikey", key);
   
-  let response =  await avQuery(params);
+  var response =  await avQuery(params);
   
-  let quote = response["Global Quote"];
+  var quote = response["Global Quote"];
   
-  var data = {};
+  const data = {};
   
-  for(let key in quote){
+  for(var key in quote){
     
     data[(key.split('.')[1]).trim()] = quote[key];
     
@@ -22,9 +22,9 @@ async function globalQuote(symbol, key){
 }
 
 self.addEventListener("message", async function(e){
-  let messageData = JSON.parse(e.data);
+  const messageData = JSON.parse(e.data);
   
-  let data = await globalQuote(messageData.symbol, messageData.key);
+  var data = await globalQuote(messageData.symbol, messageData.key);
   
   self.postMessage(JSON.stringify(data));
-})
+});
