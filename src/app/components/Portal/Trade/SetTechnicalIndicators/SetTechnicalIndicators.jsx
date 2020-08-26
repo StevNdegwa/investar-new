@@ -82,24 +82,26 @@ export default function SetTechnicalIndicators({show, indicatorsList, updateOpti
   
   return (
     <CSSTransition classNames="pop" in={show} timeout={100}>
-  <Wrapper>
-    <Header>
-      <div></div>
-      <div className="icon" onClick={()=>closeDialog()}>
-        <MdClear/>
-      </div>
-    </Header>
-    <BreadCrumbs>
-      {levels.map((l)=>{
-        return (<div className="level" key={l}>
-          <span className="icon"><MdChevronRight/></span>
-          <span className="label" onClick={()=>setLevel({type:"TO", to:l})}>{l}</span>
-        </div>)
-      })}
-    </BreadCrumbs>
-    {main()}
-  </Wrapper>
-  </CSSTransition>)
+      <Wrapper>
+        <Header>
+          <div></div>
+          <div className="icon" onClick={()=>closeDialog()}>
+            <MdClear/>
+          </div>
+        </Header>
+        <BreadCrumbs>
+          {levels.map((l)=>{
+            return (<div className="level" key={l}>
+                <span className="icon"><MdChevronRight/></span>
+                <span className="label" onClick={()=>setLevel({type:"TO", to:l})}>{l}</span>
+              </div>)
+            })
+          }
+        </BreadCrumbs>
+        {main()}
+      </Wrapper>
+    </CSSTransition>
+  )
 }
 
 SetTechnicalIndicators.propTypes = {
@@ -118,7 +120,7 @@ function levelsReducer(state, action){
       state.push(action.to);
       return Array(...(new Set(state))); //use a set to clear duplicates
     case "TO":
-      let idx = state.findIndex((s)=>(s===action.to)) + 1;
+      let idx = state.findIndex((s)=>(s === action.to)) + 1;
       state.splice(idx);
       return Array(...state);
     default:

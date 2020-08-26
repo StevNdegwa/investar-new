@@ -45,7 +45,7 @@ width:150px;
 height:100%;
 display:flex;
 flex-direction:column;
-justify-content:space-around;
+justify-content:flex-start;
 `;
 
 export const Tab = styled.div`

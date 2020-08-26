@@ -11,7 +11,7 @@ import {Wrapper, Spinner, Section, ErrorInfo,Connecting} from "./styles";
 
 export default function Chart({stocksTimeseries, getStocksTimeseries}){
   const [dataset, setDataset] = React.useState([]);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState({error:false, message:"No Error"})
   
   let tradeContext = React.useContext(TradeContext);
@@ -30,27 +30,20 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
       let data = JSON.parse(e.data);
       
       if(data.error){
-        
         setError({error:true, message:"Connection Error"});
-      
       }else{
-        
         data = data.map((d)=>{    
           return {...d, date: new Date(d.date)};
         })
-  
         setDataset(data);
-      
       }
       setLoading(false);
     })
     
     worker.addEventListener("error", function(e){
-      
       setLoading(false);
       
       setError({error:true, message:"Connection Error"});
-      
     })
     
     return worker;
@@ -61,7 +54,6 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
     setError({error:false, message:"No Error"});
     
     if(window.Worker){
-      
       let config = {
         symbol: tradeContext.activeItem.item.symbol, 
         duration: tradeContext.duration, 
@@ -78,8 +70,8 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
   async function loadData(){
     setLoading(true);
     setError({error:false, message:"No Error"});
+    
     try{
-      
       let data = await getStocksTimeseries(tradeContext.duration, tradeContext.activeItem.item.symbol);
       
       data = data.map((d)=>{
@@ -88,13 +80,11 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
       
       setDataset(data);
       setLoading(false);
-      
     }catch(error){
       setLoading(false);
       setError({error:true, message:"Application error"})
     }
   }
-  
   
   if(error.error){
     return (<Wrapper>
@@ -132,30 +122,37 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
       );
     case "S":
       return (
-          <Wrapper>
-            <Connecting className="level-300" is_loading={loading}>
-              <Spinner/><div>Connecting...</div>
-            </Connecting>
-            <Section>
-              <Timeseries 
-                layout = "S" 
-                dataset = {dataset || []}
-                item = {tradeContext.activeItem.item}
-                type = {tradeContext.timeseriesChartType.active}
-                showLoading = {setLoading}
-              />
-            </Section>
-          </Wrapper>
+        <Wrapper>
+          <Connecting className="level-300" is_loading={loading}>
+            <Spinner/><div>Connecting...</div>
+          </Connecting>
+          <Section>
+            <Timeseries 
+              layout = "S" 
+              dataset = {dataset || []}
+              item = {tradeContext.activeItem.item}
+              type = {tradeContext.timeseriesChartType.active}
+              showLoading = {setLoading}
+            />
+          </Section>
+        </Wrapper>
       );
     default:
       return (
-        <CSSTransition timeout={100} classNames="fade" in={true}>
-          <Wrapper>
-            <Section>
-              <Timeseries layout="S" dataset={dataset || []}/>
-            </Section>
-          </Wrapper>
-        </CSSTransition>
+        <Wrapper>
+          <Connecting className="level-300" is_loading={loading}>
+            <Spinner/><div>Connecting...</div>
+          </Connecting>
+          <Section>
+            <Timeseries 
+              layout = "S" 
+              dataset = {dataset || []}
+              item = {tradeContext.activeItem.item}
+              type = {tradeContext.timeseriesChartType.active}
+              showLoading = {setLoading}
+            />
+          </Section>
+        </Wrapper>
       );
   }
 }

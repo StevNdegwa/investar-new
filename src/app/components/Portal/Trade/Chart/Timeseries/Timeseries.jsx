@@ -32,26 +32,24 @@ export default function Timeseries({layout, dataset, item, type, showLoading}){
     chart.init(dataset);
     chart.graph();
     drawChart();
-  }, [dataset])
+  }, [dataset]);
   
   React.useEffect(()=>{
     chart.graph();
     drawChart();
-  }, [layout])
+  }, [layout]);
   
   React.useEffect(()=>{
     drawChart();
   },[type]);
   
   function loadQuoteData(quote){
-    
     var {open, high, low, price, volume, change, "latest trading day":latestTradingDay, "previous close":previousClose, "change percent":percentChange} = quote;
     
     return {open, high, low, price, volume, change, latestTradingDay:new Date(latestTradingDay).toDateString(), previousClose, percentChange};
-    
   }
   
-  let controlsHub = () => (
+  let createControlsHub = () => (
     <WebWorker url="/assets/workers/alphavantage/globalquote.js" parser={JSON.parse} serializer={JSON.stringify}>
       {({data, error, postMessage})=>{
         let flag = showGlobalQuote && data;
@@ -80,7 +78,7 @@ export default function Timeseries({layout, dataset, item, type, showLoading}){
   
   return (<Wrapper className="timeseries">
     <Graph>
-      {controlsHub()}
+      {createControlsHub()}
       <svg className="chart timeseries">
         <defs>
           <pattern id="bg-grid" width="100" height="150" patternUnits="userSpaceOnUse">

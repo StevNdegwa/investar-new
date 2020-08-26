@@ -32,6 +32,7 @@ export default function SelectTradeItem(props){
               <div className="icon"><FaStripeS/></div>
               <div>Stocks</div>
             </Tab>
+            {/**
             <Tab onClick={()=>setTabs({type:"FOREX"})} active={tabs.forex}>
               <div className="icon"><FaEuroSign/></div>
               <div>Forex</div>
@@ -40,6 +41,7 @@ export default function SelectTradeItem(props){
               <div className="icon"><FaBtc/></div>
               <div>Crypto Currencies</div>
             </Tab>
+            **/}
           </Tabs>
           <Pages>
             <CSSTransition in={tabs.stocks} timeout={100} classNames="slide-up">
