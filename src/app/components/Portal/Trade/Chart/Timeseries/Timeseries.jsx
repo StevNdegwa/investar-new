@@ -50,9 +50,10 @@ export default function Timeseries({layout, dataset, item, type, showLoading}){
   }
   
   let createControlsHub = () => (
-    <WebWorker url="/assets/workers/alphavantage/globalquote.js" parser={JSON.parse} serializer={JSON.stringify}>
-      {({data, error, postMessage})=>{
+    <WebWorker url="/assets/workers/alphavantage/globalquote.js" parser={JSON.parse} serializer={JSON.stringify} onMessage={()=>showLoading(false)}>
+      {({data, error, postMessage, onMessage})=>{
         let flag = showGlobalQuote && data;
+        
         return (
           <ControlsHub className="level-300">
             <ToolBar>
@@ -65,6 +66,7 @@ export default function Timeseries({layout, dataset, item, type, showLoading}){
                 }else{
                   let sk = {symbol:tradeContext.activeItem.item.symbol, key:"G2Q7JQRAG9H90QQY"};
                   postMessage(sk);
+                  showLoading(true);
                   setShowGlobalQuote(true);
                 }
               }}>{flag ? <MdClear/> : <MdMoreVert/>}</Tool>

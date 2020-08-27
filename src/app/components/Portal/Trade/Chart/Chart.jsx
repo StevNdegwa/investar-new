@@ -18,9 +18,9 @@ export default function Chart({stocksTimeseries, getStocksTimeseries}){
   
   React.useEffect(()=>{
     handleDataLoad();
-    return function(){
+    /* return function cleanup(){
       setDataset([])
-    }
+    } */
   }, [tradeContext.duration, tradeContext.activeItem.item]);
   
   let loadDataWorker = React.useMemo(()=>{
