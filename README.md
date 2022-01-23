@@ -36,8 +36,3 @@ Online Investment Platform
 
 ## Data sources:
 1.  Stock market, Forex and Crypto Currency data; REST API homepage: https://www.alphavantage.co/
-
-## Screenshots
-![Screenshot](https://res.cloudinary.com/dnixr3nel/image/upload/v1642947663/Screenshot_from_2021-12-30_14-08-49_acciyk.png)
-![Screenshot](https://res.cloudinary.com/dnixr3nel/image/upload/v1642947662/Screenshot_from_2021-12-30_14-10-10_zj2rui.png)
-![Screenshot](https://res.cloudinary.com/dnixr3nel/image/upload/v1642947663/Screenshot_from_2021-12-30_14-07-47_lyfuvv.png)
